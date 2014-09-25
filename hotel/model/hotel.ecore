@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="hotel" nsURI="http://www.example.org/hotel" nsPrefix="hotel">
   <eClassifiers xsi:type="ecore:EClass" name="HotelUnit">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="address" lowerBound="1"
         eType="#//HotelAddress" containment="true"/>
@@ -12,7 +12,7 @@
         containment="true" eOpposite="#//RoomSurrendering/hotel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HotelAddress">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" unique="false"
         lowerBound="1" eType="#//Country"/>
@@ -27,7 +27,7 @@
     <eLiterals name="Russian Federation" literal="RF"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoomSurrendering">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hotel" lowerBound="1" eType="#//HotelUnit"
         eOpposite="#//HotelUnit/room"/>
@@ -35,13 +35,54 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pricePerDay" ordered="false"
         unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="datesurrendering" upperBound="-1"
-        eType="#//DateSurrendering" eOpposite="#//DateSurrendering/roomsurrendering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dateSurrendering" upperBound="-1"
+        eType="#//DateSurrendering"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DateSurrendering">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="roomsurrendering" upperBound="-1"
-        eType="#//RoomSurrendering" eOpposite="#//RoomSurrendering/datesurrendering"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"
         iD="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Customer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="firstName" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastName" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="email" lowerBound="1" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="passwordHash" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" eType="#//Gender"
+        defaultValueLiteral="unknown"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nick" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roomorder" upperBound="-1"
+        eType="#//RoomOrder" eOpposite="#//RoomOrder/customer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoomOrder">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roomInOrder" lowerBound="1"
+        upperBound="-1" eType="#//RoomSurrendering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dateInOrder" lowerBound="1"
+        upperBound="-1" eType="#//DateSurrendering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="administrator" eType="#//Administrator"
+        eOpposite="#//Administrator/confirmedOrders"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customer" lowerBound="1"
+        eType="#//Customer" eOpposite="#//Customer/roomorder"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Gender">
+    <eLiterals name="male"/>
+    <eLiterals name="female" value="1"/>
+    <eLiterals name="unknown" value="-1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Administrator">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="administratorNick" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="passwordHash" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="confirmedOrders" upperBound="-1"
+        eType="#//RoomOrder" eOpposite="#//RoomOrder/administrator"/>
   </eClassifiers>
 </ecore:EPackage>
