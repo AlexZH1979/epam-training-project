@@ -1,3 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    name="hotel" nsURI="http://www.example.org/hotel" nsPrefix="hotel"/>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="hotel" nsURI="http://www.example.org/hotel" nsPrefix="hotel">
+  <eClassifiers xsi:type="ecore:EClass" name="HotelUnit">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="address" lowerBound="1"
+        eType="#//HotelAddress" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="room" upperBound="-1" eType="#//RoomSurrendering"
+        containment="true" eOpposite="#//RoomSurrendering/hotel"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HotelAddress">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" unique="false"
+        lowerBound="1" eType="#//Country"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="street" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Country">
+    <eLiterals name="Unknown" value="-1" literal="Unknown"/>
+    <eLiterals name="England" value="1" literal="EN"/>
+    <eLiterals name="United States of America" value="3" literal="USA"/>
+    <eLiterals name="Belarus" value="2" literal="BEL"/>
+    <eLiterals name="Russian Federation" literal="RF"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RoomSurrendering">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hotel" lowerBound="1" eType="#//HotelUnit"
+        eOpposite="#//HotelUnit/room"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pricePerDay" ordered="false"
+        unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datesurrendering" upperBound="-1"
+        eType="#//DateSurrendering" eOpposite="#//DateSurrendering/roomsurrendering"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DateSurrendering">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="roomsurrendering" upperBound="-1"
+        eType="#//RoomSurrendering" eOpposite="#//RoomSurrendering/datesurrendering"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"
+        iD="true"/>
+  </eClassifiers>
+</ecore:EPackage>
