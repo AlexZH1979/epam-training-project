@@ -12,6 +12,11 @@
       <genEnumLiterals ecoreEnumLiteral="hotel.ecore#//Country/Belarus"/>
       <genEnumLiterals ecoreEnumLiteral="hotel.ecore#//Country/Russian%20Federation"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hotel.ecore#//Gender">
+      <genEnumLiterals ecoreEnumLiteral="hotel.ecore#//Gender/male"/>
+      <genEnumLiterals ecoreEnumLiteral="hotel.ecore#//Gender/female"/>
+      <genEnumLiterals ecoreEnumLiteral="hotel.ecore#//Gender/unknown"/>
+    </genEnums>
     <genClasses ecoreClass="hotel.ecore#//HotelUnit">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//HotelUnit/id"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//HotelUnit/address"/>
@@ -29,11 +34,33 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomSurrendering/hotel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//RoomSurrendering/numberName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//RoomSurrendering/pricePerDay"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomSurrendering/datesurrendering"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomSurrendering/dateSurrendering"/>
     </genClasses>
     <genClasses ecoreClass="hotel.ecore#//DateSurrendering">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//DateSurrendering/roomsurrendering"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//DateSurrendering/date"/>
+    </genClasses>
+    <genClasses ecoreClass="hotel.ecore#//Customer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/firstName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/lastName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/passwordHash"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/gender"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/nick"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//Customer/roomorder"/>
+    </genClasses>
+    <genClasses ecoreClass="hotel.ecore#//RoomOrder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomOrder/roomInOrder"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomOrder/dateInOrder"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomOrder/administrator"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomOrder/customer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//RoomOrder/id"/>
+    </genClasses>
+    <genClasses ecoreClass="hotel.ecore#//Administrator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Administrator/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Administrator/administratorNick"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Administrator/passwordHash"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//Administrator/confirmedOrders"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
