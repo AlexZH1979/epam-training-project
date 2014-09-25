@@ -69,6 +69,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="customer" lowerBound="1"
         eType="#//Customer" eOpposite="#//Customer/roomOrderList"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" ordered="false"
+        unique="false" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Gender">
     <eLiterals name="male"/>
