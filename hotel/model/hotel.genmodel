@@ -47,7 +47,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/passwordHash"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/gender"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hotel.ecore#//Customer/nick"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//Customer/roomorder"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//Customer/roomOrderList"/>
     </genClasses>
     <genClasses ecoreClass="hotel.ecore#//RoomOrder">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hotel.ecore#//RoomOrder/roomInOrder"/>
