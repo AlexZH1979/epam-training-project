@@ -168,13 +168,13 @@ public interface HotelPackage extends EPackage {
 	int CUSTOMER__EMAIL = 3;
 
 	/**
-	 * The feature id for the '<em><b>Password Hash</b></em>' attribute.
+	 * The feature id for the '<em><b>Password Hash Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOMER__PASSWORD_HASH = 4;
+	int CUSTOMER__PASSWORD_HASH_CODE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Gender</b></em>' attribute.
@@ -286,13 +286,22 @@ public interface HotelPackage extends EPackage {
 	int ROOM_ORDER__PRICE = 5;
 
 	/**
+	 * The feature id for the '<em><b>Confirmed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROOM_ORDER__CONFIRMED = 6;
+
+	/**
 	 * The number of structural features of the '<em>Room Order</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOM_ORDER_FEATURE_COUNT = 6;
+	int ROOM_ORDER_FEATURE_COUNT = 7;
 
 	/**
 	 * The number of operations of the '<em>Room Order</em>' class.
@@ -332,13 +341,13 @@ public interface HotelPackage extends EPackage {
 	int ADMINISTRATOR__ADMINISTRATOR_NICK = 1;
 
 	/**
-	 * The feature id for the '<em><b>Password Hash</b></em>' attribute.
+	 * The feature id for the '<em><b>Password Hash Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADMINISTRATOR__PASSWORD_HASH = 2;
+	int ADMINISTRATOR__PASSWORD_HASH_CODE = 2;
 
 	/**
 	 * The feature id for the '<em><b>Confirmed Order List</b></em>' reference list.
@@ -671,15 +680,15 @@ public interface HotelPackage extends EPackage {
 	EAttribute getCustomer_Email();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hotel.Customer#getPasswordHash <em>Password Hash</em>}'.
+	 * Returns the meta object for the attribute '{@link hotel.Customer#getPasswordHashCode <em>Password Hash Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Password Hash</em>'.
-	 * @see hotel.Customer#getPasswordHash()
+	 * @return the meta object for the attribute '<em>Password Hash Code</em>'.
+	 * @see hotel.Customer#getPasswordHashCode()
 	 * @see #getCustomer()
 	 * @generated
 	 */
-	EAttribute getCustomer_PasswordHash();
+	EAttribute getCustomer_PasswordHashCode();
 
 	/**
 	 * Returns the meta object for the attribute '{@link hotel.Customer#getGender <em>Gender</em>}'.
@@ -791,6 +800,17 @@ public interface HotelPackage extends EPackage {
 	EAttribute getRoomOrder_Price();
 
 	/**
+	 * Returns the meta object for the attribute '{@link hotel.RoomOrder#isConfirmed <em>Confirmed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Confirmed</em>'.
+	 * @see hotel.RoomOrder#isConfirmed()
+	 * @see #getRoomOrder()
+	 * @generated
+	 */
+	EAttribute getRoomOrder_Confirmed();
+
+	/**
 	 * Returns the meta object for class '{@link hotel.Administrator <em>Administrator</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -823,15 +843,15 @@ public interface HotelPackage extends EPackage {
 	EAttribute getAdministrator_AdministratorNick();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hotel.Administrator#getPasswordHash <em>Password Hash</em>}'.
+	 * Returns the meta object for the attribute '{@link hotel.Administrator#getPasswordHashCode <em>Password Hash Code</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Password Hash</em>'.
-	 * @see hotel.Administrator#getPasswordHash()
+	 * @return the meta object for the attribute '<em>Password Hash Code</em>'.
+	 * @see hotel.Administrator#getPasswordHashCode()
 	 * @see #getAdministrator()
 	 * @generated
 	 */
-	EAttribute getAdministrator_PasswordHash();
+	EAttribute getAdministrator_PasswordHashCode();
 
 	/**
 	 * Returns the meta object for the reference list '{@link hotel.Administrator#getConfirmedOrderList <em>Confirmed Order List</em>}'.
@@ -1112,12 +1132,12 @@ public interface HotelPackage extends EPackage {
 		EAttribute CUSTOMER__EMAIL = eINSTANCE.getCustomer_Email();
 
 		/**
-		 * The meta object literal for the '<em><b>Password Hash</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Password Hash Code</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CUSTOMER__PASSWORD_HASH = eINSTANCE.getCustomer_PasswordHash();
+		EAttribute CUSTOMER__PASSWORD_HASH_CODE = eINSTANCE.getCustomer_PasswordHashCode();
 
 		/**
 		 * The meta object literal for the '<em><b>Gender</b></em>' attribute feature.
@@ -1202,6 +1222,14 @@ public interface HotelPackage extends EPackage {
 		EAttribute ROOM_ORDER__PRICE = eINSTANCE.getRoomOrder_Price();
 
 		/**
+		 * The meta object literal for the '<em><b>Confirmed</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROOM_ORDER__CONFIRMED = eINSTANCE.getRoomOrder_Confirmed();
+
+		/**
 		 * The meta object literal for the '{@link hotel.impl.AdministratorImpl <em>Administrator</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1228,12 +1256,12 @@ public interface HotelPackage extends EPackage {
 		EAttribute ADMINISTRATOR__ADMINISTRATOR_NICK = eINSTANCE.getAdministrator_AdministratorNick();
 
 		/**
-		 * The meta object literal for the '<em><b>Password Hash</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Password Hash Code</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute ADMINISTRATOR__PASSWORD_HASH = eINSTANCE.getAdministrator_PasswordHash();
+		EAttribute ADMINISTRATOR__PASSWORD_HASH_CODE = eINSTANCE.getAdministrator_PasswordHashCode();
 
 		/**
 		 * The meta object literal for the '<em><b>Confirmed Order List</b></em>' reference list feature.

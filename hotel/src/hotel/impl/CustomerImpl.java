@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hotel.impl.CustomerImpl#getFirstName <em>First Name</em>}</li>
  *   <li>{@link hotel.impl.CustomerImpl#getLastName <em>Last Name</em>}</li>
  *   <li>{@link hotel.impl.CustomerImpl#getEmail <em>Email</em>}</li>
- *   <li>{@link hotel.impl.CustomerImpl#getPasswordHash <em>Password Hash</em>}</li>
+ *   <li>{@link hotel.impl.CustomerImpl#getPasswordHashCode <em>Password Hash Code</em>}</li>
  *   <li>{@link hotel.impl.CustomerImpl#getGender <em>Gender</em>}</li>
  *   <li>{@link hotel.impl.CustomerImpl#getNick <em>Nick</em>}</li>
  *   <li>{@link hotel.impl.CustomerImpl#getRoomOrderList <em>Room Order List</em>}</li>
@@ -116,24 +116,24 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	protected EList<String> email;
 
 	/**
-	 * The default value of the '{@link #getPasswordHash() <em>Password Hash</em>}' attribute.
+	 * The default value of the '{@link #getPasswordHashCode() <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPasswordHash()
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int PASSWORD_HASH_EDEFAULT = 0;
+	protected static final int PASSWORD_HASH_CODE_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getPasswordHash() <em>Password Hash</em>}' attribute.
+	 * The cached value of the '{@link #getPasswordHashCode() <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPasswordHash()
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected int passwordHash = PASSWORD_HASH_EDEFAULT;
+	protected int passwordHashCode = PASSWORD_HASH_CODE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getGender() <em>Gender</em>}' attribute.
@@ -284,8 +284,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getPasswordHash() {
-		return passwordHash;
+	public int getPasswordHashCode() {
+		return passwordHashCode;
 	}
 
 	/**
@@ -293,11 +293,11 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPasswordHash(int newPasswordHash) {
-		int oldPasswordHash = passwordHash;
-		passwordHash = newPasswordHash;
+	public void setPasswordHashCode(int newPasswordHashCode) {
+		int oldPasswordHashCode = passwordHashCode;
+		passwordHashCode = newPasswordHashCode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.CUSTOMER__PASSWORD_HASH, oldPasswordHash, passwordHash));
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.CUSTOMER__PASSWORD_HASH_CODE, oldPasswordHashCode, passwordHashCode));
 	}
 
 	/**
@@ -399,8 +399,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 				return getLastName();
 			case HotelPackage.CUSTOMER__EMAIL:
 				return getEmail();
-			case HotelPackage.CUSTOMER__PASSWORD_HASH:
-				return getPasswordHash();
+			case HotelPackage.CUSTOMER__PASSWORD_HASH_CODE:
+				return getPasswordHashCode();
 			case HotelPackage.CUSTOMER__GENDER:
 				return getGender();
 			case HotelPackage.CUSTOMER__NICK:
@@ -433,8 +433,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 				getEmail().clear();
 				getEmail().addAll((Collection<? extends String>)newValue);
 				return;
-			case HotelPackage.CUSTOMER__PASSWORD_HASH:
-				setPasswordHash((Integer)newValue);
+			case HotelPackage.CUSTOMER__PASSWORD_HASH_CODE:
+				setPasswordHashCode((Integer)newValue);
 				return;
 			case HotelPackage.CUSTOMER__GENDER:
 				setGender((Gender)newValue);
@@ -470,8 +470,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 			case HotelPackage.CUSTOMER__EMAIL:
 				getEmail().clear();
 				return;
-			case HotelPackage.CUSTOMER__PASSWORD_HASH:
-				setPasswordHash(PASSWORD_HASH_EDEFAULT);
+			case HotelPackage.CUSTOMER__PASSWORD_HASH_CODE:
+				setPasswordHashCode(PASSWORD_HASH_CODE_EDEFAULT);
 				return;
 			case HotelPackage.CUSTOMER__GENDER:
 				setGender(GENDER_EDEFAULT);
@@ -502,8 +502,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 				return LAST_NAME_EDEFAULT == null ? lastName != null : !LAST_NAME_EDEFAULT.equals(lastName);
 			case HotelPackage.CUSTOMER__EMAIL:
 				return email != null && !email.isEmpty();
-			case HotelPackage.CUSTOMER__PASSWORD_HASH:
-				return passwordHash != PASSWORD_HASH_EDEFAULT;
+			case HotelPackage.CUSTOMER__PASSWORD_HASH_CODE:
+				return passwordHashCode != PASSWORD_HASH_CODE_EDEFAULT;
 			case HotelPackage.CUSTOMER__GENDER:
 				return gender != GENDER_EDEFAULT;
 			case HotelPackage.CUSTOMER__NICK:
@@ -532,8 +532,8 @@ public class CustomerImpl extends MinimalEObjectImpl.Container implements Custom
 		result.append(lastName);
 		result.append(", email: ");
 		result.append(email);
-		result.append(", passwordHash: ");
-		result.append(passwordHash);
+		result.append(", passwordHashCode: ");
+		result.append(passwordHashCode);
 		result.append(", gender: ");
 		result.append(gender);
 		result.append(", nick: ");

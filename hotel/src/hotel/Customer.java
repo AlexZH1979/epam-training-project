@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link hotel.Customer#getFirstName <em>First Name</em>}</li>
  *   <li>{@link hotel.Customer#getLastName <em>Last Name</em>}</li>
  *   <li>{@link hotel.Customer#getEmail <em>Email</em>}</li>
- *   <li>{@link hotel.Customer#getPasswordHash <em>Password Hash</em>}</li>
+ *   <li>{@link hotel.Customer#getPasswordHashCode <em>Password Hash Code</em>}</li>
  *   <li>{@link hotel.Customer#getGender <em>Gender</em>}</li>
  *   <li>{@link hotel.Customer#getNick <em>Nick</em>}</li>
  *   <li>{@link hotel.Customer#getRoomOrderList <em>Room Order List</em>}</li>
@@ -125,30 +125,30 @@ public interface Customer extends EObject {
 	EList<String> getEmail();
 
 	/**
-	 * Returns the value of the '<em><b>Password Hash</b></em>' attribute.
+	 * Returns the value of the '<em><b>Password Hash Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Password Hash</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Password Hash Code</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Password Hash</em>' attribute.
-	 * @see #setPasswordHash(int)
-	 * @see hotel.HotelPackage#getCustomer_PasswordHash()
+	 * @return the value of the '<em>Password Hash Code</em>' attribute.
+	 * @see #setPasswordHashCode(int)
+	 * @see hotel.HotelPackage#getCustomer_PasswordHashCode()
 	 * @model unique="false" required="true"
 	 * @generated
 	 */
-	int getPasswordHash();
+	int getPasswordHashCode();
 
 	/**
-	 * Sets the value of the '{@link hotel.Customer#getPasswordHash <em>Password Hash</em>}' attribute.
+	 * Sets the value of the '{@link hotel.Customer#getPasswordHashCode <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Password Hash</em>' attribute.
-	 * @see #getPasswordHash()
+	 * @param value the new value of the '<em>Password Hash Code</em>' attribute.
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 */
-	void setPasswordHash(int value);
+	void setPasswordHashCode(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Gender</b></em>' attribute.
