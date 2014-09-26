@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -138,6 +139,9 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		XMLTypePackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theHotelPackage.createPackageContents();
 
@@ -248,7 +252,7 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getCustomer_PasswordHash() {
+	public EAttribute getCustomer_PasswordHashCode() {
 		return (EAttribute)customerEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -347,6 +351,15 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRoomOrder_Confirmed() {
+		return (EAttribute)roomOrderEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getAdministrator() {
 		return administratorEClass;
 	}
@@ -374,7 +387,7 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAdministrator_PasswordHash() {
+	public EAttribute getAdministrator_PasswordHashCode() {
 		return (EAttribute)administratorEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -561,7 +574,7 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		createEAttribute(customerEClass, CUSTOMER__FIRST_NAME);
 		createEAttribute(customerEClass, CUSTOMER__LAST_NAME);
 		createEAttribute(customerEClass, CUSTOMER__EMAIL);
-		createEAttribute(customerEClass, CUSTOMER__PASSWORD_HASH);
+		createEAttribute(customerEClass, CUSTOMER__PASSWORD_HASH_CODE);
 		createEAttribute(customerEClass, CUSTOMER__GENDER);
 		createEAttribute(customerEClass, CUSTOMER__NICK);
 		createEReference(customerEClass, CUSTOMER__ROOM_ORDER_LIST);
@@ -573,11 +586,12 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		createEReference(roomOrderEClass, ROOM_ORDER__CUSTOMER);
 		createEAttribute(roomOrderEClass, ROOM_ORDER__ID);
 		createEAttribute(roomOrderEClass, ROOM_ORDER__PRICE);
+		createEAttribute(roomOrderEClass, ROOM_ORDER__CONFIRMED);
 
 		administratorEClass = createEClass(ADMINISTRATOR);
 		createEAttribute(administratorEClass, ADMINISTRATOR__ID);
 		createEAttribute(administratorEClass, ADMINISTRATOR__ADMINISTRATOR_NICK);
-		createEAttribute(administratorEClass, ADMINISTRATOR__PASSWORD_HASH);
+		createEAttribute(administratorEClass, ADMINISTRATOR__PASSWORD_HASH_CODE);
 		createEReference(administratorEClass, ADMINISTRATOR__CONFIRMED_ORDER_LIST);
 
 		hotelAddressEClass = createEClass(HOTEL_ADDRESS);
@@ -624,6 +638,9 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -642,7 +659,7 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		initEAttribute(getCustomer_FirstName(), ecorePackage.getEString(), "firstName", null, 1, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomer_LastName(), ecorePackage.getEString(), "lastName", null, 1, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomer_Email(), ecorePackage.getEString(), "email", null, 1, -1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCustomer_PasswordHash(), ecorePackage.getEInt(), "passwordHash", null, 1, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomer_PasswordHashCode(), ecorePackage.getEInt(), "passwordHashCode", null, 1, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomer_Gender(), this.getGender(), "gender", "unknown", 0, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomer_Nick(), ecorePackage.getEString(), "nick", null, 1, 1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCustomer_RoomOrderList(), this.getRoomOrder(), this.getRoomOrder_Customer(), "roomOrderList", null, 0, -1, Customer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -654,11 +671,12 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		initEReference(getRoomOrder_Customer(), this.getCustomer(), this.getCustomer_RoomOrderList(), "customer", null, 1, 1, RoomOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRoomOrder_Id(), ecorePackage.getEInt(), "id", null, 0, 1, RoomOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRoomOrder_Price(), ecorePackage.getEInt(), "price", null, 1, 1, RoomOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getRoomOrder_Confirmed(), theXMLTypePackage.getBoolean(), "confirmed", "false", 1, 1, RoomOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(administratorEClass, Administrator.class, "Administrator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAdministrator_Id(), ecorePackage.getEInt(), "id", null, 0, 1, Administrator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAdministrator_AdministratorNick(), ecorePackage.getEString(), "administratorNick", null, 1, 1, Administrator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAdministrator_PasswordHash(), ecorePackage.getEInt(), "passwordHash", null, 1, 1, Administrator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAdministrator_PasswordHashCode(), ecorePackage.getEInt(), "passwordHashCode", null, 1, 1, Administrator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAdministrator_ConfirmedOrderList(), this.getRoomOrder(), this.getRoomOrder_Administrator(), "confirmedOrderList", null, 0, -1, Administrator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(hotelAddressEClass, HotelAddress.class, "HotelAddress", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

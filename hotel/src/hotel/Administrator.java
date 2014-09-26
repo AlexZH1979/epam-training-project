@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link hotel.Administrator#getId <em>Id</em>}</li>
  *   <li>{@link hotel.Administrator#getAdministratorNick <em>Administrator Nick</em>}</li>
- *   <li>{@link hotel.Administrator#getPasswordHash <em>Password Hash</em>}</li>
+ *   <li>{@link hotel.Administrator#getPasswordHashCode <em>Password Hash Code</em>}</li>
  *   <li>{@link hotel.Administrator#getConfirmedOrderList <em>Confirmed Order List</em>}</li>
  * </ul>
  * </p>
@@ -79,30 +79,30 @@ public interface Administrator extends EObject {
 	void setAdministratorNick(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Password Hash</b></em>' attribute.
+	 * Returns the value of the '<em><b>Password Hash Code</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Password Hash</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Password Hash Code</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Password Hash</em>' attribute.
-	 * @see #setPasswordHash(int)
-	 * @see hotel.HotelPackage#getAdministrator_PasswordHash()
+	 * @return the value of the '<em>Password Hash Code</em>' attribute.
+	 * @see #setPasswordHashCode(int)
+	 * @see hotel.HotelPackage#getAdministrator_PasswordHashCode()
 	 * @model unique="false" required="true"
 	 * @generated
 	 */
-	int getPasswordHash();
+	int getPasswordHashCode();
 
 	/**
-	 * Sets the value of the '{@link hotel.Administrator#getPasswordHash <em>Password Hash</em>}' attribute.
+	 * Sets the value of the '{@link hotel.Administrator#getPasswordHashCode <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Password Hash</em>' attribute.
-	 * @see #getPasswordHash()
+	 * @param value the new value of the '<em>Password Hash Code</em>' attribute.
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 */
-	void setPasswordHash(int value);
+	void setPasswordHashCode(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Confirmed Order List</b></em>' reference list.

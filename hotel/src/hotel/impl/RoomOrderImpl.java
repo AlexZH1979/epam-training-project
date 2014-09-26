@@ -37,6 +37,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  *   <li>{@link hotel.impl.RoomOrderImpl#getCustomer <em>Customer</em>}</li>
  *   <li>{@link hotel.impl.RoomOrderImpl#getId <em>Id</em>}</li>
  *   <li>{@link hotel.impl.RoomOrderImpl#getPrice <em>Price</em>}</li>
+ *   <li>{@link hotel.impl.RoomOrderImpl#isConfirmed <em>Confirmed</em>}</li>
  * </ul>
  * </p>
  *
@@ -122,6 +123,26 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 	 * @ordered
 	 */
 	protected int price = PRICE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isConfirmed() <em>Confirmed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isConfirmed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean CONFIRMED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isConfirmed() <em>Confirmed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isConfirmed()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean confirmed = CONFIRMED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -333,6 +354,27 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConfirmed(boolean newConfirmed) {
+		boolean oldConfirmed = confirmed;
+		confirmed = newConfirmed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ROOM_ORDER__CONFIRMED, oldConfirmed, confirmed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -386,6 +428,8 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 				return getId();
 			case HotelPackage.ROOM_ORDER__PRICE:
 				return getPrice();
+			case HotelPackage.ROOM_ORDER__CONFIRMED:
+				return isConfirmed();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -419,6 +463,9 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 			case HotelPackage.ROOM_ORDER__PRICE:
 				setPrice((Integer)newValue);
 				return;
+			case HotelPackage.ROOM_ORDER__CONFIRMED:
+				setConfirmed((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -449,6 +496,9 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 			case HotelPackage.ROOM_ORDER__PRICE:
 				setPrice(PRICE_EDEFAULT);
 				return;
+			case HotelPackage.ROOM_ORDER__CONFIRMED:
+				setConfirmed(CONFIRMED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -473,6 +523,8 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 				return id != ID_EDEFAULT;
 			case HotelPackage.ROOM_ORDER__PRICE:
 				return price != PRICE_EDEFAULT;
+			case HotelPackage.ROOM_ORDER__CONFIRMED:
+				return confirmed != CONFIRMED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -491,6 +543,8 @@ public class RoomOrderImpl extends MinimalEObjectImpl.Container implements RoomO
 		result.append(id);
 		result.append(", price: ");
 		result.append(price);
+		result.append(", confirmed: ");
+		result.append(confirmed);
 		result.append(')');
 		return result.toString();
 	}

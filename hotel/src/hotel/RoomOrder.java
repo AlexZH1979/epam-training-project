@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link hotel.RoomOrder#getCustomer <em>Customer</em>}</li>
  *   <li>{@link hotel.RoomOrder#getId <em>Id</em>}</li>
  *   <li>{@link hotel.RoomOrder#getPrice <em>Price</em>}</li>
+ *   <li>{@link hotel.RoomOrder#isConfirmed <em>Confirmed</em>}</li>
  * </ul>
  * </p>
  *
@@ -167,5 +168,32 @@ public interface RoomOrder extends EObject {
 	 * @generated
 	 */
 	void setPrice(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Confirmed</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Confirmed</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Confirmed</em>' attribute.
+	 * @see #setConfirmed(boolean)
+	 * @see hotel.HotelPackage#getRoomOrder_Confirmed()
+	 * @model default="false" unique="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
+	 * @generated
+	 */
+	boolean isConfirmed();
+
+	/**
+	 * Sets the value of the '{@link hotel.RoomOrder#isConfirmed <em>Confirmed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Confirmed</em>' attribute.
+	 * @see #isConfirmed()
+	 * @generated
+	 */
+	void setConfirmed(boolean value);
 
 } // RoomOrder

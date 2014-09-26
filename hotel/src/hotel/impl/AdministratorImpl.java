@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link hotel.impl.AdministratorImpl#getId <em>Id</em>}</li>
  *   <li>{@link hotel.impl.AdministratorImpl#getAdministratorNick <em>Administrator Nick</em>}</li>
- *   <li>{@link hotel.impl.AdministratorImpl#getPasswordHash <em>Password Hash</em>}</li>
+ *   <li>{@link hotel.impl.AdministratorImpl#getPasswordHashCode <em>Password Hash Code</em>}</li>
  *   <li>{@link hotel.impl.AdministratorImpl#getConfirmedOrderList <em>Confirmed Order List</em>}</li>
  * </ul>
  * </p>
@@ -80,24 +80,24 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 	protected String administratorNick = ADMINISTRATOR_NICK_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getPasswordHash() <em>Password Hash</em>}' attribute.
+	 * The default value of the '{@link #getPasswordHashCode() <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPasswordHash()
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int PASSWORD_HASH_EDEFAULT = 0;
+	protected static final int PASSWORD_HASH_CODE_EDEFAULT = 0;
 
 	/**
-	 * The cached value of the '{@link #getPasswordHash() <em>Password Hash</em>}' attribute.
+	 * The cached value of the '{@link #getPasswordHashCode() <em>Password Hash Code</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPasswordHash()
+	 * @see #getPasswordHashCode()
 	 * @generated
 	 * @ordered
 	 */
-	protected int passwordHash = PASSWORD_HASH_EDEFAULT;
+	protected int passwordHashCode = PASSWORD_HASH_CODE_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getConfirmedOrderList() <em>Confirmed Order List</em>}' reference list.
@@ -175,8 +175,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getPasswordHash() {
-		return passwordHash;
+	public int getPasswordHashCode() {
+		return passwordHashCode;
 	}
 
 	/**
@@ -184,11 +184,11 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setPasswordHash(int newPasswordHash) {
-		int oldPasswordHash = passwordHash;
-		passwordHash = newPasswordHash;
+	public void setPasswordHashCode(int newPasswordHashCode) {
+		int oldPasswordHashCode = passwordHashCode;
+		passwordHashCode = newPasswordHashCode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ADMINISTRATOR__PASSWORD_HASH, oldPasswordHash, passwordHash));
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ADMINISTRATOR__PASSWORD_HASH_CODE, oldPasswordHashCode, passwordHashCode));
 	}
 
 	/**
@@ -244,8 +244,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 				return getId();
 			case HotelPackage.ADMINISTRATOR__ADMINISTRATOR_NICK:
 				return getAdministratorNick();
-			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH:
-				return getPasswordHash();
+			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH_CODE:
+				return getPasswordHashCode();
 			case HotelPackage.ADMINISTRATOR__CONFIRMED_ORDER_LIST:
 				return getConfirmedOrderList();
 		}
@@ -267,8 +267,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 			case HotelPackage.ADMINISTRATOR__ADMINISTRATOR_NICK:
 				setAdministratorNick((String)newValue);
 				return;
-			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH:
-				setPasswordHash((Integer)newValue);
+			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH_CODE:
+				setPasswordHashCode((Integer)newValue);
 				return;
 			case HotelPackage.ADMINISTRATOR__CONFIRMED_ORDER_LIST:
 				getConfirmedOrderList().clear();
@@ -292,8 +292,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 			case HotelPackage.ADMINISTRATOR__ADMINISTRATOR_NICK:
 				setAdministratorNick(ADMINISTRATOR_NICK_EDEFAULT);
 				return;
-			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH:
-				setPasswordHash(PASSWORD_HASH_EDEFAULT);
+			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH_CODE:
+				setPasswordHashCode(PASSWORD_HASH_CODE_EDEFAULT);
 				return;
 			case HotelPackage.ADMINISTRATOR__CONFIRMED_ORDER_LIST:
 				getConfirmedOrderList().clear();
@@ -314,8 +314,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 				return id != ID_EDEFAULT;
 			case HotelPackage.ADMINISTRATOR__ADMINISTRATOR_NICK:
 				return ADMINISTRATOR_NICK_EDEFAULT == null ? administratorNick != null : !ADMINISTRATOR_NICK_EDEFAULT.equals(administratorNick);
-			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH:
-				return passwordHash != PASSWORD_HASH_EDEFAULT;
+			case HotelPackage.ADMINISTRATOR__PASSWORD_HASH_CODE:
+				return passwordHashCode != PASSWORD_HASH_CODE_EDEFAULT;
 			case HotelPackage.ADMINISTRATOR__CONFIRMED_ORDER_LIST:
 				return confirmedOrderList != null && !confirmedOrderList.isEmpty();
 		}
@@ -336,8 +336,8 @@ public class AdministratorImpl extends MinimalEObjectImpl.Container implements A
 		result.append(id);
 		result.append(", administratorNick: ");
 		result.append(administratorNick);
-		result.append(", passwordHash: ");
-		result.append(passwordHash);
+		result.append(", passwordHashCode: ");
+		result.append(passwordHashCode);
 		result.append(')');
 		return result.toString();
 	}
