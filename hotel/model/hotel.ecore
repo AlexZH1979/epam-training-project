@@ -4,19 +4,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="HotelUnit">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="address" lowerBound="1"
-        eType="#//HotelAddress" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="roomList" upperBound="-1"
         eType="#//RoomSurrendering" containment="true" eOpposite="#//RoomSurrendering/hotel"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Country">
-    <eLiterals name="Unknown" value="-1" literal="Unknown"/>
-    <eLiterals name="England" value="1" literal="EN"/>
-    <eLiterals name="UnitedStatesOfAmerica" value="3" literal="USA"/>
-    <eLiterals name="Belarus" value="2" literal="BEL"/>
-    <eLiterals name="RussianFederation" literal="RF"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="User">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -59,14 +50,6 @@
     <eLiterals name="female" value="1"/>
     <eLiterals name="unknown" value="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HotelAddress">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        unsettable="true" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="country" unique="false"
-        lowerBound="1" eType="#//Country"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="city" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="street" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoomSurrendering">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
@@ -86,6 +69,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Role">
     <eLiterals name="Customer"/>
-    <eLiterals name="Moderator" literal="Moderator"/>
+    <eLiterals name="Administrator" value="1" literal="Administrator"/>
   </eClassifiers>
 </ecore:EPackage>
