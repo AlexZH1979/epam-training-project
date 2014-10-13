@@ -58,6 +58,15 @@ public interface HotelFactory extends EFactory {
 	RoomSurrendering createRoomSurrendering();
 
 	/**
+	 * Returns a new object of class '<em>Order History</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Order History</em>'.
+	 * @generated
+	 */
+	OrderHistory createOrderHistory();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

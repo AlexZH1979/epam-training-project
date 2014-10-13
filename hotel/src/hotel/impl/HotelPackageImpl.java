@@ -6,6 +6,7 @@ import hotel.Gender;
 import hotel.HotelFactory;
 import hotel.HotelPackage;
 import hotel.HotelUnit;
+import hotel.OrderHistory;
 import hotel.Role;
 import hotel.RoomOrder;
 import hotel.RoomSurrendering;
@@ -55,6 +56,13 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * @generated
 	 */
 	private EClass roomSurrenderingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass orderHistoryEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -373,6 +381,51 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getRoomSurrendering_Description() {
+		return (EAttribute)roomSurrenderingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOrderHistory() {
+		return orderHistoryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOrderHistory_Description() {
+		return (EAttribute)orderHistoryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOrderHistory_Id() {
+		return (EAttribute)orderHistoryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getOrderHistory_Order() {
+		return (EReference)orderHistoryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getGender() {
 		return genderEEnum;
 	}
@@ -443,6 +496,12 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		createEReference(roomSurrenderingEClass, ROOM_SURRENDERING__HOTEL);
 		createEAttribute(roomSurrenderingEClass, ROOM_SURRENDERING__NUMBER_NAME);
 		createEAttribute(roomSurrenderingEClass, ROOM_SURRENDERING__PRICE_PER_DAY);
+		createEAttribute(roomSurrenderingEClass, ROOM_SURRENDERING__DESCRIPTION);
+
+		orderHistoryEClass = createEClass(ORDER_HISTORY);
+		createEAttribute(orderHistoryEClass, ORDER_HISTORY__DESCRIPTION);
+		createEAttribute(orderHistoryEClass, ORDER_HISTORY__ID);
+		createEReference(orderHistoryEClass, ORDER_HISTORY__ORDER);
 
 		// Create enums
 		genderEEnum = createEEnum(GENDER);
@@ -511,6 +570,12 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		initEReference(getRoomSurrendering_Hotel(), this.getHotelUnit(), this.getHotelUnit_RoomList(), "hotel", null, 1, 1, RoomSurrendering.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRoomSurrendering_NumberName(), ecorePackage.getEString(), "numberName", null, 1, 1, RoomSurrendering.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRoomSurrendering_PricePerDay(), ecorePackage.getEInt(), "pricePerDay", null, 0, 1, RoomSurrendering.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getRoomSurrendering_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, RoomSurrendering.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(orderHistoryEClass, OrderHistory.class, "OrderHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOrderHistory_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOrderHistory_Id(), theXMLTypePackage.getLong(), "id", null, 1, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrderHistory_Order(), this.getRoomOrder(), null, "order", null, 1, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(genderEEnum, Gender.class, "Gender");

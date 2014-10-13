@@ -84,6 +84,10 @@ public class HotelAdapterFactory extends AdapterFactoryImpl {
 				return createRoomSurrenderingAdapter();
 			}
 			@Override
+			public Adapter caseOrderHistory(OrderHistory object) {
+				return createOrderHistoryAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -156,6 +160,20 @@ public class HotelAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createRoomSurrenderingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hotel.OrderHistory <em>Order History</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hotel.OrderHistory
+	 * @generated
+	 */
+	public Adapter createOrderHistoryAdapter() {
 		return null;
 	}
 
