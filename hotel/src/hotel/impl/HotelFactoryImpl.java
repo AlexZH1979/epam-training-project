@@ -61,6 +61,7 @@ public class HotelFactoryImpl extends EFactoryImpl implements HotelFactory {
 			case HotelPackage.USER: return createUser();
 			case HotelPackage.ROOM_ORDER: return createRoomOrder();
 			case HotelPackage.ROOM_SURRENDERING: return createRoomSurrendering();
+			case HotelPackage.ORDER_HISTORY: return createOrderHistory();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -138,6 +139,16 @@ public class HotelFactoryImpl extends EFactoryImpl implements HotelFactory {
 	public RoomSurrendering createRoomSurrendering() {
 		RoomSurrenderingImpl roomSurrendering = new RoomSurrenderingImpl();
 		return roomSurrendering;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrderHistory createOrderHistory() {
+		OrderHistoryImpl orderHistory = new OrderHistoryImpl();
+		return orderHistory;
 	}
 
 	/**

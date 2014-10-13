@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link hotel.impl.RoomSurrenderingImpl#getHotel <em>Hotel</em>}</li>
  *   <li>{@link hotel.impl.RoomSurrenderingImpl#getNumberName <em>Number Name</em>}</li>
  *   <li>{@link hotel.impl.RoomSurrenderingImpl#getPricePerDay <em>Price Per Day</em>}</li>
+ *   <li>{@link hotel.impl.RoomSurrenderingImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,6 +103,26 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 	 * @ordered
 	 */
 	protected int pricePerDay = PRICE_PER_DAY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -256,6 +277,27 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ROOM_SURRENDERING__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -311,6 +353,8 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 				return getNumberName();
 			case HotelPackage.ROOM_SURRENDERING__PRICE_PER_DAY:
 				return getPricePerDay();
+			case HotelPackage.ROOM_SURRENDERING__DESCRIPTION:
+				return getDescription();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -334,6 +378,9 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 				return;
 			case HotelPackage.ROOM_SURRENDERING__PRICE_PER_DAY:
 				setPricePerDay((Integer)newValue);
+				return;
+			case HotelPackage.ROOM_SURRENDERING__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -359,6 +406,9 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 			case HotelPackage.ROOM_SURRENDERING__PRICE_PER_DAY:
 				setPricePerDay(PRICE_PER_DAY_EDEFAULT);
 				return;
+			case HotelPackage.ROOM_SURRENDERING__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -379,6 +429,8 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 				return NUMBER_NAME_EDEFAULT == null ? numberName != null : !NUMBER_NAME_EDEFAULT.equals(numberName);
 			case HotelPackage.ROOM_SURRENDERING__PRICE_PER_DAY:
 				return pricePerDay != PRICE_PER_DAY_EDEFAULT;
+			case HotelPackage.ROOM_SURRENDERING__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -399,6 +451,8 @@ public class RoomSurrenderingImpl extends MinimalEObjectImpl.Container implement
 		result.append(numberName);
 		result.append(", pricePerDay: ");
 		result.append(pricePerDay);
+		result.append(", description: ");
+		result.append(description);
 		result.append(')');
 		return result.toString();
 	}

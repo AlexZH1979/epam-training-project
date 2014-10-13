@@ -350,13 +350,22 @@ public interface HotelPackage extends EPackage {
 	int ROOM_SURRENDERING__PRICE_PER_DAY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROOM_SURRENDERING__DESCRIPTION = 4;
+
+	/**
 	 * The number of structural features of the '<em>Room Surrendering</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROOM_SURRENDERING_FEATURE_COUNT = 4;
+	int ROOM_SURRENDERING_FEATURE_COUNT = 5;
 
 	/**
 	 * The number of operations of the '<em>Room Surrendering</em>' class.
@@ -368,6 +377,61 @@ public interface HotelPackage extends EPackage {
 	int ROOM_SURRENDERING_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link hotel.impl.OrderHistoryImpl <em>Order History</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hotel.impl.OrderHistoryImpl
+	 * @see hotel.impl.HotelPackageImpl#getOrderHistory()
+	 * @generated
+	 */
+	int ORDER_HISTORY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY__ID = 1;
+
+	/**
+	 * The feature id for the '<em><b>Order</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY__ORDER = 2;
+
+	/**
+	 * The number of structural features of the '<em>Order History</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Order History</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link hotel.Gender <em>Gender</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -375,7 +439,7 @@ public interface HotelPackage extends EPackage {
 	 * @see hotel.impl.HotelPackageImpl#getGender()
 	 * @generated
 	 */
-	int GENDER = 4;
+	int GENDER = 5;
 
 	/**
 	 * The meta object id for the '{@link hotel.Role <em>Role</em>}' enum.
@@ -385,7 +449,7 @@ public interface HotelPackage extends EPackage {
 	 * @see hotel.impl.HotelPackageImpl#getRole()
 	 * @generated
 	 */
-	int ROLE = 5;
+	int ROLE = 6;
 
 
 	/**
@@ -671,6 +735,60 @@ public interface HotelPackage extends EPackage {
 	EAttribute getRoomSurrendering_PricePerDay();
 
 	/**
+	 * Returns the meta object for the attribute '{@link hotel.RoomSurrendering#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see hotel.RoomSurrendering#getDescription()
+	 * @see #getRoomSurrendering()
+	 * @generated
+	 */
+	EAttribute getRoomSurrendering_Description();
+
+	/**
+	 * Returns the meta object for class '{@link hotel.OrderHistory <em>Order History</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Order History</em>'.
+	 * @see hotel.OrderHistory
+	 * @generated
+	 */
+	EClass getOrderHistory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hotel.OrderHistory#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see hotel.OrderHistory#getDescription()
+	 * @see #getOrderHistory()
+	 * @generated
+	 */
+	EAttribute getOrderHistory_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hotel.OrderHistory#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see hotel.OrderHistory#getId()
+	 * @see #getOrderHistory()
+	 * @generated
+	 */
+	EAttribute getOrderHistory_Id();
+
+	/**
+	 * Returns the meta object for the reference '{@link hotel.OrderHistory#getOrder <em>Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Order</em>'.
+	 * @see hotel.OrderHistory#getOrder()
+	 * @see #getOrderHistory()
+	 * @generated
+	 */
+	EReference getOrderHistory_Order();
+
+	/**
 	 * Returns the meta object for enum '{@link hotel.Gender <em>Gender</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -928,6 +1046,48 @@ public interface HotelPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ROOM_SURRENDERING__PRICE_PER_DAY = eINSTANCE.getRoomSurrendering_PricePerDay();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROOM_SURRENDERING__DESCRIPTION = eINSTANCE.getRoomSurrendering_Description();
+
+		/**
+		 * The meta object literal for the '{@link hotel.impl.OrderHistoryImpl <em>Order History</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hotel.impl.OrderHistoryImpl
+		 * @see hotel.impl.HotelPackageImpl#getOrderHistory()
+		 * @generated
+		 */
+		EClass ORDER_HISTORY = eINSTANCE.getOrderHistory();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ORDER_HISTORY__DESCRIPTION = eINSTANCE.getOrderHistory_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ORDER_HISTORY__ID = eINSTANCE.getOrderHistory_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Order</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORDER_HISTORY__ORDER = eINSTANCE.getOrderHistory_Order();
 
 		/**
 		 * The meta object literal for the '{@link hotel.Gender <em>Gender</em>}' enum.
