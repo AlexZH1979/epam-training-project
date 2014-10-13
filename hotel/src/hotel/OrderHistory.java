@@ -2,6 +2,7 @@
  */
 package hotel;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -12,9 +13,9 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hotel.OrderHistory#getDescription <em>Description</em>}</li>
  *   <li>{@link hotel.OrderHistory#getId <em>Id</em>}</li>
  *   <li>{@link hotel.OrderHistory#getOrder <em>Order</em>}</li>
+ *   <li>{@link hotel.OrderHistory#getEvents <em>Events</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,32 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface OrderHistory extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Description</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see hotel.HotelPackage#getOrderHistory_Description()
-	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
-	 * @generated
-	 */
-	String getDescription();
-
-	/**
-	 * Sets the value of the '{@link hotel.OrderHistory#getDescription <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
-	 * @generated
-	 */
-	void setDescription(String value);
-
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -100,5 +75,21 @@ public interface OrderHistory extends EObject {
 	 * @generated
 	 */
 	void setOrder(RoomOrder value);
+
+	/**
+	 * Returns the value of the '<em><b>Events</b></em>' reference list.
+	 * The list contents are of type {@link hotel.Event}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Events</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Events</em>' reference list.
+	 * @see hotel.HotelPackage#getOrderHistory_Events()
+	 * @model
+	 * @generated
+	 */
+	EList<Event> getEvents();
 
 } // OrderHistory
