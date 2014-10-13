@@ -22,19 +22,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" eType="#//Gender"
         defaultValueLiteral="unknown"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nick" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="roomOrderList" upperBound="-1"
-        eType="#//RoomOrder" eOpposite="#//RoomOrder/customer"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" eType="#//Role" defaultValueLiteral="Customer"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="corfum" upperBound="-1"
-        eType="#//RoomOrder" eOpposite="#//RoomOrder/confimer"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="#//Role"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoomOrder">
     <eStructuralFeatures xsi:type="ecore:EReference" name="roomInOrder" lowerBound="1"
         eType="#//RoomSurrendering"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dateInOrder" lowerBound="1"
-        upperBound="-1" eType="#//DateSurrendering"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="customer" lowerBound="1"
-        eType="#//User" eOpposite="#//User/roomOrderList"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" ordered="false"
@@ -42,8 +34,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="confirmed" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="confimer" eType="#//User"
-        eOpposite="#//User/corfum"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="customer" lowerBound="1"
+        eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="startDate" unique="false"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="endDate" unique="false"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Gender">
     <eLiterals name="male"/>
@@ -59,13 +55,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pricePerDay" ordered="false"
         unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DateSurrendering">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="date" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="roomSurrendering" upperBound="-1"
-        eType="#//RoomSurrendering"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
-        unsettable="true" iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Role">
     <eLiterals name="Customer"/>
