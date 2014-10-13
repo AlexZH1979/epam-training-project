@@ -148,7 +148,7 @@
             <styles xmi:type="notation:TextStyle" xmi:id="_j6Y2YUS9EeShgtbI_-kaog"/>
             <styles xmi:type="notation:LineTypeStyle" xmi:id="_j6Y2YkS9EeShgtbI_-kaog"/>
             <element xsi:nil="true"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j6Y2Y0S9EeShgtbI_-kaog" x="480" y="480" width="48"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_j6Y2Y0S9EeShgtbI_-kaog" x="565" y="525" width="48"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_aa344ETGEeShgtbI_-kaog" type="2003" element="_AvOp0ES1EeShgtbI_-kaog">
             <children xmi:type="notation:Node" xmi:id="_aa5HAETGEeShgtbI_-kaog" type="5007"/>
