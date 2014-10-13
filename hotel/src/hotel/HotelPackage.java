@@ -387,22 +387,13 @@ public interface HotelPackage extends EPackage {
 	int ORDER_HISTORY = 4;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ORDER_HISTORY__DESCRIPTION = 0;
-
-	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ORDER_HISTORY__ID = 1;
+	int ORDER_HISTORY__ID = 0;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' reference.
@@ -411,7 +402,16 @@ public interface HotelPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ORDER_HISTORY__ORDER = 2;
+	int ORDER_HISTORY__ORDER = 1;
+
+	/**
+	 * The feature id for the '<em><b>Events</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDER_HISTORY__EVENTS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Order History</em>' class.
@@ -432,6 +432,61 @@ public interface HotelPackage extends EPackage {
 	int ORDER_HISTORY_OPERATION_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link hotel.impl.EventImpl <em>Event</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hotel.impl.EventImpl
+	 * @see hotel.impl.HotelPackageImpl#getEvent()
+	 * @generated
+	 */
+	int EVENT = 5;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__DESCRIPTION = 1;
+
+	/**
+	 * The feature id for the '<em><b>Administrator</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__ADMINISTRATOR = 2;
+
+	/**
+	 * The number of structural features of the '<em>Event</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>Event</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT_OPERATION_COUNT = 0;
+
+	/**
 	 * The meta object id for the '{@link hotel.Gender <em>Gender</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -439,7 +494,7 @@ public interface HotelPackage extends EPackage {
 	 * @see hotel.impl.HotelPackageImpl#getGender()
 	 * @generated
 	 */
-	int GENDER = 5;
+	int GENDER = 6;
 
 	/**
 	 * The meta object id for the '{@link hotel.Role <em>Role</em>}' enum.
@@ -449,7 +504,7 @@ public interface HotelPackage extends EPackage {
 	 * @see hotel.impl.HotelPackageImpl#getRole()
 	 * @generated
 	 */
-	int ROLE = 6;
+	int ROLE = 7;
 
 
 	/**
@@ -756,17 +811,6 @@ public interface HotelPackage extends EPackage {
 	EClass getOrderHistory();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hotel.OrderHistory#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see hotel.OrderHistory#getDescription()
-	 * @see #getOrderHistory()
-	 * @generated
-	 */
-	EAttribute getOrderHistory_Description();
-
-	/**
 	 * Returns the meta object for the attribute '{@link hotel.OrderHistory#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -787,6 +831,60 @@ public interface HotelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOrderHistory_Order();
+
+	/**
+	 * Returns the meta object for the reference list '{@link hotel.OrderHistory#getEvents <em>Events</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Events</em>'.
+	 * @see hotel.OrderHistory#getEvents()
+	 * @see #getOrderHistory()
+	 * @generated
+	 */
+	EReference getOrderHistory_Events();
+
+	/**
+	 * Returns the meta object for class '{@link hotel.Event <em>Event</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Event</em>'.
+	 * @see hotel.Event
+	 * @generated
+	 */
+	EClass getEvent();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hotel.Event#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see hotel.Event#getId()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hotel.Event#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see hotel.Event#getDescription()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EAttribute getEvent_Description();
+
+	/**
+	 * Returns the meta object for the reference '{@link hotel.Event#getAdministrator <em>Administrator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Administrator</em>'.
+	 * @see hotel.Event#getAdministrator()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EReference getEvent_Administrator();
 
 	/**
 	 * Returns the meta object for enum '{@link hotel.Gender <em>Gender</em>}'.
@@ -1066,14 +1164,6 @@ public interface HotelPackage extends EPackage {
 		EClass ORDER_HISTORY = eINSTANCE.getOrderHistory();
 
 		/**
-		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ORDER_HISTORY__DESCRIPTION = eINSTANCE.getOrderHistory_Description();
-
-		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1088,6 +1178,48 @@ public interface HotelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ORDER_HISTORY__ORDER = eINSTANCE.getOrderHistory_Order();
+
+		/**
+		 * The meta object literal for the '<em><b>Events</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORDER_HISTORY__EVENTS = eINSTANCE.getOrderHistory_Events();
+
+		/**
+		 * The meta object literal for the '{@link hotel.impl.EventImpl <em>Event</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hotel.impl.EventImpl
+		 * @see hotel.impl.HotelPackageImpl#getEvent()
+		 * @generated
+		 */
+		EClass EVENT = eINSTANCE.getEvent();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__ID = eINSTANCE.getEvent_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EVENT__DESCRIPTION = eINSTANCE.getEvent_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Administrator</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT__ADMINISTRATOR = eINSTANCE.getEvent_Administrator();
 
 		/**
 		 * The meta object literal for the '{@link hotel.Gender <em>Gender</em>}' enum.

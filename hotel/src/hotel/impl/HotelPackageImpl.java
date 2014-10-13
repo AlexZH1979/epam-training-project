@@ -2,6 +2,7 @@
  */
 package hotel.impl;
 
+import hotel.Event;
 import hotel.Gender;
 import hotel.HotelFactory;
 import hotel.HotelPackage;
@@ -63,6 +64,13 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * @generated
 	 */
 	private EClass orderHistoryEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass eventEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -399,7 +407,7 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOrderHistory_Description() {
+	public EAttribute getOrderHistory_Id() {
 		return (EAttribute)orderHistoryEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -408,8 +416,8 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getOrderHistory_Id() {
-		return (EAttribute)orderHistoryEClass.getEStructuralFeatures().get(1);
+	public EReference getOrderHistory_Order() {
+		return (EReference)orderHistoryEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -417,8 +425,44 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOrderHistory_Order() {
+	public EReference getOrderHistory_Events() {
 		return (EReference)orderHistoryEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEvent() {
+		return eventEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEvent_Id() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEvent_Description() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEvent_Administrator() {
+		return (EReference)eventEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -499,9 +543,14 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		createEAttribute(roomSurrenderingEClass, ROOM_SURRENDERING__DESCRIPTION);
 
 		orderHistoryEClass = createEClass(ORDER_HISTORY);
-		createEAttribute(orderHistoryEClass, ORDER_HISTORY__DESCRIPTION);
 		createEAttribute(orderHistoryEClass, ORDER_HISTORY__ID);
 		createEReference(orderHistoryEClass, ORDER_HISTORY__ORDER);
+		createEReference(orderHistoryEClass, ORDER_HISTORY__EVENTS);
+
+		eventEClass = createEClass(EVENT);
+		createEAttribute(eventEClass, EVENT__ID);
+		createEAttribute(eventEClass, EVENT__DESCRIPTION);
+		createEReference(eventEClass, EVENT__ADMINISTRATOR);
 
 		// Create enums
 		genderEEnum = createEEnum(GENDER);
@@ -573,9 +622,14 @@ public class HotelPackageImpl extends EPackageImpl implements HotelPackage {
 		initEAttribute(getRoomSurrendering_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, RoomSurrendering.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(orderHistoryEClass, OrderHistory.class, "OrderHistory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getOrderHistory_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOrderHistory_Id(), theXMLTypePackage.getLong(), "id", null, 1, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOrderHistory_Order(), this.getRoomOrder(), null, "order", null, 1, 1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOrderHistory_Events(), this.getEvent(), null, "events", null, 0, -1, OrderHistory.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(eventEClass, Event.class, "Event", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getEvent_Id(), theXMLTypePackage.getLong(), "id", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEvent_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_Administrator(), this.getUser(), null, "administrator", null, 1, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(genderEEnum, Gender.class, "Gender");

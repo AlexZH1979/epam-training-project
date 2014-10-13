@@ -4,36 +4,32 @@ package hotel.impl;
 
 import hotel.Event;
 import hotel.HotelPackage;
-import hotel.OrderHistory;
-import hotel.RoomOrder;
+import hotel.User;
 
-import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Order History</b></em>'.
+ * An implementation of the model object '<em><b>Event</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hotel.impl.OrderHistoryImpl#getId <em>Id</em>}</li>
- *   <li>{@link hotel.impl.OrderHistoryImpl#getOrder <em>Order</em>}</li>
- *   <li>{@link hotel.impl.OrderHistoryImpl#getEvents <em>Events</em>}</li>
+ *   <li>{@link hotel.impl.EventImpl#getId <em>Id</em>}</li>
+ *   <li>{@link hotel.impl.EventImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link hotel.impl.EventImpl#getAdministrator <em>Administrator</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements OrderHistory {
+public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -55,31 +51,41 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	protected long id = ID_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getOrder() <em>Order</em>}' reference.
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOrder()
+	 * @see #getDescription()
 	 * @generated
 	 * @ordered
 	 */
-	protected RoomOrder order;
+	protected static final String DESCRIPTION_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getEvents() <em>Events</em>}' reference list.
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getEvents()
+	 * @see #getDescription()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Event> events;
+	protected String description = DESCRIPTION_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAdministrator() <em>Administrator</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministrator()
+	 * @generated
+	 * @ordered
+	 */
+	protected User administrator;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OrderHistoryImpl() {
+	protected EventImpl() {
 		super();
 	}
 
@@ -90,7 +96,7 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return HotelPackage.Literals.ORDER_HISTORY;
+		return HotelPackage.Literals.EVENT;
 	}
 
 	/**
@@ -111,7 +117,7 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 		long oldId = id;
 		id = newId;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ORDER_HISTORY__ID, oldId, id));
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.EVENT__ID, oldId, id));
 	}
 
 	/**
@@ -119,16 +125,37 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RoomOrder getOrder() {
-		if (order != null && order.eIsProxy()) {
-			InternalEObject oldOrder = (InternalEObject)order;
-			order = (RoomOrder)eResolveProxy(oldOrder);
-			if (order != oldOrder) {
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.EVENT__DESCRIPTION, oldDescription, description));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public User getAdministrator() {
+		if (administrator != null && administrator.eIsProxy()) {
+			InternalEObject oldAdministrator = (InternalEObject)administrator;
+			administrator = (User)eResolveProxy(oldAdministrator);
+			if (administrator != oldAdministrator) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, HotelPackage.ORDER_HISTORY__ORDER, oldOrder, order));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, HotelPackage.EVENT__ADMINISTRATOR, oldAdministrator, administrator));
 			}
 		}
-		return order;
+		return administrator;
 	}
 
 	/**
@@ -136,8 +163,8 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RoomOrder basicGetOrder() {
-		return order;
+	public User basicGetAdministrator() {
+		return administrator;
 	}
 
 	/**
@@ -145,23 +172,11 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOrder(RoomOrder newOrder) {
-		RoomOrder oldOrder = order;
-		order = newOrder;
+	public void setAdministrator(User newAdministrator) {
+		User oldAdministrator = administrator;
+		administrator = newAdministrator;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.ORDER_HISTORY__ORDER, oldOrder, order));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Event> getEvents() {
-		if (events == null) {
-			events = new EObjectResolvingEList<Event>(Event.class, this, HotelPackage.ORDER_HISTORY__EVENTS);
-		}
-		return events;
+			eNotify(new ENotificationImpl(this, Notification.SET, HotelPackage.EVENT__ADMINISTRATOR, oldAdministrator, administrator));
 	}
 
 	/**
@@ -172,13 +187,13 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case HotelPackage.ORDER_HISTORY__ID:
+			case HotelPackage.EVENT__ID:
 				return getId();
-			case HotelPackage.ORDER_HISTORY__ORDER:
-				if (resolve) return getOrder();
-				return basicGetOrder();
-			case HotelPackage.ORDER_HISTORY__EVENTS:
-				return getEvents();
+			case HotelPackage.EVENT__DESCRIPTION:
+				return getDescription();
+			case HotelPackage.EVENT__ADMINISTRATOR:
+				if (resolve) return getAdministrator();
+				return basicGetAdministrator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -188,19 +203,17 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case HotelPackage.ORDER_HISTORY__ID:
+			case HotelPackage.EVENT__ID:
 				setId((Long)newValue);
 				return;
-			case HotelPackage.ORDER_HISTORY__ORDER:
-				setOrder((RoomOrder)newValue);
+			case HotelPackage.EVENT__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
-			case HotelPackage.ORDER_HISTORY__EVENTS:
-				getEvents().clear();
-				getEvents().addAll((Collection<? extends Event>)newValue);
+			case HotelPackage.EVENT__ADMINISTRATOR:
+				setAdministrator((User)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -214,14 +227,14 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case HotelPackage.ORDER_HISTORY__ID:
+			case HotelPackage.EVENT__ID:
 				setId(ID_EDEFAULT);
 				return;
-			case HotelPackage.ORDER_HISTORY__ORDER:
-				setOrder((RoomOrder)null);
+			case HotelPackage.EVENT__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
 				return;
-			case HotelPackage.ORDER_HISTORY__EVENTS:
-				getEvents().clear();
+			case HotelPackage.EVENT__ADMINISTRATOR:
+				setAdministrator((User)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -235,12 +248,12 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case HotelPackage.ORDER_HISTORY__ID:
+			case HotelPackage.EVENT__ID:
 				return id != ID_EDEFAULT;
-			case HotelPackage.ORDER_HISTORY__ORDER:
-				return order != null;
-			case HotelPackage.ORDER_HISTORY__EVENTS:
-				return events != null && !events.isEmpty();
+			case HotelPackage.EVENT__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+			case HotelPackage.EVENT__ADMINISTRATOR:
+				return administrator != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -257,8 +270,10 @@ public class OrderHistoryImpl extends MinimalEObjectImpl.Container implements Or
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (id: ");
 		result.append(id);
+		result.append(", description: ");
+		result.append(description);
 		result.append(')');
 		return result.toString();
 	}
 
-} //OrderHistoryImpl
+} //EventImpl
