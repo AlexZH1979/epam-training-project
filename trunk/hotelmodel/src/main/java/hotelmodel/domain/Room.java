@@ -4,6 +4,7 @@ public class Room {
 
 	private int id;
 	private String roomName;
+	
 	private byte size;
 	private int pricePerDay;
 	private String description;

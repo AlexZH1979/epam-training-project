@@ -1,10 +1,10 @@
-package hotelmodel.service;
+package hotelmodel.dao;
 
 import hotelmodel.domain.Room;
 
 import java.util.List;
 
-public interface RoomService {
+public interface RoomDao {
 
 	void saveRoom(Room room);
 
