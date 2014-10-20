@@ -78,5 +78,11 @@
         <details key="documentation" value="administrator write this event"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="newAttribute" eType="#//EventStatus"
+        defaultValueLiteral="unknown"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="EventStatus">
+    <eLiterals name="badBehavior"/>
+    <eLiterals name="unknown"/>
   </eClassifiers>
 </ecore:EPackage>
