@@ -1,4 +1,4 @@
-package hotelmodel.model;
+package hotelmodel.domain;
 
 public enum EventStatus {
 	UNCNOWN, BADBEHAVIOR, TREF
