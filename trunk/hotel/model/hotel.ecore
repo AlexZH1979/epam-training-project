@@ -58,6 +58,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Byte"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="roomClass" lowerBound="1"
+        eType="#//RoomClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UserRole">
     <eLiterals name="Customer"/>
@@ -85,5 +87,9 @@
   <eClassifiers xsi:type="ecore:EEnum" name="EventStatus">
     <eLiterals name="badBehavior"/>
     <eLiterals name="unknown"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RoomClass">
+    <eLiterals name="BISINESS" literal="bisines"/>
+    <eLiterals name="ELIT"/>
   </eClassifiers>
 </ecore:EPackage>
