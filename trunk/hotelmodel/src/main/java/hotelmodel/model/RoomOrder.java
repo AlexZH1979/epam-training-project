@@ -1,4 +1,4 @@
-package hottel_system.hotelmodel.model;
+package hotelmodel.model;
 
 import java.util.Date;
 
