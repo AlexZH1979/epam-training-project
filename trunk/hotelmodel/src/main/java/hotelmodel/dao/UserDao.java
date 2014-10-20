@@ -1,10 +1,10 @@
-package hotelmodel.service;
+package hotelmodel.dao;
 
 import hotelmodel.domain.User;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserDao {
 
 	void saveUser(User user);
 
@@ -14,5 +14,5 @@ public interface UserService {
 
 	List<User> getUsers();
 
-	void updeteUser(User user);
+	void updateUser(User user);
 }
