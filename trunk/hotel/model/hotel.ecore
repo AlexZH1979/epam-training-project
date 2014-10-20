@@ -7,7 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" unique="false" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="roomList" upperBound="-1"
-        eType="#//RoomSurrendering" containment="true" eOpposite="#//RoomSurrendering/hotel"/>
+        eType="#//Room" containment="true" eOpposite="#//Room/hotel"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="User">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -21,12 +21,11 @@
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gender" eType="#//Gender"
         defaultValueLiteral="unknown"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nick" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="#//Role"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="login" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="role" lowerBound="1" eType="#//UserRole"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RoomOrder">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="roomInOrder" lowerBound="1"
-        eType="#//RoomSurrendering"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="room" lowerBound="1" eType="#//Room"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="price" ordered="false"
@@ -46,19 +45,21 @@
     <eLiterals name="female" value="1"/>
     <eLiterals name="unknown" value="-1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RoomSurrendering">
+  <eClassifiers xsi:type="ecore:EClass" name="Room">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         unsettable="true" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hotel" lowerBound="1" eType="#//HotelUnit"
         eOpposite="#//HotelUnit/roomList"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numberName" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="roomName" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pricePerDay" ordered="false"
         unique="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" unique="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Byte"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="Role">
+  <eClassifiers xsi:type="ecore:EEnum" name="UserRole">
     <eLiterals name="Customer"/>
     <eLiterals name="Administrator" value="1" literal="Administrator"/>
   </eClassifiers>
