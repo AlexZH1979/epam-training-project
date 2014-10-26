@@ -1,10 +1,22 @@
 package ru.yandex.zhmyd.hotelmodel.domain;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class User {
 
 	private long id;
+
+	@Pattern(regexp = "[a-zA-Z]*")
+	@Size(min = 3, max = 32)
 	private String firstName;
+
+	@Pattern(regexp = "[a-zA-Z]*")
+	@Size(min = 3, max = 32)
 	private String lastName;
+
+	@Pattern(regexp = "[a-zA-Z0-9]*")
+	@Size(min = 5, max = 10)
 	private String login;
 	private String email;
 	private int passwordHashCode;
