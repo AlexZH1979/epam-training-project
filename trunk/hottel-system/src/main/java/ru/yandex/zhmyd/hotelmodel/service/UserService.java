@@ -1,5 +1,10 @@
 package ru.yandex.zhmyd.hotelmodel.service;
 
-public class UserService {
+import ru.yandex.zhmyd.hotelmodel.domain.User;
 
+public interface UserService {
+	
+	User loadUserByCredentials(String login, String password);
+
+	User getUserByID(Long userId);
 }
