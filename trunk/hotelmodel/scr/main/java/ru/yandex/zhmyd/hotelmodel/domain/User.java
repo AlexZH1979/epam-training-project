@@ -5,29 +5,32 @@ import javax.validation.constraints.Size;
 
 public class User {
 
-	private long id;
+	private Long id;
 
-	@Pattern(regexp = "[a-zA-Z]*")
+	@Pattern(regexp = "[а-яА-ЯёЁa-zA-Z]*")
 	@Size(min = 3, max = 32)
 	private String firstName;
 
-	@Pattern(regexp = "[a-zA-Z]*")
+	@Pattern(regexp = "[а-яА-ЯёЁa-zA-Z]*")
 	@Size(min = 3, max = 32)
 	private String lastName;
 
 	@Pattern(regexp = "[a-zA-Z0-9]*")
-	@Size(min = 5, max = 10)
+	@Size(min = 6, max = 10)
 	private String login;
+	
+	@Pattern(regexp="a-zA-Z0-9")
+	@Size(min =6, max=10)
 	private String email;
-	private int passwordHashCode;
-	private Gender gender = Gender.UNCNOWN;
-	private UserRole role = UserRole.CUSTOMER;
+	private Integer passwordHashCode;
+	private Gender gender;
+	private UserRole role;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,11 +66,11 @@ public class User {
 		this.email = email;
 	}
 
-	public int getPasswordHashCode() {
+	public Integer getPasswordHashCode() {
 		return passwordHashCode;
 	}
 
-	public void setPasswordHashCode(int passwordHashCode) {
+	public void setPasswordHashCode(Integer passwordHashCode) {
 		this.passwordHashCode = passwordHashCode;
 	}
 
