@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class RoomOrder {
 
-	private int id;
-	private int price;
+	private Integer id;
+	private Integer price;
 	private Room room;
 	private User customer;
 	private Date startDate;
 	private Date endDate;
-	private boolean confirmed;
+	private Boolean confirmed;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
@@ -60,11 +60,12 @@ public class RoomOrder {
 		this.endDate = endDate;
 	}
 
-	public boolean isConfirmed() {
+	public Boolean getConfirmed() {
 		return confirmed;
 	}
 
-	public void setConfirmed(boolean confirmed) {
+	public void setConfirmed(Boolean confirmed) {
 		this.confirmed = confirmed;
 	}
+
 }
