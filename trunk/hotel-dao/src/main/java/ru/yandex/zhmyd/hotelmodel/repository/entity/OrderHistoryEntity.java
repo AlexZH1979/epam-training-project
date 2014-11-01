@@ -6,7 +6,7 @@ public class OrderHistoryEntity {
 	
 	private int id;
 	private RoomOrder order;
-	private List<Event> events;
+	private List<EventEntity> events;
 
 	public int getId() {
 		return id;
@@ -24,11 +24,11 @@ public class OrderHistoryEntity {
 		this.order = order;
 	}
 
-	public List<Event> getEvents() {
+	public List<EventEntity> getEvents() {
 		return events;
 	}
 
-	public void setEvents(List<Event> events) {
+	public void setEvents(List<EventEntity> events) {
 		this.events = events;
 	}
 }
