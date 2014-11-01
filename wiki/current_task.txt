@@ -1,0 +1,4 @@
+сделать hibernate mapping for entity
+почитать и возможно пределать from the enum to class for entity enumeration
+написать DAO и тесты к нему
+подумать над DTO  и переделать модель in package domain - возможно спросить у куратора или Ивана об особенностях данных объектов
