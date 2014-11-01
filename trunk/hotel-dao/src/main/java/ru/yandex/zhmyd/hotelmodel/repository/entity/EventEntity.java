@@ -1,6 +1,6 @@
 package ru.yandex.zhmyd.hotelmodel.repository.entity;
 
-public class Event {
+public class EventEntity {
 
 	private int id;
 	private EventStatus status;;
