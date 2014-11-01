@@ -1,8 +1,8 @@
-#summary about project.
+п»ї#summary about project.
 
 = Introduction =
 
-Тестовый проект *Hotels* *Order*.
+вЂњРµСЃС‚РѕРІС‹Р№ РїСЂРѕРµРєС‚ *Hotels* *Order*.
 
 
 = Details =
@@ -12,10 +12,10 @@ Add your content here.  Format your content with:
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
   
- ===В настоящее время проект состоит из трех модулей:===
-  * *hotel-model* предстваляет _data_ transfer_ _object_
-  * *hotel-repository* предстваляет _слои_ _persistans_ и _dao_  
-  * *hotel-service* предстваляет _слой_ _service_
-  * *hotel-system*  representing _слой_ _web_
+ ===В¬ РЅР°СЃС‚РѕВ¤С‰РµРµ РІСЂРµРјВ¤ РїСЂРѕРµРєС‚ СЃРѕСЃС‚РѕРёС‚ РёР· С‚СЂРµС… РјРѕРґСѓР»РµР№:===
+  * *hotel-model* РїСЂРµРґСЃС‚РІР°Р»В¤РµС‚ _data_ transfer_ _object_
+  * *hotel-repository* РїСЂРµРґСЃС‚РІР°Р»В¤РµС‚ _СЃР»РѕРё_ _persistans_ Рё _dao_  
+  * *hotel-service* РїСЂРµРґСЃС‚РІР°Р»В¤РµС‚ _СЃР»РѕР№_ _service_
+  * *hotel-system*  representing _СЃР»РѕР№_ _web_
  
-  Дополнительный модуль *model* создан на _emf-plugin_ и *не используется* в проекте, это визуальное представление начальной модели , и не поддерживается в дальнейшем.
+  Ж’РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ РјРѕРґСѓР»СЊ *model* СЃРѕР·РґР°РЅ РЅР° _emf-plugin_ Рё *РЅРµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃВ¤* РІ РїСЂРѕРµРєС‚Рµ, СЌС‚Рѕ РІРёР·СѓР°Р»СЊРЅРѕРµ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ РЅР°С‡Р°Р»СЊРЅРѕР№ РјРѕРґРµР»Рё , Рё РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃВ¤ РІ РґР°Р»СЊРЅРµР№С€РµРј.
