@@ -1,5 +1,6 @@
 01.11.2014
-%сделать hibernate mapping for entity
-%почитать и возможно пределать from the enum to class for entity enumeration
-%написать DAO и тесты к нему
-%подумать над DTO  и переделать модель in package domain - возможно спросить у куратора или Ивана об особенностях данных объектов
+%curr% create db и содрать с нее sql (for create and fill data to db)
+%curr% сделать hibernate mapping for entity
+%curr% почитать и возможно пределать from the enum to class for entity enumeration
+%curr% написать DAO и тесты к нему
+%curr% подумать над DTO  и переделать модель in package domain - возможно спросить у куратора или Ивана об особенностях данных объектов
