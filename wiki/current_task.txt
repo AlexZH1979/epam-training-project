@@ -1,6 +1,6 @@
-01.11.2014
-%curr% create db и содрать с нее sql (for create and fill data to db)
-%curr% сделать hibernate mapping for entity
-%curr% почитать и возможно пределать from the enum to class for entity enumeration
-%curr% написать DAO и тесты к нему
-%curr% подумать над DTO  и переделать модель in package domain - возможно спросить у куратора или Ивана об особенностях данных объектов
+п»ї01.11.2014
+%curr% create db Рё СЃРѕРґСЂР°С‚СЊ СЃ РЅРµРµ sql (for create and fill data to db)
+%curr% СЃРґРµР»Р°С‚СЊ hibernate mapping for entity
+%curr% РїРѕС‡РёС‚Р°С‚СЊ Рё РІРѕР·РјРѕР¶РЅРѕ РїСЂРµРґРµР»Р°С‚СЊ from the enum to class for entity enumeration
+%curr% РЅР°РїРёСЃР°С‚СЊ DAO Рё С‚РµСЃС‚С‹ Рє РЅРµРјСѓ
+%curr% РїРѕРґСѓРјР°С‚СЊ РЅР°Рґ DTO  Рё РїРµСЂРµРґРµР»Р°С‚СЊ РјРѕРґРµР»СЊ in package domain - РІРѕР·РјРѕР¶РЅРѕ СЃРїСЂРѕСЃРёС‚СЊ Сѓ РєСѓСЂР°С‚РѕСЂР° РёР»Рё РРІР°РЅР° РѕР± РѕСЃРѕР±РµРЅРЅРѕСЃС‚СЏС… РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ
