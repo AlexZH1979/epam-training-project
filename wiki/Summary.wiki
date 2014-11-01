@@ -11,3 +11,9 @@ Add your content here.  Format your content with:
   * Text in *bold* or _italic_
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
+  
+  In present time project consist of three modules:
+  *hotel-model* representing the _data_ transfer_ _object_
+  *hotel-repository* representing _persistans_ and _dao_  _tilers_
+  *hotel-service* representing _service_ _tiler_
+  *hotel-system*  representing _web_ _tiler_
