@@ -17,3 +17,5 @@ Add your content here.  Format your content with:
   *hotel-repository* representing _persistans_ and _dao_  _tilers_
   *hotel-service* representing _service_ _tiler_
   *hotel-system*  representing _web_ _tiler_
+  
+  Additional module *model* building in _emf-plugin_ and *no* *used* in project, this visual representation of basic model, and no support in future.
