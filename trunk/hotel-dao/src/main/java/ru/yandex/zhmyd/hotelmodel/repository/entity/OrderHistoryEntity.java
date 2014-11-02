@@ -5,7 +5,7 @@ import java.util.List;
 public class OrderHistoryEntity {
 	
 	private int id;
-	private RoomOrder order;
+	private RoomOrderEntity order;
 	private List<EventEntity> events;
 
 	public int getId() {
@@ -16,11 +16,11 @@ public class OrderHistoryEntity {
 		this.id = id;
 	}
 
-	public RoomOrder getOrder() {
+	public RoomOrderEntity getOrder() {
 		return order;
 	}
 
-	public void setOrder(RoomOrder order) {
+	public void setOrder(RoomOrderEntity order) {
 		this.order = order;
 	}
 
