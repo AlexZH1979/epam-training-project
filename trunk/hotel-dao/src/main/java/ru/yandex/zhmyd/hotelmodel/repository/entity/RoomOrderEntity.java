@@ -2,7 +2,7 @@ package ru.yandex.zhmyd.hotelmodel.repository.entity;
 
 import java.util.Date;
 
-public class RoomOrder {
+public class RoomOrderEntity {
 
 	private Integer id;
 	private Integer price;

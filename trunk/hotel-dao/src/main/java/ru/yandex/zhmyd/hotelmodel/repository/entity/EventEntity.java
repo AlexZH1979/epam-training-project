@@ -1,5 +1,7 @@
 package ru.yandex.zhmyd.hotelmodel.repository.entity;
 
+import ru.yandex.zhmyd.hotelmodel.repository.enumerated.EventStatus;
+
 public class EventEntity {
 
 	private int id;
