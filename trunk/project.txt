@@ -1,0 +1,10 @@
+    hotel-web             # The name of the Spring application
+   - src/main/java        # Root of source code
+   - src/main/resources   # Property & configuration file
+   - src/test/java        # Root of testing source code
+   - src/test/resources   # Property & configuration file for Testing
+   - src/main/webapp/WEB-INF/conf     # Home to Spring, Spring MVC & Spring Webflow configuration
+   - src/main/webapp/WEB-INF/layouts  # Root for Tile layout template
+   - src/main/webapp/WEB-INF/web.xml  # Web application configuration
+   - src/main/webapp/resources        # Root for web resources
+
