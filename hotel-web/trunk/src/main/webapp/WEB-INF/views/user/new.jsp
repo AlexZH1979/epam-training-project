@@ -3,9 +3,9 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- TODO причем много и жестоко -->
-<form:form commandName="client"  method="post" class="form-search">
+<form:form commandName="client"  method="post">
     <form:label path="firstName"><spring:message code="user.FirstName"/>: </form:label>
-    <form:input class="input search-query" path="firstName"/>
+    <form:input class="input" cssClass="glyphicon-search" path="firstName"/>
 
     <form:label path="lastName"><spring:message code="user.LastName"/>: </form:label>
     <form:input class="input search-query" path="lastName"/>
@@ -23,14 +23,18 @@
     <form:input class="input" path="email"/>
     <form:errors path="email"/><br>
 
-    <form:label path="gender"><spring:message code="user.Gender"/>: </form:label>
-    <form:input class="input" path="gender"/>
-    <form:errors path="gender"/><br>
+    <form:label path="gender"><spring:message code="user.Gender"/></form:label><br/>
+    <form:select path="gender">
+        <form:option  value="${genderList[0]}"/>
+        <form:options items="${generList}" />
+    </form:select>
+    <form:errors path="gender" cssClass="error" />
 
-
-    <form:label path="role"><spring:message code="user.Role"/>: </form:label>
-    <form:input class="input" path="role"/>
-    <form:errors path="role"/><br>
+    <form:label path="role"><spring:message code="user.Role"/></form:label><br/>
+    <form:select path="role" disabled="true">
+        <form:option  value="CUSTOMER"/>
+    </form:select>
+    <form:errors path="role" cssClass="error" />
     <input type="submit" value="Save"/>
     <input type="reset" value="Cancel" onclick="window.history.back();"/>
 </form:form>

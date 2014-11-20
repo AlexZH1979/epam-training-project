@@ -27,7 +27,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
-            <input name="submit" type="submit" class="btn btn-primary" title="<spring:message code='title.signin'/>">
+            <input name="submit" type="submit" class="btn btn-primary" value="<spring:message code='title.signin'/>">
         </div>
     </div>
     </div>

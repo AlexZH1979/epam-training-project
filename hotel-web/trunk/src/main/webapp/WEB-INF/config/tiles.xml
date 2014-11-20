@@ -41,4 +41,8 @@
         <put-attribute name="title" value="Register"/>
         <put-attribute name="body" value="/WEB-INF/views/user/new.jsp"/>
     </definition>
+    <definition name="room.list" extends="base.definition">
+        <put-attribute name="tile" value="Rooms"/>
+        <put-attribute name="body" value="/WEB-INF/views/room/list.jsp"/>
+    </definition>
 </tiles-definitions>
