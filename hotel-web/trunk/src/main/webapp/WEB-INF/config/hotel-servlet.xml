@@ -30,7 +30,7 @@
 
 
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="jdbc.properties"/>
+          p:location="/WEB-INF/config/jdbc.properties"/>
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp" p:suffix=".jsp"/>

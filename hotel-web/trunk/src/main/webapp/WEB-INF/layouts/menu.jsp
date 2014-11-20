@@ -5,7 +5,7 @@
 		<li><a href="<c:url value="/order"/> "> Menu</a></li>
 		<li class="active"><a href="<c:url value="/profile/${user.id}" />"> User </a></li>
 		<li><a href="<c:url value="/map" />">MAP</a></li>
-		<li><a href="<c:url value="/reg/" />"> Registration</a></li>
-		<li><a href="<c:url value="/client/list" />"> Menu Item 3254</a></li>
+		<li><a href="<c:url value="/reg" />"> Registration</a></li>
+		<li><a href="<c:url value="/room" />"> ROOM</a></li>
 	</ul>
 </c:if>
