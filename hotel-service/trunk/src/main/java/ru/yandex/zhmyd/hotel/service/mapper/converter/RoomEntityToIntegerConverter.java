@@ -21,6 +21,6 @@ public class RoomEntityToIntegerConverter extends DozerConverter<RoomEntity, Int
 
     @Override
     public RoomEntity convertFrom(Integer source, RoomEntity destination) {
-        return roomDao.findById(source);
+        return roomDao.getById(source);
     }
 }

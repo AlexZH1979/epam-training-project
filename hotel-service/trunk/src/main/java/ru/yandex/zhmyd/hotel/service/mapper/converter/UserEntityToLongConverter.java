@@ -28,6 +28,6 @@ public class UserEntityToLongConverter extends DozerConverter<UserEntity, Long> 
 
     @Override
     public UserEntity convertFrom(Long source, UserEntity destination) {
-        return userDao.findById(source);
+        return userDao.getById(source);
     }
 }

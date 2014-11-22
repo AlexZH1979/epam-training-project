@@ -30,27 +30,32 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     @Autowired
     protected Mapper mapper;
 
+
+    @SuppressWarnings("unchecked")
     @Override
     public T getById(ID id) {
         LOG.debug("GET to getById id=" + id);
-        E entity = (E) dao.findById(id);
+        E entity = (E) dao.getById(id);
         LOG.debug("FIND entity=" + entity);
         T dto = mapper.map(entity, this.getGenericTargetClass());
         LOG.debug("RETURN from service getById dto=" + dto);
         return dto;
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> getAll() {
         LOG.debug("GET to getAll");
-        return (List<T>) Util.map(mapper, dao.findAll(), this.getGenericTargetClass());
+        return (List<T>) Util.map(mapper, dao.getAll(), this.getGenericTargetClass());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> getInterval(Integer begin, Integer count) {
         LOG.debug("GET to getInterval values: begin=" + begin + ", count=" + count);
-        return (List<T>) Util.map(mapper, dao.findByCriteriaSubsequence(null, begin, count), this.getGenericTargetClass());
+        return (List<T>) Util.map(mapper, dao.getByCriteria(null, begin, count), this.getGenericTargetClass());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void save(T dto) {
         LOG.debug("GET to save dto=" + dto);
@@ -58,9 +63,9 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
         LOG.debug("MAPPED entity=" + entity);
         dao.save(entity);
         LOG.debug("SAVED entity to db");
-
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void delete(T t) {
         LOG.info("GET to delete dto=" + t);
@@ -69,17 +74,20 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
         dao.delete(entity);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void delete(ID id) {
         LOG.debug("GET to delete id=" + id);
         dao.delete(id);
     }
 
+    @SuppressWarnings("unchecked")
     private Class<T> getGenericTargetClass() {
         ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
         return (Class<T>) parameterizedType.getActualTypeArguments()[0];
     }
 
+    @SuppressWarnings("unchecked")
     private Class<E> getGenericEntityClass() {
         ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
         return (Class<E>) parameterizedType.getActualTypeArguments()[1];

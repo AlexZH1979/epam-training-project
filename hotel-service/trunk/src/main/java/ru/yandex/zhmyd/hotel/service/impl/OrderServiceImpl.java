@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@SuppressWarnings("unused")
 public class OrderServiceImpl extends AbstractServiceImpl<Order, RoomOrderEntity, RoomOrderDao, Integer> implements OrderService {
 
     private static final Logger LOG= Logger.getLogger(OrderServiceImpl.class);
@@ -28,9 +29,8 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, RoomOrderEntity
     @Override
     public List<Order> getOrdersByUserId(Long id) {
         //TODO
-        UserEntity userEntity=userDao.findById(id);
+        UserEntity userEntity=userDao.getById(id);
         Criterion criterion= Restrictions.eq("customer", userEntity);
-        List<Order> orders=Util.map(mapper, dao.findByCriteria(criterion), Order.class);
-        return orders;
+        return Util.map(mapper, dao.getByCriteria(criterion), Order.class);
     }
 }
