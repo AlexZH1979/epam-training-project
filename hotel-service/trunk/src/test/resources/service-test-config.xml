@@ -15,6 +15,5 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="jdbc.properties"/>
 
-    <import resource="classpath:repository-config.xml"/>
     <import resource="classpath:service-config.xml"/>
 </beans>

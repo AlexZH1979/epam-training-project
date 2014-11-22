@@ -8,8 +8,9 @@ import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.model.UserRole;
 import ru.yandex.zhmyd.hotel.service.UserService;
 
+import java.util.List;
 import java.util.logging.Logger;
-
+//TODO review test code: add access methods for
 public class UserServiceTest extends AbstractDaoTest{
 
     private static final Logger LOG = Logger.getLogger(UserServiceTest.class.getName());
@@ -54,5 +55,11 @@ public class UserServiceTest extends AbstractDaoTest{
         LOG.info("FIND user="+user);
         userService.delete(user);
         LOG.info("DELETED");
+
+        LOG.info("GET USERS FROM INTERVAL 5-15");
+        List<User> users=userService.getInterval(5,10);
+        LOG.warning(users.toString());
+        LOG.warning("FIND: "+users.size());
+
     }
 }
