@@ -24,18 +24,18 @@ public class UserDaoTest extends AbstractDaoTest {
 
     @Test
     public void test() {
-        UserEntity savedUser = userDao.findById(20L);
+        UserEntity savedUser = userDao.getById(20L);
         LOG.info("USER BY ID=20L: " + savedUser);
 
-        savedUser = userDao.findByCredentials("root", 3506402);
+        savedUser = userDao.getByCredentials("root", 3506402);
         LOG.info("FIND BY CREDENTIALS login:[passHashcode:3506402<-password:root)]: "+savedUser);
 
-        List<UserEntity> users = userDao.findAll();
+        List<UserEntity> users = userDao.getAll();
         LOG.info("Find all: length="+users.size()+"; Entity: "+users);
 
         LOG.info("ORDERS for roomId=1: "+roomOrderDao.getRoomByOrderId(1));
 
-        LOG.info("SUBSEQUENSE Users with NULL Criteria: "+userDao.findByCriteriaSubsequence(null, 5,10));
+        LOG.info("SUBSEQUENSE Users with NULL Criteria: " + userDao.getByCriteria(null, 5, 10));
 
     }
 

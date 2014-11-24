@@ -8,24 +8,20 @@ import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 @Repository
+@SuppressWarnings("unused")
 public class UserDaoImpl extends AbstractHibernateDao<UserEntity, Long> implements UserDao {
 
-
-
     @Override
-    public UserEntity findByCredentials(final String login, final Integer passwordHasCode) {
+    public UserEntity getByCredentials(final String login, final Integer passwordHasCode) {
         Criteria cr = getSession().createCriteria(UserEntity.class, "users")
                 .add(Restrictions.eq("login", login))
                 .add(Restrictions.eq("passwordHashCode", passwordHasCode));
-        UserEntity user=(UserEntity) cr.uniqueResult();
 
-        return user;
+        return (UserEntity) cr.uniqueResult();
     }
 
     @Override
-    public UserEntity findById(final Long id) {
-        final UserEntity user = (UserEntity)  getSession().get(UserEntity.class, id);
-        return user;
-
+    public UserEntity getById(final Long id) {
+        return (UserEntity)  getSession().get(UserEntity.class, id);
     }
 }

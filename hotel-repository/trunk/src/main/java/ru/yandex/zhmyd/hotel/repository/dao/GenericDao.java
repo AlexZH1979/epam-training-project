@@ -5,19 +5,24 @@ import org.hibernate.criterion.Criterion;
 import java.io.Serializable;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public interface GenericDao<T, PK extends Serializable> {
 	
 	PK save(final T obj);
 	
 	void update(final T obj);
 	
-	List<T> findAll();
+	List<T> getAll();
 
-    List<T> findByCriteriaSubsequence(Criterion criterion, int begin, int count);
+    Long getLength();
+
+    Long getLength(Criterion criterion);
+
+    List<T> getByCriteria(Criterion criterion, int begin, int count);
 	
-	List<T> findByCriteria(Criterion criterion);
+	List<T> getByCriteria(Criterion criterion);
 	
-	T findById(final PK id);
+	T getById(final PK id);
 	
 	void delete(final PK id);
 	
