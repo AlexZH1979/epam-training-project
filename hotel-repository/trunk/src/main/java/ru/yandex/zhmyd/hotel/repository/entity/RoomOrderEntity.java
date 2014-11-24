@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "room_order")
+@SuppressWarnings("unused")
 public class RoomOrderEntity {
 
     @Id

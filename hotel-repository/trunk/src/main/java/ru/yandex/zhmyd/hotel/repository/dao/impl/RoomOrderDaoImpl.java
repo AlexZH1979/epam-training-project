@@ -10,6 +10,7 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 
 @Repository
+@SuppressWarnings("unused")
 public class RoomOrderDaoImpl extends AbstractHibernateDao<RoomOrderEntity, Integer> implements RoomOrderDao {
 
     @Override

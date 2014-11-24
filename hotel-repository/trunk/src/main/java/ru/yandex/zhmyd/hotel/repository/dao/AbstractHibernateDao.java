@@ -5,6 +5,7 @@ import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,9 +21,7 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 	private SessionFactory sessionFactory;
 	
 	protected Session getSession() {
-        Session session=sessionFactory.getCurrentSession();
-
-        return session;
+        return sessionFactory.getCurrentSession();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -35,8 +34,7 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 	@Override
 	public PK save(T obj) {
         Session session=getSession();
-        PK pk= (PK) session.save(obj);
-		return pk;
+        return (PK) session.save(obj);
 	}
 
 	@Override
@@ -46,21 +44,34 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findAll() {
+	public List<T> getAll() {
 		Criteria cr = getSession().createCriteria(this.getGenericEntityClass());
 		return (List<T>) cr.list();
 	}
-	
+	@Override
+    public Long getLength(){
+        return (Long) getSession().createCriteria(this.getGenericEntityClass()).setProjection( Projections.rowCount() ).uniqueResult();
+    }
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> findByCriteria(Criterion criterion) {
+	public List<T> getByCriteria(Criterion criterion) {
 		Criteria criteria = getSession().createCriteria(this.getGenericEntityClass());
 		criteria.add(criterion);
 		return (List<T>) criteria.list();
 	}
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List<T> findByCriteriaSubsequence(Criterion criterion, int begin, int count) {
+    public Long getLength(Criterion criterion) {
+        Criteria criteria = getSession().createCriteria(this.getGenericEntityClass());
+        criteria.add(criterion);
+        return (Long) criteria.setProjection(Projections.rowCount()).uniqueResult();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<T> getByCriteria(Criterion criterion, int begin, int count) {
         if(begin< 0 ||count<0){
             return new ArrayList<T>();
         }
@@ -68,13 +79,13 @@ public abstract class AbstractHibernateDao<T, PK extends Serializable> implement
         if(criterion!=null){
             criteria.add(criterion);
         }
-        criteria.setFirstResult(begin).setFetchSize(count);
+        criteria.setFirstResult(begin).setMaxResults(count);
         return (List<T>)criteria.list();
     }
 
     @SuppressWarnings("unchecked")
 	@Override
-	public T findById(PK id) {
+	public T getById(PK id) {
 		return (T) getSession().get(this.getGenericEntityClass(), id);
 	}
 
