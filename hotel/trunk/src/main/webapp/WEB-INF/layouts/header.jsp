@@ -10,6 +10,9 @@
 			<c:if test="${user.role eq 'ADMINISTRATOR'}">
 				<a class="navbar-brand" href="<c:url value="/users/"/>">View Clients</a>
 			</c:if>
+            <c:if test="${not empty selectHotelId}">
+                <a class="navbar-brand" href="<c:url value="/hotels/${selectHotelId}"/>">Hotel-info</a>
+            </c:if>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${not empty user}">

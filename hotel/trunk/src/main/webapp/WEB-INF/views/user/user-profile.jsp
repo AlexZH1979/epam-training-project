@@ -30,6 +30,4 @@
     <b><spring:message code="user.Role"/>: </b>${currentUser.role}<br>
     <b><spring:message code="user.Email"/>: </b>${currentUser.email}
 </c:if>
-<a href=""
-<br/><br/>
 

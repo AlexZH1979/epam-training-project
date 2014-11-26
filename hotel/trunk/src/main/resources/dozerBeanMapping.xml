@@ -13,6 +13,10 @@
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.RoomEntity</class-a>
                 <class-b>java.lang.Integer</class-b>
             </converter>
+            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCountyToStringConverter">
+                <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCountyEntity</class-a>
+                <class-b>java.lang.String</class-b>
+            </converter>
             <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.UserPasswordToHashcodeConverter">
                 <class-a>java.lang.Integer</class-a>
                 <class-b>java.lang.String</class-b>

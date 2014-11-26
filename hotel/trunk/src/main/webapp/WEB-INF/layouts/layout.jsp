@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -13,7 +12,6 @@
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
-
     <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap/bootstrap.css'/>"/>
@@ -39,7 +37,6 @@
                 <tiles:insertAttribute name="body" />
             </div>
         </c:if>
-
         <c:if test="${empty user}">
             <div class="col-md-4"></div>
             <div class="col-md-4 well">
@@ -47,7 +44,6 @@
             </div>
             <div class="col-md-4"></div>
         </c:if>
-
     </div>
 </div>
 <c:if test="${not empty user}">

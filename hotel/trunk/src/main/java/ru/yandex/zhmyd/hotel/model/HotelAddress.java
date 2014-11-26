@@ -67,4 +67,17 @@ public class HotelAddress {
     public void setAreaCode(Integer areaCode) {
         this.areaCode = areaCode;
     }
+
+    @Override
+    public String toString() {
+        return "HotelAddress{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", county='" + county + '\'' +
+                ", areaCode=" + areaCode +
+                '}';
+    }
 }

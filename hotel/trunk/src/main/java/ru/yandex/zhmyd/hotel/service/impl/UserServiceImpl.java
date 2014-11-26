@@ -9,6 +9,7 @@ import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.service.UserService;
+import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 
 /*
 * @Transactional
@@ -44,10 +45,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
         UserEntity userEntity=mapper.map(user, UserEntity.class);
         Criterion cr= Restrictions.or(Restrictions.eq("login", userEntity.getLogin()),
                 Restrictions.eq("email",userEntity.getEmail()));
-        //TODO
-        //verify before saved, if user which this criteria already exist throws exception
+        /*
+         *   verify before saved, if user which this criteria already exist throws exception
+         */
         if(!userDao.getByCriteria(cr).isEmpty()) {
-            throw new RuntimeException();
+            throw new ServiceException("user  already exist");
         }
         super.save(user);
     }

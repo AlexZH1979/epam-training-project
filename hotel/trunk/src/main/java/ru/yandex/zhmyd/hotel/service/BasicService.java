@@ -2,6 +2,7 @@ package ru.yandex.zhmyd.hotel.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public interface BasicService<T, ID extends Serializable> {
 
@@ -24,7 +25,7 @@ public interface BasicService<T, ID extends Serializable> {
      * this method return null
      */
     public List<T> getInterval(Integer begin, Integer count);
-
+    public List<T> getInterval(Map param, Integer begin, Integer count);
     /**
      * @param Id object id
      * @return Object or null if object doesn't exist
