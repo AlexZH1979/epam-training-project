@@ -31,9 +31,10 @@ public class HotelAddressEntity {
     @Mapping("zip")
     private Integer zip;
 
-    @Column(name = "county")
+    @ManyToOne(targetEntity = HotelAddressCountyEntity.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "county_id")
     @Mapping("county")
-    private String county;
+    private HotelAddressCountyEntity county;
 
     @Column(name = "area_code")
     @Mapping("areaCode")
@@ -79,13 +80,6 @@ public class HotelAddressEntity {
         this.zip = zip;
     }
 
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
-    }
 
     public Integer getAreaCode() {
         return areaCode;
@@ -93,5 +87,26 @@ public class HotelAddressEntity {
 
     public void setAreaCode(Integer areaCode) {
         this.areaCode = areaCode;
+    }
+
+    public HotelAddressCountyEntity getCounty() {
+        return county;
+    }
+
+    public void setCounty(HotelAddressCountyEntity county) {
+        this.county = county;
+    }
+
+    @Override
+    public String toString() {
+        return "HotelAddressEntity{" +
+                "id=" + id +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip=" + zip +
+                ", county=" + county +
+                ", areaCode=" + areaCode +
+                '}';
     }
 }

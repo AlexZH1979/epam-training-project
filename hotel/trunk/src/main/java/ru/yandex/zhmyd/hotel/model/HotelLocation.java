@@ -81,4 +81,18 @@ public class HotelLocation {
     public void setLocPMSA(String locPMSA) {
         this.locPMSA = locPMSA;
     }
+
+    @Override
+    public String toString() {
+        return "HotelLocation{" +
+                "id=" + id +
+                ", locFIPS=" + locFIPS +
+                ", locTimeZone='" + locTimeZone + '\'' +
+                ", locDST='" + locDST + '\'' +
+                ", locLat=" + locLat +
+                ", locLong=" + locLong +
+                ", longMSA=" + longMSA +
+                ", locPMSA='" + locPMSA + '\'' +
+                '}';
+    }
 }

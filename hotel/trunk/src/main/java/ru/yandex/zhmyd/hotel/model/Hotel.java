@@ -17,6 +17,7 @@ public class Hotel {
         return id;
     }
 
+
     public HotelAddress getHotelAddress() {
         return hotelAddress;
     }
@@ -51,5 +52,16 @@ public class Hotel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", category=" + category +
+                ", name='" + name + '\'' +
+                ", hotelAddress=" + hotelAddress +
+                ", hotelLocation=" + hotelLocation +
+                '}';
     }
 }

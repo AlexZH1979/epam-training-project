@@ -5,6 +5,8 @@
 <c:url value="/orders/ajax" var="ajaxPath"/>
 <c:url value="/profile/" var="profile"/>
 <script type="text/javascript">
+    var body_id = '#tableBody';
+
     var f = function fillOrdersTable(o_id, o_obj) {
         //delete all
         $(o_id).html("");
@@ -24,11 +26,11 @@
 
 
     function loadTable(begin, countSize) {
-        loadTableAjax("${ajaxPath}", '#tableBody', f, begin, countSize);
+        loadTableAjax("${ajaxPath}", body_id, f, begin, countSize);
     }
 
     window.onload = function () {
-        loadTableAjax("${ajaxPath}",'#tableBody', f, 0, 10);
+        loadTableAjax("${ajaxPath}", body_id, f, 0, 10);
     }
 </script>
 

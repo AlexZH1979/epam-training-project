@@ -20,7 +20,7 @@
             $(id).append(row);
             i++;
         }
-    }
+    };
 
     function loadTable(begin, countSize) {
         loadTableAjax("${ajaxPath}",body_id, f, begin, countSize);

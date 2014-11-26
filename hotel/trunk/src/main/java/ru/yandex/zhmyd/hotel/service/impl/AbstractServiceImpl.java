@@ -2,6 +2,7 @@ package ru.yandex.zhmyd.hotel.service.impl;
 
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.GenericDao;
@@ -10,7 +11,9 @@ import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * T -target DTO type
@@ -24,6 +27,7 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     private static final Logger LOG = Logger.getLogger(AbstractServiceImpl.class);
 
     @Autowired
+    @SuppressWarnings("all")
     protected DAO dao;
 
 
@@ -58,7 +62,13 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     @Override
     public List<T> getInterval(Integer begin, Integer count) {
         LOG.debug("GET to getInterval values: begin=" + begin + ", count=" + count);
-        return (List<T>) Util.map(mapper, dao.getByCriteria(null, begin, count), this.getGenericTargetClass());
+        return getInterval(new HashMap(), begin, count);
+    }
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<T> getInterval(Map param,Integer begin, Integer count) {
+        LOG.debug("GET to getInterval values: begin=" + begin + ", count=" + count);
+        return (List<T>) Util.map(mapper, dao.getByCriteria(Restrictions.allEq(param), begin, count), this.getGenericTargetClass());
     }
 
     @SuppressWarnings("unchecked")

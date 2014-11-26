@@ -25,12 +25,12 @@ public class HotelEntity {
     @Mapping("name")
     private String name;
 
-    @OneToOne(targetEntity = HotelAddressEntity.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = HotelAddressEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
    @Mapping("hotelAddress")
     private HotelAddressEntity hotelAddress;
 
-    @OneToOne(targetEntity = HotelLocationEntity.class, fetch = FetchType.EAGER)
+    @OneToOne(targetEntity = HotelLocationEntity.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @Mapping("hotelLocation")
     private HotelLocationEntity hotelLocation;

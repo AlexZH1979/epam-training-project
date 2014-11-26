@@ -9,25 +9,21 @@
         <put-attribute name="body" value=""/>
         <put-attribute name="footer" value="/WEB-INF/layouts/footer.jsp"/>
     </definition>
-
     <definition name="login" extends="base.definition">
         <put-attribute name="title" value="Project Name - Sign In"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/login.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/user-login.jsp"/>
     </definition>
-
     <definition name="profile" extends="base.definition">
         <put-attribute name="title" expression="${user.firstName}"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/profile.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/user-profile.jsp"/>
     </definition>
-
     <definition name="submit.order" extends="base.definition">
         <put-attribute name="title" value="Send order id ${order.id}"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/profile.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/user-profile.jsp"/>
     </definition>
-
     <definition name="order.list" extends="base.definition">
         <put-attribute name="title" value="Orders list"/>
-        <put-attribute name="body" value="/WEB-INF/views/order/list.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/order/orders-list.jsp"/>
     </definition>
     <definition name="users.list" extends="base.definition">
         <put-attribute name="title" value="User List"/>
@@ -35,22 +31,22 @@
     </definition>
     <definition name="map" extends="base.definition">
         <put-attribute name="title" value="User List"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/map.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/map/google-map.jsp"/>
     </definition>
     <definition name="registration" extends="base.definition">
         <put-attribute name="title" value="Register"/>
-        <put-attribute name="body" value="/WEB-INF/views/user/new.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/user/user-new.jsp"/>
     </definition>
     <definition name="room.list" extends="base.definition">
         <put-attribute name="tile" value="Rooms"/>
-        <put-attribute name="body" value="/WEB-INF/views/room/list.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/room/rooms-list.jsp"/>
     </definition>
     <definition name="hotels.list" extends="base.definition">
         <put-attribute name="tile" value="Hotels"/>
-        <put-attribute name="body" value="/WEB-INF/views/hotels/list.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/hotels-list.jsp"/>
     </definition>
     <definition name="hotel" extends="base.definition">
         <put-attribute name="tile" value="Hotels"/>
-        <put-attribute name="body" value="/WEB-INF/views/hotels/info.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-info.jsp"/>
     </definition>
 </tiles-definitions>

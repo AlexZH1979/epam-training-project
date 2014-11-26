@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.yandex.zhmyd.hotel.model.Room;
+import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
 
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/room")
@@ -20,6 +24,9 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
+
+    @Autowired
+    private HotelService hotelService;
 
     //TODO
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
@@ -40,9 +47,11 @@ public class RoomController {
 
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
-    public List<Room> getRooms(@RequestBody final ListViewPart part){
-        System.out.println(part);
-        return roomService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
+    public List<Room> getRooms(@RequestBody final ListViewPart part, HttpSession session){
+        Integer id= (Integer) session.getAttribute("selectHotelId");
+        Map map=new HashMap();
+        map.put("hotel.id",id);
+        return roomService.getInterval(map,Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
 
     }
 }

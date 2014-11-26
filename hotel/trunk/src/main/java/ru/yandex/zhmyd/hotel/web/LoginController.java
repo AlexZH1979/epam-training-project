@@ -60,6 +60,7 @@ public class LoginController {
         model.setViewName("login");
 
         session.setAttribute("user", null);
+        session.setAttribute("selectHotelId", null);
         session.invalidate();
 
         return model;

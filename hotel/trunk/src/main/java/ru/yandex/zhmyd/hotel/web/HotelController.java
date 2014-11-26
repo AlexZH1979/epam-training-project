@@ -34,13 +34,13 @@ public class HotelController {
 
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
-    public List<Hotel> getRooms(@RequestBody final ListViewPart part){
+    public List<Hotel> getHotels(@RequestBody final ListViewPart part){
         return hotelService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
     }
 
     @RequestMapping(value = "/set/{hotelId}")
     public String selectHotel(@PathVariable("hotelId") Hotel hotel, HttpSession session){
-        session.setAttribute("hotelId", hotel.getId());
+        session.setAttribute("selectHotelId", hotel.getId());
         return "redirect:/hotels/"+hotel.getId();
     }
     @RequestMapping(value = {"/ajax/size"}, method = RequestMethod.POST)
