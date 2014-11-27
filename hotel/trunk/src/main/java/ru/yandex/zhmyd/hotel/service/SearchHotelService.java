@@ -18,6 +18,8 @@ public interface SearchHotelService {
     public List<String> getCounties(String state);
 
     public List<Hotel> searchByAddressAssociation(String association, String name);
+
+
  /*   List<Hotel> searchByCounty(String name, int begin, int count);
 
     List<Hotel> searchByCounty(String name);

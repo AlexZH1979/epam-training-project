@@ -94,7 +94,6 @@ public class HotelEntity {
                 ", name='" + name + '\'' +
                 ", hotelAddress=" + hotelAddress +
                 ", hotelLocation=" + hotelLocation +
-                ", rooms=" + rooms +
                 '}';
     }
 }

@@ -1,0 +1,13 @@
+DAO
+    HotelDao - методы поиска отелей по адресным данным:
+    возвращают список отелей: association-имя поля ассоциироанного объекта в HotelAddressEntity, в настоящее время
+    принимает значения "state", "city", "county", name - значение данного объекта (в Entity называется "name")
+        (1)     public List<HotelEntity>searchByAddressAssociation(String association, String name);
+        (2)     public List<HotelEntity> searchByAddressAssociation(String association, String name, int begin, int count);
+    Возвращает длину списка получаемого в методе (1)
+        (3)     public Integer lengthSearchByAddressAssociation(String association, String name);
+    возвращают список отелей по критерию (УЛИЦА) ---> HotelAddressEntity.address LIKE "%"+name+"%"
+        (4)     public List<HotelEntity> searchLikeAddress(String name);
+        (5)     public List<HotelEntity> searchLikeAddress(String name, int begin, int count);
+        Возвращает длину списка получаемого в методе (4)
+        (6)     public Integer lengthSearchLikeAddress(String name);
