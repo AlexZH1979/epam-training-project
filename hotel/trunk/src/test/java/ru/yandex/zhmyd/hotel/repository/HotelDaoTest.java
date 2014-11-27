@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
-import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelEntity;
 
 import java.util.logging.Logger;
@@ -17,8 +16,6 @@ public class HotelDaoTest extends AbstractDaoTest {
     @Autowired
     private HotelDao hotelDao;
 
-    @Autowired
-    private RoomDao roomDao;
 
     @Test
     public void loadHotel() {
@@ -27,6 +24,12 @@ public class HotelDaoTest extends AbstractDaoTest {
 
         LOG.info("COUNT: " + hotelDao.getLength());
 
+    }
+
+    @Test
+    public void searchByAddressAssociation(){
+        LOG.info(hotelDao.searchByAddressAssociation("state","MI", 5, 50).toString());
+        LOG.info(hotelDao.searchByAddressAssociation("city","Dublin", 5, 50).toString());
     }
 
 }

@@ -38,3 +38,16 @@ function loadSizeList(path, e_id, funcSize){
         }
     });
 }
+function searchByParam(path, param, e_id, f_success) {
+    $.ajax({
+        url: path,
+        type: "POST",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+        },
+        success: function (find) {
+           f_success(e_id,find)
+        }
+    });
+}

@@ -9,7 +9,6 @@
     var f = function fillOrdersTable(id, obj) {
         //delete all
         $(id).html("");
-
         var i = 0;
         for (var k in obj) {
             var row = $('<tr id="c_' + i + '"></tr>');
@@ -24,11 +23,9 @@
             i++;
         }
     }
-
     function loadTable(begin, countSize) {
         loadTableAjax("${ajaxPath}",body_id, f, begin, countSize);
     }
-
     window.onload = function () {
         loadTableAjax("${ajaxPath}",body_id, f, 0, 10);
     }

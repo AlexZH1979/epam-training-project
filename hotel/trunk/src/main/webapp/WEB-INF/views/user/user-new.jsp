@@ -39,7 +39,6 @@
             <form:errors path="password"/>
         </div>
     </div>
-
     <div class="form-group">
         <form:label path="email" cssClass="col-sm-4 control-label"><spring:message code="user.Email"/>:
         </form:label>
@@ -48,7 +47,6 @@
             <form:errors path="email"/>
         </div>
     </div>
-
     <div class="form-group">
         <form:label path="gender" cssClass="col-sm-4 control-label"><spring:message
                 code="user.Gender"/></form:label>
