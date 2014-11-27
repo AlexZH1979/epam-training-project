@@ -8,21 +8,17 @@
 }
 </style>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-
 <script>
     var myLatLng =new google.maps.LatLng(${hotel.hotelLocation.locLat},${hotel.hotelLocation.locLong});
     function initialize() {
-
         var mapOptions = {
             zoom:12,
             center: myLatLng,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-
         var map = new google.maps.Map(document.getElementById('map-canvas'),
                 mapOptions);
     }
-
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <h3><spring:message code="title.Hotel"/></h3>

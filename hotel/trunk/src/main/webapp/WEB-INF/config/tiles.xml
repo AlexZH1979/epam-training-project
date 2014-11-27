@@ -49,4 +49,8 @@
         <put-attribute name="tile" value="Hotels"/>
         <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-info.jsp"/>
     </definition>
+    <definition name="search.hotel" extends="base.definition">
+        <put-attribute name="title" value="Search"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/search-hotel.jsp"/>
+    </definition>
 </tiles-definitions>

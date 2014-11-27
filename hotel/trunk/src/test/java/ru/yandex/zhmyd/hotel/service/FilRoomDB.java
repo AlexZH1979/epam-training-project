@@ -1,7 +1,6 @@
 package ru.yandex.zhmyd.hotel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.Hotel;
 import ru.yandex.zhmyd.hotel.model.Room;
@@ -17,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-@Service
+//@Service
 @Transactional
 public class FilRoomDB extends AbstractServiceImpl<Room, RoomEntity, RoomDao, Integer> implements RoomService {
     @Autowired
@@ -25,6 +24,7 @@ public class FilRoomDB extends AbstractServiceImpl<Room, RoomEntity, RoomDao, In
 
     @Autowired
     private RoomDao roomDao;
+
     @Override
     public void save(Room dto) {
         Long length = hotelDao.getLength();
@@ -54,12 +54,13 @@ public class FilRoomDB extends AbstractServiceImpl<Room, RoomEntity, RoomDao, In
 
     @Override
     public List<Room> getRoomsByHotel(Hotel hotel) {
+        //TODO
         return null;
     }
 
     @Override
     public List<Room> getRoomsByHotel(Integer integer) {
+        //TODO
         return null;
-
     }
 }

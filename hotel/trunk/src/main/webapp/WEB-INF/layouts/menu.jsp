@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:if test="${not empty user}">
     <ul id="menu" class="nav nav-pills nav-stacked">
         <li id="menu-hotel"><a href="<c:url value='/hotels/'/>">HOTELS</a></li>

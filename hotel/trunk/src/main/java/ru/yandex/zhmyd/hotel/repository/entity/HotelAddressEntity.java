@@ -19,9 +19,10 @@ public class HotelAddressEntity {
     @Mapping("address")
     private String address;
 
-    @Column(name = "city")
+    @ManyToOne(targetEntity = HotelAddressCityEntity.class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id")
     @Mapping("city")
-    private String city;
+    private HotelAddressCityEntity city;
 
     @ManyToOne(targetEntity = HotelAddressStateEntity.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "state_id")
@@ -57,11 +58,11 @@ public class HotelAddressEntity {
         this.address = address;
     }
 
-    public String getCity() {
+    public HotelAddressCityEntity getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(HotelAddressCityEntity city) {
         this.city = city;
     }
 
