@@ -19,10 +19,36 @@ public class HotelDaoImpl extends AbstractHibernateDao<HotelEntity, Integer> imp
     }
 
     @Override
+    public Integer lengthSearchByAddressAssociation(String association, String name) {
+        return getSession().createCriteria(HotelEntity.class).createCriteria("hotelAddress")
+                .createCriteria(association).add(Restrictions.eq("name", name)).list().size();
+    }
+
+    @Override
     public List<HotelEntity> searchByAddressAssociation(String association, String name, int begin, int count) {
         List<HotelEntity> cr = getSession().createCriteria(HotelEntity.class).createCriteria("hotelAddress")
                 .createCriteria(association).add(Restrictions.eq("name", name))
                 .setFirstResult(begin).setMaxResults(count).list();
         return cr;
+    }
+    @Override
+    public List<HotelEntity> searchLikeAddress(String name) {
+        List<HotelEntity> cr = getSession().createCriteria(HotelEntity.class).createCriteria("hotelAddress")
+                .add(Restrictions.like("address", "%" + name + "%")).list();
+        return cr;
+    }
+
+    @Override
+    public List<HotelEntity> searchLikeAddress(String name, int begin, int count) {
+        List<HotelEntity> cr = getSession().createCriteria(HotelEntity.class).createCriteria("hotelAddress")
+                .add(Restrictions.like("address", "%" + name + "%"))
+                .setFirstResult(begin).setMaxResults(count).list();
+        return cr;
+    }
+
+    @Override
+    public Integer lengthSearchLikeAddress(String name) {
+        return getSession().createCriteria(HotelEntity.class).createCriteria("hotelAddress")
+                .add(Restrictions.like("address", "%" + name + "%")).list().size();
     }
 }

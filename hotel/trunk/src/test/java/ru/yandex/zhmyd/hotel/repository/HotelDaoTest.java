@@ -28,8 +28,15 @@ public class HotelDaoTest extends AbstractDaoTest {
 
     @Test
     public void searchByAddressAssociation(){
-        LOG.info(hotelDao.searchByAddressAssociation("state","MI", 5, 50).toString());
-        LOG.info(hotelDao.searchByAddressAssociation("city","Dublin", 5, 50).toString());
+        LOG.info("SEARCH state=MI: "+hotelDao.searchByAddressAssociation("state","MI", 5, 50).toString());
+        LOG.info("SEARCH city=Dublin: "+hotelDao.searchByAddressAssociation("city","Dublin", 5, 50).toString());
+        LOG.info("SEARCH county=Delaware: "+hotelDao.searchByAddressAssociation("county","Delaware", 5, 50).toString());
+    }
+
+    @Test
+    public void searchLikeAddress(){
+        LOG.info("SEARCH address LIKE East: "+hotelDao.searchLikeAddress("East 29"));
+        LOG.info("GET LENGTH SEARCH address LIKE East: "+hotelDao.lengthSearchLikeAddress("East"));
     }
 
 }
