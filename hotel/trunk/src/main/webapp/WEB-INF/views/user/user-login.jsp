@@ -21,7 +21,8 @@
     <div class="form-group">
         <label for="password" class="col-sm-4 control-label"><spring:message code="title.password"/></label>
         <div class="col-sm-8">
-            <input type="password" id="password" name="password" class="form-control" placeholder="Enter password"/>
+            <spring:message code="title.password" var="reg"/>
+            <input type="password" id="password" name="password" class="form-control" placeholder="${var}"/>
         </div>
     </div>
     <div class="form-group">

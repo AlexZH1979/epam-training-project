@@ -14,11 +14,9 @@ import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
-@SuppressWarnings("unused")
 public class SearchHotelServiceImpl implements SearchHotelService {
 
     private static final Logger LOG = Logger.getLogger(SearchHotelServiceImpl.class);
@@ -32,61 +30,62 @@ public class SearchHotelServiceImpl implements SearchHotelService {
     @Autowired
     private Mapper mapper;
 
-    //TODO
     @Override
-    public List<Hotel> searchByParameters(Map<String, Object> param) {
-
-        Criterion criterion=Restrictions.allEq(param);
-        //TODO
-        return Util.map(mapper, hotelDao.getByCriteria(criterion, 0, 100), Hotel.class);
-    }
-
-    @Override
-    public List<String> getStatesToString() {
+    public List<String> getStates() {
         return Util.map(mapper,addressDao.getStates(),String.class);
     }
 
+    //TODO
     @Override
     public List<String> getCounties(String state) {
-        return null;
+        throw new RuntimeException("TODO");
     }
 
     //TODO
     @Override
-    public List<Hotel> searchByAddressAssociation(String association, String name) {
-        return Util.map(mapper,hotelDao.searchByAddressAssociation(association,name),Hotel.class);
-    }
-
-
-/*
-
-    @Override
-         public List<Hotel> searchByState(String name, int begin, int count) {
-        return Util.map(mapper, hotelDao.searchByState(name).subList(1,3), Hotel.class);
-    }
-
-    @Override
-    public List<Hotel> searchByState(String name) {
-        return Util.map(mapper, hotelDao.searchByState(name), Hotel.class);
-    }
-
-    @Override
-    public Integer searchByStateLength(String name) {
-        return hotelDao.searchByState(name).size();
+    public List<Hotel> searchByAddress(String association, String name,Integer begin, Integer count) {
+        switch (association) {
+            case "address":
+                return Util.map(mapper, hotelDao.searchLikeAddress(name), Hotel.class);
+            case "state":
+                return Util.map(mapper, hotelDao.searchAddressAssociation(association, name, begin, count), Hotel.class);
+            case "city":
+            case "county":
+                return Util.map(mapper, hotelDao.searchLikeAddressAssociation(association, name, begin, count), Hotel.class);
+            default:
+                throw new IllegalArgumentException("Parameter " + association + "don't acceptable first param 'association'" +
+                        " for searchByAddress(String association, String name)");
+        }
     }
 
     @Override
-    public List<Hotel> searchByCounty(String name, int begin, int count) {
-        return Util.map(mapper, hotelDao.searchByState(name).subList(1,3), Hotel.class);
+    public List<Hotel> searchByName(String name, Integer begin, Integer count) {
+        return Util.map(mapper, hotelDao.getByCriteria(getCriterionForLikeName(name), begin, count), Hotel.class);
     }
 
     @Override
-    public List<Hotel> searchByCounty(String name) {
-        return Util.map(mapper, hotelDao.searchByState(name), Hotel.class);
+    public Long lengthSearchByName(String name) {
+        return hotelDao.getLength(getCriterionForLikeName(name));
     }
 
     @Override
-    public Integer searchByCountyLength(String name) {
-        return hotelDao.searchByState(name).size();
-    }*/
+    public Long lengthSearchByAddress(String association, String name) {
+        switch (association) {
+            case "address":
+                return Long.valueOf(hotelDao.lengthSearchLikeAddress(name));
+            case "state":
+                return Long.valueOf(hotelDao.lengthSearchAddressAssociation(association, name));
+            case "city":
+            case "county":
+                return Long.valueOf(hotelDao.lengthSearchLikeAddressAssociation(association, name));
+            default:
+                throw new IllegalArgumentException("Parameter " + association + "don't acceptable first param 'association'" +
+                        " for searchByAddress(String association, String name)");
+        }
+    }
+
+    private Criterion getCriterionForLikeName(String name){
+        return Restrictions.or(Restrictions.like("name", "% " + name + "%"),
+                Restrictions.like("name", name + "%"));
+    }
 }
