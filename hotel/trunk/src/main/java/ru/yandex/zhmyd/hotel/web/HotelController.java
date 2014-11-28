@@ -8,13 +8,18 @@ import ru.yandex.zhmyd.hotel.model.Hotel;
 import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
+import ru.yandex.zhmyd.hotel.web.vto.SearchParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Controller
 @RequestMapping("/hotels")
 public class HotelController {
+
+    private static final Logger LOG = Logger.getLogger(HotelController.class.getName());
+
     @Autowired
     private HotelService hotelService;
 
@@ -59,38 +64,44 @@ public class HotelController {
         return hotelService.getSizeList();
     }
 
-    @RequestMapping(value = "/search/ajax/states", method = RequestMethod.POST)
-    @ResponseBody
-    public List<String> getStates() {
-        return searchHotelService.getStatesToString();
-
-    }
 
     /*
-    *
-    *
-    * AJAX search methods
-    *
-    *
-    *
+     *
+     *
+     * AJAX search methods
+     *
+     *
+     *
      */
 
     //TODO
-    @RequestMapping(value = "/search/{param}", method = RequestMethod.POST)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
-    public List<Hotel> searchHotelsByParameter(@RequestParam(value = "value") String input, @PathVariable String param){
-        switch (param){
+    public List<Hotel> searchHotelsByParameter(@RequestBody SearchParam param) {
+        switch (param.getParameter()) {
+            case "name":
+                return searchHotelService.searchByName( param.getValue(),0,20);
             case "state":
-                return searchHotelService.searchByAddressAssociation("state",input);
-            default:return null;
+            case "county":
+            case "city":
+            case "address":
+                return searchHotelService.searchByAddress(param.getParameter(), param.getValue(),0,20);
+            default:
+                return null;
         }
     }
-    @RequestMapping(value = "/search/{param}/length", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/search/length", method = RequestMethod.POST)
     @ResponseBody
-    public Integer lengthSearchHotelsByParameter(@RequestParam(value = "value") String input, @PathVariable String param) {
-        switch (param) {
+    public Long lengthSearchHotelsByParameter(@RequestBody SearchParam param) {
+        switch (param.getParameter()) {
+            case "name":
+                return searchHotelService.lengthSearchByName(param.getValue());
             case "state":
-                return searchHotelService.searchByAddressAssociation("state",input).size();
+            case "county":
+            case "city":
+            case "address":
+                return searchHotelService.lengthSearchByAddress(param.getParameter(), param.getValue());
             default:
                 return null;
         }

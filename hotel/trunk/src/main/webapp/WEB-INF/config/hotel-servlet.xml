@@ -50,7 +50,6 @@
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:messages" p:defaultEncoding="UTF-8"/>
-
     <!-- Tiles 3 integration -->
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver"
           p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView" p:order="#{jspViewResolver.order+1}"/>

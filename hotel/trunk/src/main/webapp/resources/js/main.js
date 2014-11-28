@@ -20,7 +20,30 @@ function loadTableAjax(path, e_id, funcFill, begin, countSize) {
         }
     });
 }
+function loadTableByParamAjax(path, e_id, funcFill, parameter, value) {
 
+    var json = {
+        parameter:parameter,
+        value: value
+    };
+
+    $.ajax({
+        url: path,
+        data: JSON.stringify(json),
+        type: "POST",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+        },
+        success: function (e_obj) {
+            funcFill(e_id, e_obj);
+        },
+        error: function () {
+            alert('failure');
+        }
+
+    });
+}
 function loadSizeList(path, e_id, funcSize){
     $.ajax({
         url: path,
@@ -38,16 +61,31 @@ function loadSizeList(path, e_id, funcSize){
         }
     });
 }
-function searchByParam(path, param, e_id, f_success) {
+
+function searchByParam(path, parameter, value, e_id, f_success, button) {
+    var json = {
+        parameter: parameter,
+        value: value
+    };
     $.ajax({
         url: path,
         type: "POST",
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Accept", "application/json");
-            xhr.setRequestHeader("Content-Type", "application/json");
-        },
-        success: function (find) {
-           f_success(e_id,find)
+            data: JSON.stringify(json),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (find) {
+                console.log("find " + find + " by parameter " + parameter);
+                if (find > 0) {
+                    f_success(e_id, parameter, value, find);
+                };
+                console.log("$.active="+$.active);
+                if($.active==1){
+                    $(button).removeAttr('disabled');
+                }
+            }
+
         }
-    });
+    );
 }
