@@ -32,13 +32,7 @@ public class LoginController {
     public ModelAndView login(
             @RequestParam(value = "username") String username,
             @RequestParam(value = "password") String password,
-            @RequestParam(value = "submit") String submit,
             HttpSession session) {
-
-
-        if (submit != null && submit.equals("registration")) {
-            return new ModelAndView("redirect:/reg/");
-        } else {
             User user = service.getUserByCredits(username, password);
             ModelAndView mav;
             if (user != null) {
@@ -50,7 +44,6 @@ public class LoginController {
                 mav.setViewName("login");
             }
             return mav;
-        }
     }
 
     @RequestMapping(value = "/logout")

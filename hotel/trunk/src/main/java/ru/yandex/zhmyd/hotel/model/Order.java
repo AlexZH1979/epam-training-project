@@ -8,6 +8,7 @@ public class Order {
     private Long id;
     private Integer price;
     private Integer roomId;
+    private Integer hotelId;
     private Long customerId;
     private Date startDate;
     private Date endDate;
@@ -65,12 +66,21 @@ public class Order {
         this.confirmed = confirmed;
     }
 
+    public Integer getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Integer hotelId) {
+        this.hotelId = hotelId;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", price=" + price +
                 ", roomId=" + roomId +
+                ", hotelId=" + hotelId +
                 ", customerId=" + customerId +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +

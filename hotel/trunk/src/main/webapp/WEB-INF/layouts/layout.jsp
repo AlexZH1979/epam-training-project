@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap/bootstrap.css'/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/bootstrap/bootstrap-theme.css'/>"/>
     <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/layout.css'/>"/>
-    <script type="text/javascript" src="<c:url value='/resources/js/jquery.js' />"></script>
+    <script type="text/javascript" src="<c:url value='/resources/js/jquery.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/json2.js' />"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/bootstrap.js' />"></script>
     <script type="text/javascript" src="<c:url value='/resources/js/main.js' />"></script>

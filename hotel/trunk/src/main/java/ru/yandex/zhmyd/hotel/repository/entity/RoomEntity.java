@@ -37,8 +37,8 @@ public class RoomEntity {
     @Mapping("category")
     private RoomCategoryEntity category;
 
-    @OneToMany(targetEntity = RoomOrderEntity.class, mappedBy = "room",fetch = FetchType.LAZY)
-    private List<RoomOrderEntity> roomOrders;
+    @OneToMany(targetEntity = OrderEntity.class, mappedBy = "room",fetch = FetchType.LAZY)
+    private List<OrderEntity> roomOrders;
 
     @ManyToOne(targetEntity = HotelEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
@@ -100,11 +100,11 @@ public class RoomEntity {
         this.category = category;
     }
 
-    public List<RoomOrderEntity> getRoomOrders() {
+    public List<OrderEntity> getRoomOrders() {
         return roomOrders;
     }
 
-    public void setRoomOrders(List<RoomOrderEntity> roomOrders) {
+    public void setRoomOrders(List<OrderEntity> roomOrders) {
         this.roomOrders = roomOrders;
     }
 

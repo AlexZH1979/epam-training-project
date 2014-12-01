@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.Order;
-import ru.yandex.zhmyd.hotel.repository.dao.RoomOrderDao;
+import ru.yandex.zhmyd.hotel.repository.dao.OrderDao;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
-import ru.yandex.zhmyd.hotel.repository.entity.RoomOrderEntity;
+import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @Transactional
 @SuppressWarnings("unused")
-public class OrderServiceImpl extends AbstractServiceImpl<Order, RoomOrderEntity, RoomOrderDao, Integer> implements OrderService {
+public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, OrderDao, Integer> implements OrderService {
 
     private static final Logger LOG= Logger.getLogger(OrderServiceImpl.class);
 

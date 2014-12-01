@@ -1,13 +1,11 @@
 package ru.yandex.zhmyd.hotel.model;
 
-import javax.validation.constraints.Size;
-
 @SuppressWarnings("unused")
 public class User {
 
 	private Long id;
 
-	@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long")
+	//@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long")
 	private String firstName;
 
 	//@Pattern(regexp = "[а-яА-ЯёЁa-zA-Z]*")

@@ -47,7 +47,8 @@
 
         var searchParameters = ["state", "county", "city", "address", "name"];
 
-        $('#butt').attr("disabled", "disabled")
+        $('#butt').button('loading')
+        //$('#butt').attr("disabled", "disabled")
         $(target_id).html("");
         $("#tableBody").html("");
         console.log("target_id "+target_id);
@@ -64,6 +65,7 @@
 
         <div class="col-sm-8">
             <div class="col-sm-8">
+
                 <input type="text" id="state" name="value" class="input-sm"
                        placeholder="<spring:message code="title.search_placeholder"/> ">
             </div>
@@ -71,8 +73,9 @@
     </div>
     <div>
         <div class="col-sm-offset-4 col-sm-8">
-            <input id="butt" type="button" class="btn btn-primary" value="<spring:message code='title.Search'/>"
-            onclick="listSizesResult('#finder',$('#state').val())"/>
+            <button id="butt" type="button" class="btn btn-primary"
+            onclick="listSizesResult('#finder',$('#state').val())"><span class="glyphicon glyphicon-search"></span>
+                <spring:message code='title.Search'/></button>
         </div>
     </div>
 </div>

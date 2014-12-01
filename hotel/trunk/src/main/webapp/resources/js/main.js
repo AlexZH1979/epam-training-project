@@ -82,7 +82,8 @@ function searchByParam(path, parameter, value, e_id, f_success, button) {
                 };
                 console.log("$.active="+$.active);
                 if($.active==1){
-                    $(button).removeAttr('disabled');
+                    $(button).button('reset');
+                    //$(button).removeAttr('disabled');
                 }
             }
 

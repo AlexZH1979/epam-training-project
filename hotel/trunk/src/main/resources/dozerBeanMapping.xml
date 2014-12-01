@@ -32,7 +32,7 @@
         </custom-converters>
     </configuration>
     <mapping>
-        <class-a>ru.yandex.zhmyd.hotel.repository.entity.RoomOrderEntity</class-a>
+        <class-a>ru.yandex.zhmyd.hotel.repository.entity.OrderEntity</class-a>
         <class-b>ru.yandex.zhmyd.hotel.model.Order</class-b>
         <field custom-converter-param="customer">
             <a>customer</a>
