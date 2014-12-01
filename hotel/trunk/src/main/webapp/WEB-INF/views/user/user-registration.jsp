@@ -3,8 +3,14 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- TODO причем много и жестоко -->
-<form:form method="post" commandName="client"
-           modelAttribute="client" cssClass="form-horizontal">
+<c:if test="${not empty error}">
+    <div class="danger">
+        <p class="alert alert-danger">${error}</p>
+    </div>
+</c:if>
+<form:form action="${action}" method="post" commandName="client"
+           modelAttribute="registredUser" cssClass="form-horizontal">
+    <form:errors path="*" cssClass="errorblock" element="div"/>
     <div class="form-group">
         <form:label path="firstName" cssClass="col-sm-4 control-label"><spring:message code="user.FirstName"/>:
         </form:label>
@@ -17,34 +23,44 @@
         <form:label path="lastName" cssClass="col-sm-4 control-label"><spring:message code="user.LastName"/>:
         </form:label>
         <div class="col-sm-8">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicons glyphicons-user" aria-hidden="true"></span></div>
             <form:input class="form-control" path="lastName"/>
             <form:errors path="lastName" cssClass="alert alert-danger"/>
+                </div>
         </div>
     </div>
-
     <div class="form-group">
         <form:label path="login" cssClass="col-sm-4 control-label"><spring:message code="title.Login"/>:
         </form:label>
         <div class="col-sm-8">
-            <form:input class="form-control" path="login"/>
-            <form:errors path="login"/>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></div>
+                <form:input class="form-control" path="login"/>
+                <form:errors path="login"/>
+            </div>
         </div>
     </div>
-
     <div class="form-group">
         <form:label path="password" cssClass="col-sm-4 control-label"><spring:message code="title.password"/>:
         </form:label>
         <div class="col-sm-8">
-            <form:input class="form-control" path="password" type="password"/>
-            <form:errors path="password"/>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                <form:input class="form-control" path="password" type="password"/>
+                <form:errors path="password"/>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <form:label path="email" cssClass="col-sm-4 control-label"><spring:message code="user.Email"/>:
         </form:label>
         <div class="col-sm-8">
-            <form:input class="form-control" path="email" type="email" required="true"/>
-            <form:errors path="email"/>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+                <form:input class="form-control" path="email" type="email"/>
+                <form:errors path="email"/>
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -52,13 +68,11 @@
                 code="user.Gender"/></form:label>
         <div class="col-sm-8">
             <form:select path="gender" cssClass="form-control">
-                <form:options items="${generList}"/>
+                <form:options items="${genderList}"/>
             </form:select>
             <form:errors path="gender" cssClass="error"/><br>
         </div>
     </div>
-    <!-- TODO -->
-    <!-- user role set in controller: default value=role.customer -->
-    <input type="submit" class="btn btn-success" value="Save"/>
-    <input type="reset" class="btn btn-warning" value="Cancel" onclick="window.history.back();"/>
+    <input name="submit" type="submit" class="btn btn-success" value="Save"/>
+    <input name="submit" type="submit" class="btn btn-warning" value="Cancel"/>
 </form:form>

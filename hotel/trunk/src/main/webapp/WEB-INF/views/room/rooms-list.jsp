@@ -13,6 +13,7 @@
         var i = 0;
         for (var k in obj) {
             var row = $('<tr id="c_' + i + '"></tr>');
+            //noinspection JSUnfilteredForInLoop
             row.append("<td>" + obj[k].id + "</td>");
             row.append("<td>" + obj[k].roomName + "</td>");
             row.append("<td>" + obj[k].size + "</td>");

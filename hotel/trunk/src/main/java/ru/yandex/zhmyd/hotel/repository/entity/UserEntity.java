@@ -45,8 +45,8 @@ public class UserEntity {
     @Column(name = "user_role", nullable = false, unique = false)
     private UserRoleEntity role;
 
-    @OneToMany(targetEntity = RoomOrderEntity.class, mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<RoomOrderEntity> roomOrders;
+    @OneToMany(targetEntity = OrderEntity.class, mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<OrderEntity> roomOrders;
 
     public Long getId() {
         return id;
@@ -112,11 +112,11 @@ public class UserEntity {
         this.role = role;
     }
 
-    public List<RoomOrderEntity> getRoomOrders() {
+    public List<OrderEntity> getRoomOrders() {
         return roomOrders;
     }
 
-    public void setRoomOrders(List<RoomOrderEntity> roomOrders) {
+    public void setRoomOrders(List<OrderEntity> roomOrders) {
         this.roomOrders = roomOrders;
     }
 

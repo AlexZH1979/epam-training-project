@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:url value="/login" var="login"/>
+<c:url value="/reg" var="registration"/>
 <h3>Please sign in</h3>
 <c:if test="${not empty error}">
     <div class="danger">
@@ -12,24 +13,29 @@
 </c:if>
 <form name='loginForm' action="${login}" method='POST' class="form-horizontal" role="form">
     <div class="form-group">
-        <label for="username" class="col-sm-4 control-label"><spring:message code="title.user"/></label>
-
         <div class="col-sm-8">
-            <input type="text" id="username" name="username" class="form-control" placeholder="Enter user name">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-user"/></div>
+                <input type="text" id="username" name="username" class="form-control"
+                       placeholder="<spring:message code='title.enter_login'/>"
+                       title="<spring:message code='title.Login'/>">
+            </div>
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-4 control-label"><spring:message code="title.password"/></label>
         <div class="col-sm-8">
-            <spring:message code="title.password" var="reg"/>
-            <input type="password" id="password" name="password" class="form-control" placeholder="${var}"/>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="<spring:message code='title.enter_password'/>"
+                       title="<spring:message code='title.password'/>">
+            </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
-            <input name="submit" type="submit" class="btn btn-primary" value="<spring:message code='title.signin'/>"/>
-            <input name="submit" type="submit" class="btn btn-success"
-                   value="registration">
+            <input name="submit" type="submit" class="btn btn-success" value="<spring:message code='title.signin'/>"/>
+            <input name="submit" type="button" class="btn btn-primary" onclick="location.href='${registration}'">
         </div>
     </div>
 </form>

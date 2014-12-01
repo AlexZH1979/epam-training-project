@@ -14,6 +14,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("Convert2Diamond")
 @Repository
 public abstract class AbstractHibernateDao<T, PK extends Serializable> implements GenericDao<T, PK> {
 

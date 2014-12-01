@@ -5,8 +5,8 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import ru.yandex.zhmyd.hotel.repository.dao.AbstractHibernateDao;
 import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
+import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
-import ru.yandex.zhmyd.hotel.repository.entity.RoomOrderEntity;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
 @SuppressWarnings("unused,unchecked")
 public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> implements RoomDao {
     @Override
-    public List<RoomOrderEntity> getOrdersByRoomId(Integer id) {
-        Criteria criteria=getSession().createCriteria(RoomOrderEntity.class);
+    public List<OrderEntity> getOrdersByRoomId(Integer id) {
+        Criteria criteria=getSession().createCriteria(OrderEntity.class);
         Criteria roomCriteria=criteria.createCriteria("room");
         roomCriteria.add(Restrictions.eq("id", id));
         return criteria.list();
