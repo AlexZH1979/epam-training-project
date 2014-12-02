@@ -25,10 +25,6 @@
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressStateEntity</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.UserPasswordToHashcodeConverter">
-                <class-a>java.lang.Integer</class-a>
-                <class-b>java.lang.String</class-b>
-            </converter>
         </custom-converters>
     </configuration>
     <mapping>
@@ -41,14 +37,6 @@
         <field custom-converter-param="room">
             <a>room</a>
             <b>roomId</b>
-        </field>
-    </mapping>
-    <mapping>
-        <class-a>ru.yandex.zhmyd.hotel.repository.entity.UserEntity</class-a>
-        <class-b>ru.yandex.zhmyd.hotel.model.User</class-b>
-        <field custom-converter-param="passwordHashCode">
-            <a>passwordHashCode</a>
-            <b>password</b>
         </field>
     </mapping>
 </mappings> 

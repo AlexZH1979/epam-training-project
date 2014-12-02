@@ -33,7 +33,7 @@ public class UserEntity {
 
     @Mapping("password")
     @Column(name = "password_hash_code", nullable = false, unique = false)
-    private Integer passwordHashCode;
+    private String passwordHashCode;
 
     @Mapping("gender")
     @Enumerated(EnumType.ORDINAL)
@@ -88,11 +88,11 @@ public class UserEntity {
         this.email = email;
     }
 
-    public Integer getPasswordHashCode() {
+    public String getPasswordHashCode() {
         return passwordHashCode;
     }
 
-    public void setPasswordHashCode(Integer passwordHashCode) {
+    public void setPasswordHashCode(String passwordHashCode) {
         this.passwordHashCode = passwordHashCode;
     }
 

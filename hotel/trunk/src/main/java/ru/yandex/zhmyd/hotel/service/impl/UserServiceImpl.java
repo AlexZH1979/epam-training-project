@@ -28,7 +28,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
     public User getUserByCredits(String login, String password) {
 
         LOG.debug("GET to getUser login=" + login + ", password=" + password);
-        UserEntity userEntity = userDao.getByCredentials(login, password.hashCode());
+        UserEntity userEntity = userDao.getByCredentials(login, password);
         User user = null;
         if (userEntity != null) {
             LOG.debug("FIND: " + userEntity);

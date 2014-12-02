@@ -71,7 +71,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
+            <artifactId>spring-security-taglibs</artifactId>
             <version>${org.security-version}</version>
         </dependency>
         <!-- -->
@@ -198,6 +198,11 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
         </dependency>
+        <dependency>
+        <groupId>aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.5.4</version>
+    </dependency>
         <!-- TEST -->
         <dependency>
             <groupId>org.mockito</groupId>
