@@ -24,14 +24,14 @@ public class OrderServiceTest extends AbstractDaoTest {
         Order order=orderService.getById(1);
         LOG.info(order.toString());
 
-        List<Order> orders=orderService.getOrdersByUserId(1L);
+        List<Order> orders=orderService.getOrdersByUserId(1);
         LOG.info(orders.toString());
 
         LOG.info(orderService.getAll().toString());
 
         Order order1=new Order();
         order1.setRoomId(1);
-        order1.setCustomerId(20L);
+        order1.setCustomerId(20);
         order1.setStartDate(new Date());
         order1.setEndDate(new Date());
         order1.setPrice(300);

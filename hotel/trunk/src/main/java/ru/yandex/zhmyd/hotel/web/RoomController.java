@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.yandex.zhmyd.hotel.model.Room;
-import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
 
@@ -24,9 +23,6 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
-
-    @Autowired
-    private HotelService hotelService;
 
     //TODO
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)

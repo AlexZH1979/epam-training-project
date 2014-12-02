@@ -18,8 +18,6 @@
             row.append("<td>" + o_obj[k].category + "</td>");
             row.append("<td> Address: " + o_obj[k].hotelAddress.address + "<br> City: " + o_obj[k].hotelAddress.city +
                     "<br> Country: " + o_obj[k].hotelAddress.county + "</td>");
-            row.append("<td> locDST:" + o_obj[k].hotelLocation.locDST + "<br> locLat:" + o_obj[k].hotelLocation.locLat +
-                    "<br> locLong: " + o_obj[k].hotelLocation.locLong + "</td>");
             $(o_id).append(row);
             i++;
         }
@@ -50,7 +48,6 @@
         <th>Name</th>
         <th>Category</th>
         <th>Address</th>
-        <th>Location</th>
     </tr>
     </thead>
     <tbody id="tableBody">

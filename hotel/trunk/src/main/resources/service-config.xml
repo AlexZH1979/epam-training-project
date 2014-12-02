@@ -24,7 +24,7 @@
             </list>
         </property>
     </bean>
-    <bean id="userEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.UserEntityToLongConverter"/>
+    <bean id="userEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.UserEntityToIntegerConverter"/>
     <bean id="roomEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.RoomEntityToIntegerConverter"/>
     <bean id="passwordConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.UserPasswordToHashcodeConverter"/>
     <bean id="addressCountyConventer" class="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCountyToStringConverter"/>

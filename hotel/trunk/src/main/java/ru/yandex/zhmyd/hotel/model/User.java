@@ -3,7 +3,7 @@ package ru.yandex.zhmyd.hotel.model;
 @SuppressWarnings("unused")
 public class User {
 
-	private Long id;
+	private Integer id;
 
 	//@Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters long")
 	private String firstName;
@@ -23,7 +23,7 @@ public class User {
 	private Gender gender;
 	private UserRole role;
 
-    public Long getId() {
+    public Integer getId() {
 		return id;
 	}
 

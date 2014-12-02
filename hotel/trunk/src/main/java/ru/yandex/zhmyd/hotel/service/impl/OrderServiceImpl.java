@@ -27,7 +27,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
     private UserDao userDao;
 
     @Override
-    public List<Order> getOrdersByUserId(Long id) {
+    public List<Order> getOrdersByUserId(Integer id) {
         //TODO
         UserEntity userEntity=userDao.getById(id);
         Criterion criterion= Restrictions.eq("customer", userEntity);

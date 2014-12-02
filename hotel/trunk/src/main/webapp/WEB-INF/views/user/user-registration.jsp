@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- TODO причем много и жестоко -->
+<c:url value="/login" var="login"/>
 <c:if test="${not empty error}">
     <div class="danger">
         <p class="alert alert-danger">${error}</p>
@@ -15,8 +16,11 @@
         <form:label path="firstName" cssClass="col-sm-4 control-label"><spring:message code="user.FirstName"/>:
         </form:label>
         <div class="col-sm-8">
-            <form:input class="form-control" path="firstName"/>
-            <form:errors path="firstName" cssClass="alert alert-danger"/>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                <form:input class="form-control" path="firstName"/>
+                <form:errors path="firstName" cssClass="alert alert-danger"/>
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -24,10 +28,10 @@
         </form:label>
         <div class="col-sm-8">
             <div class="input-group">
-                <div class="input-group-addon"><span class="glyphicons glyphicons-user" aria-hidden="true"></span></div>
-            <form:input class="form-control" path="lastName"/>
-            <form:errors path="lastName" cssClass="alert alert-danger"/>
-                </div>
+                <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
+                <form:input class="form-control" path="lastName"/>
+                <form:errors path="lastName" cssClass="alert alert-danger"/>
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -74,5 +78,5 @@
         </div>
     </div>
     <input name="submit" type="submit" class="btn btn-success" value="Save"/>
-    <input name="submit" type="submit" class="btn btn-warning" value="Cancel"/>
+    <input name="submit" type="submit" class="btn btn-warning" value="Cancel" onclick="location.href='${login}'"/>
 </form:form>

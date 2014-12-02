@@ -15,7 +15,7 @@
     <div class="form-group">
         <div class="col-sm-8">
             <div class="input-group">
-                <div class="input-group-addon"><span class="glyphicon glyphicon-user"/></div>
+                <div class="input-group-addon"><span class="glyphicon glyphicon-log-in"/></div>
                 <input type="text" id="username" name="username" class="form-control"
                        placeholder="<spring:message code='title.enter_login'/>"
                        title="<spring:message code='title.Login'/>">
@@ -25,17 +25,19 @@
     <div class="form-group">
         <div class="col-sm-8">
             <div class="input-group">
-                <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-lock"
+                          title="<spring:message code='title.password'/>"></span></div>
                 <input type="password" id="password" name="password" class="form-control"
-                       placeholder="<spring:message code='title.enter_password'/>"
-                       title="<spring:message code='title.password'/>">
+                       placeholder="<spring:message code='title.enter_password'/>">
             </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-8">
             <input name="submit" type="submit" class="btn btn-success" value="<spring:message code='title.signin'/>"/>
-            <input name="submit" type="button" class="btn btn-primary" onclick="location.href='${registration}'">
+            <input name="submit" type="button" class="btn btn-primary" value="<spring:message code='title.registration'/>"
+                   onclick="location.href='${registration}'">
         </div>
     </div>
 </form>

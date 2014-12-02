@@ -9,7 +9,7 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 @Repository
 @SuppressWarnings("unused")
-public class UserDaoImpl extends AbstractHibernateDao<UserEntity, Long> implements UserDao {
+public class UserDaoImpl extends AbstractHibernateDao<UserEntity, Integer> implements UserDao {
 
     @Override
     public UserEntity getByCredentials(final String login, final Integer passwordHasCode) {
@@ -21,7 +21,7 @@ public class UserDaoImpl extends AbstractHibernateDao<UserEntity, Long> implemen
     }
 
     @Override
-    public UserEntity getById(final Long id) {
+    public UserEntity getById(final Integer id) {
         return (UserEntity)  getSession().get(UserEntity.class, id);
     }
 }

@@ -29,7 +29,6 @@
         </property>
     </bean>
     <!--TODO validation support -->
-    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
     <!-- CURRENT DATABASE PROPERTY -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
@@ -62,7 +61,6 @@
             </list>
         </property>
     </bean>
-
     <!-- imports supported configured files -->
     <import resource="classpath:repository-config.xml"/>
     <import resource="classpath:service-config.xml"/>

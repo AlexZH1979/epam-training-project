@@ -9,7 +9,7 @@ public class Order {
     private Integer price;
     private Integer roomId;
     private Integer hotelId;
-    private Long customerId;
+    private Integer customerId;
     private Date startDate;
     private Date endDate;
     private Boolean confirmed;
@@ -34,11 +34,11 @@ public class Order {
         this.roomId = roomId;
     }
 
-    public Long getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Long customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
 
