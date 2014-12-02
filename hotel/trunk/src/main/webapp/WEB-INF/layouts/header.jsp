@@ -7,7 +7,7 @@
     );
 </script>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/header.css"/>" />
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="<c:url value="/login"/>"><spring:message code="app.Name"/></a>

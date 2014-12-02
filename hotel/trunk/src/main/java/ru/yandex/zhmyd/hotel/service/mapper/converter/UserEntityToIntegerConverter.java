@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
-public class UserEntityToLongConverter extends DozerConverter<UserEntity, Long> {
+public class UserEntityToIntegerConverter extends DozerConverter<UserEntity, Integer> {
     /**
      * Defines two types, which will take part transformation.
      * As Dozer supports bi-directional mapping it is not known which of the classes is source and
@@ -17,17 +17,17 @@ public class UserEntityToLongConverter extends DozerConverter<UserEntity, Long> 
     @Autowired
     private UserDao userDao;
 
-    public UserEntityToLongConverter() {
-        super(UserEntity.class, Long.class);
+    public UserEntityToIntegerConverter() {
+        super(UserEntity.class, Integer.class);
     }
 
     @Override
-    public Long convertTo(UserEntity source, Long destination) {
+    public Integer convertTo(UserEntity source, Integer destination) {
         return source.getId();
     }
 
     @Override
-    public UserEntity convertFrom(Long source, UserEntity destination) {
+    public UserEntity convertFrom(Integer source, UserEntity destination) {
         return userDao.getById(source);
     }
 }

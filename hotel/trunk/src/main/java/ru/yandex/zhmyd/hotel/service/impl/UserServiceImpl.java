@@ -17,7 +17,7 @@ import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
  */
 @Service
 @SuppressWarnings("unused")
-public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserDao, Long> implements UserService {
+public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserDao, Integer> implements UserService {
 
     private static final Logger LOG = Logger.getLogger(UserServiceImpl.class);
 

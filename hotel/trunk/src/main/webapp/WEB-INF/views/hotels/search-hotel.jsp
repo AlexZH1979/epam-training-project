@@ -44,11 +44,8 @@
 
 
     function listSizesResult(target_id, value) {
-
         var searchParameters = ["state", "county", "city", "address", "name"];
-
         $('#butt').button('loading')
-        //$('#butt').attr("disabled", "disabled")
         $(target_id).html("");
         $("#tableBody").html("");
         console.log("target_id "+target_id);

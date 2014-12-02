@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="string" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <h3><spring:message code="title.profile"/></h3>
-<c:if test="${not empty user}">
+<c:if test="${(not empty user) and (not empty currentUser)}">
     <b><spring:message code="title.Id"/> </b> ${currentUser.id}<br>
     <b>${currentUser.firstName} ${currentUser.lastName}</b> (<spring:message code="title.login"/> ${currentUser.login})<br>
    <b><spring:message code="user.Gender"/>: </b><spring:message code="gender.${currentUser.gender}"/><br>

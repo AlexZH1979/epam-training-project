@@ -24,11 +24,11 @@ public class UserServiceTest extends AbstractDaoTest{
         User user=new User();
         user.setFirstName("ftest");
         user.setLastName("ltest");
-        user.setLogin("ru/yandex/zhmyd/hotel/test");
-        user.setEmail("test@yandex.ru");
+        user.setLogin("ru/yandex");
+        user.setEmail("test@yandex.ru1");
         user.setGender(Gender.MALE);
         user.setRole(UserRole.CUSTOMER);
-        user.setPassword("ru/yandex/zhmyd/hotel/test");
+        user.setPassword("ru/yandex");
 
 
         LOG.info("SAVE USER: "+user);
@@ -38,10 +38,11 @@ public class UserServiceTest extends AbstractDaoTest{
         User user1=new User();
         user1.setFirstName("ftest");
         user1.setLastName("ltest");
-        user1.setLogin("ru/yandex/zhmyd/hotel/test");
+        user1.setLogin("ru/yandex");
         user1.setEmail("test1@yandex.ru");
         user1.setRole(UserRole.CUSTOMER);
-        user1.setPassword("ru/yandex/zhmyd/hotel/test");
+        user1.setPassword("ru/yandex");
+
 
         try {
             LOG.info("TEST DOUBLE SAVE USER");
@@ -51,9 +52,9 @@ public class UserServiceTest extends AbstractDaoTest{
         }
 
         LOG.info("TEST delete");
-        user=userService.getUserByCredits("ru/yandex/zhmyd/hotel/test", "ru/yandex/zhmyd/hotel/test");
+        user=userService.getUserByCredits("ru/yandex", "ru/yandex");
         LOG.info("FIND user="+user);
-        userService.delete(user);
+        userService.delete(user.getId());
         LOG.info("DELETED");
 
         LOG.info("GET USERS FROM INTERVAL 5-15");
