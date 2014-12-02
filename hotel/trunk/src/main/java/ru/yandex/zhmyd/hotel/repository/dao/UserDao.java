@@ -5,6 +5,6 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 public interface UserDao extends GenericDao<UserEntity, Integer>{
 	
-	UserEntity getByCredentials(final String login, final Integer passwordHasCode);
+	UserEntity getByCredentials(final String login, final String passwordHasCode);
 
 }

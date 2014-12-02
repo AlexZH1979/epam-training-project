@@ -12,7 +12,7 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 public class UserDaoImpl extends AbstractHibernateDao<UserEntity, Integer> implements UserDao {
 
     @Override
-    public UserEntity getByCredentials(final String login, final Integer passwordHasCode) {
+    public UserEntity getByCredentials(final String login, final String passwordHasCode) {
         Criteria cr = getSession().createCriteria(UserEntity.class, "users")
                 .add(Restrictions.eq("login", login))
                 .add(Restrictions.eq("passwordHashCode", passwordHasCode));

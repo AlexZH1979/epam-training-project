@@ -1,5 +1,7 @@
 package ru.yandex.zhmyd.hotel.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +25,15 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/profile")
 public class ProfileController {
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String showUserProfile(HttpSession session){
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+    public String showUserProfile(Authentication authentication,HttpSession session){
         Object userObject = session.getAttribute("user");
         if ((userObject != null) && (userObject instanceof User)) {
             User user = (User) userObject;
             return "redirect:/"+user.getId();
         }
-        return "redirect:/login";
+        return "profile";
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)

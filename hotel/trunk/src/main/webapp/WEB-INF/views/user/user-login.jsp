@@ -3,7 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<c:url value="/login" var="login"/>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<security:authorize access="isAuthenticated()">
+    <c:redirect url="/profile/"/>
+</security:authorize>
 <c:url value="/reg" var="registration"/>
 <h3>Please sign in</h3>
 <c:if test="${not empty error}">
@@ -11,7 +14,7 @@
         <p class="alert alert-danger">${error}</p>
     </div>
 </c:if>
-<form name='loginForm' action="${login}" method='POST' class="form-horizontal" role="form">
+<form name='loginForm' action="<c:url value='/j_spring_security_check'/> " method='POST' class="form-horizontal" role="form">
     <div class="form-group">
         <div class="col-sm-8">
             <div class="input-group">

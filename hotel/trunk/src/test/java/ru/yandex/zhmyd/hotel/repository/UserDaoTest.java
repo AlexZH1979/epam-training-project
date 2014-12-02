@@ -27,7 +27,7 @@ public class UserDaoTest extends AbstractDaoTest {
         UserEntity savedUser = userDao.getById(20);
         LOG.info("USER BY ID=20L: " + savedUser);
 
-        savedUser = userDao.getByCredentials("root", 3506402);
+        savedUser = userDao.getByCredentials("root", "roor");
         LOG.info("FIND BY CREDENTIALS login:[passHashcode:3506402<-password:root)]: "+savedUser);
 
         List<UserEntity> users = userDao.getAll();

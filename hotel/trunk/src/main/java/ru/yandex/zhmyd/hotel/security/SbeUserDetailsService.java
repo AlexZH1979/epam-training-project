@@ -1,9 +1,7 @@
-package ru.yandex.zhmyd.hotel.service.impl;
+package ru.yandex.zhmyd.hotel.security;
 
 
-import org.dozer.Mapper;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,13 +12,14 @@ import ru.yandex.zhmyd.hotel.repository.dao.impl.UserDaoImpl;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service("userService")
+@Transactional
 public class SbeUserDetailsService implements UserDetailsService {
-    @Autowired
-    private Mapper mapper;
+
     @Resource
     private UserDaoImpl userDao;
 
@@ -42,8 +41,10 @@ public class SbeUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("login is not found");
         }
         Set<GrantedAuthority> roles = new HashSet<>();
-        roles.add(new SimpleGrantedAuthority(userEntity.getRole().name()));
-        UserDetails userDetails = new org.springframework.security.core.userdetails.User(login, userEntity.getPasswordHashCode().toString(), roles);
+        roles.add(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().name()));
+        System.out.println(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().name()));
+        System.out.println(userEntity.getRole().name());
+        ApplicationUserDetails userDetails = new ApplicationUserDetails(userEntity, roles);
         return userDetails;
     }
 }
