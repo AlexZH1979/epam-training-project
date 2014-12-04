@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:url value="/orders/register/" var="register"/>
+<c:url value="/orders/register" var="register"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/resources/calendar/daterangepicker-bs3.css'/>"/>
 <script type="text/javascript" src="<c:url value='/resources/calendar/moment.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/calendar/daterangepicker.js'/>"></script>
@@ -38,13 +38,18 @@
             opens: 'center',
             startDate: orderDates.start,
             format: 'D MMMM, YYYY',
-            minDate: new Date()
+            minDate: orderDates.start
         }, function (start, end) {
             $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
             orderDates.start=start;
             orderDates.end=end;
     });
     })
+    function sendOrder(){
+        var lick='${register}?hotelId=${hotel.id}&startDate='+orderDates.start.valueOf()+
+                '&endDate='+orderDates.end.valueOf();
+        location.href=lick;
+    }
 </script>
 <div>
     <h3><spring:message code="title.Hotel"/></h3>
@@ -71,10 +76,9 @@
         </address>
         <div class="well">
             <div style="display: inline-block;">
-                <button type="button" class="btn btn-primary"
-                        onclick="location.href='${register}?hotelId=${hotel.id}&start='+
-                                orderDates.start.toDateString()+'&end='+orderDates.end.toDateString()">
-                    <spring:message code="send.Order"/></button>
+                <input type="button" class="btn btn-primary"
+                        onclick="sendOrder();"
+                        value="<spring:message code='send.Order'/>"/>
             </div>
             <div id="${calendar}" class="btn"
                  style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">

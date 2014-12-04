@@ -3,14 +3,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!-- TODO причем много и жестоко -->
-<c:url value="/login" var="login"/>
+<c:url value="/" var="start"/>
 <c:if test="${not empty error}">
     <div class="danger">
         <p class="alert alert-danger">${error}</p>
     </div>
 </c:if>
-<form:form action="${action}" method="post" commandName="client"
-           modelAttribute="registredUser" cssClass="form-horizontal">
+<form:form action="${action}" method="post" commandName="client" modelAttribute="client" cssClass="form-horizontal">
     <form:errors path="*" cssClass="errorblock" element="div"/>
     <div class="form-group">
         <form:label path="firstName" cssClass="col-sm-4 control-label"><spring:message code="user.FirstName"/>:
@@ -78,5 +77,5 @@
         </div>
     </div>
     <input name="submit" type="submit" class="btn btn-success" value="Save"/>
-    <input name="submit" type="submit" class="btn btn-warning" value="Cancel" onclick="location.href='${login}'"/>
+    <input name="submit" type="submit" class="btn btn-warning" value="Cancel" onclick="location.href='${start}'"/>
 </form:form>

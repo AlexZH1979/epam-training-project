@@ -6,6 +6,7 @@ import java.util.Date;
 public class Order {
 
     private Long id;
+    private RoomCategory roomCategory;
     private Integer price;
     private Integer roomId;
     private Integer hotelId;

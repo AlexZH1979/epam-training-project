@@ -16,11 +16,19 @@ public class RoomEntityToIntegerConverter extends DozerConverter<RoomEntity, Int
 
     @Override
     public Integer convertTo(RoomEntity source, Integer destination) {
-        return source.getId();
+        if(source!=null) {
+            return source.getId();
+        }else{
+            return null;
+        }
     }
 
     @Override
     public RoomEntity convertFrom(Integer source, RoomEntity destination) {
-        return roomDao.getById(source);
+        if(source!=null) {
+            return roomDao.getById(source);
+        }else{
+            return null;
+        }
     }
 }

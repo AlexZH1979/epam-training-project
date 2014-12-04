@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
+import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 
@@ -38,6 +39,11 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
         }
         LOG.debug("SEND from ru.yandex.zhmyd.hotel.ru.yandex.zhmyd.hotel.service getUser: " + user);
         return user;
+    }
+
+    @Override
+    public User getUserByPrincipal(ApplicationUserDetails details) {
+        return mapper.map(details.getAccount(),User.class);
     }
 
     @Override

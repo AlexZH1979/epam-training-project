@@ -9,13 +9,13 @@ http://www.springframework.org/schema/security/spring-security.xsd">
     <beans:bean id='bCryptPasswordEncoder' class='org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder'/>
 
     <http auto-config="true" use-expressions="true" access-denied-page="/access-denied">
-        <intercept-url pattern="/hotels/*" access="hasRole('ROLE_ADMINISTRATOR')"/>
+        <intercept-url pattern="/register/*" access="isFullyAuthenticated()"/>
         <form-login login-page="/login"
                     default-target-url="/profile"
                     username-parameter="username"
                     password-parameter="password"
                     authentication-failure-url="/login?error"/>
-        <logout logout-success-url="/login"/>
+        <logout logout-success-url="/hotels/search"/>
     </http>
 
     <global-method-security pre-post-annotations="enabled"/>

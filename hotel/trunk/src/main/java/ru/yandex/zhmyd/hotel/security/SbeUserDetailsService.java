@@ -42,8 +42,6 @@ public class SbeUserDetailsService implements UserDetailsService {
         }
         Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().name()));
-        System.out.println(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().name()));
-        System.out.println(userEntity.getRole().name());
         ApplicationUserDetails userDetails = new ApplicationUserDetails(userEntity, roles);
         return userDetails;
     }

@@ -34,11 +34,12 @@
             </div>
         </c:if>
         <c:if test="${empty user}">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 well">
-                <tiles:insertAttribute name="body" />
+            <div class="col-md-3">
+                <tiles:insertAttribute name="menu"/>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-9 well">
+                <tiles:insertAttribute name="body"/>
+            </div>
         </c:if>
     </div>
 </div>

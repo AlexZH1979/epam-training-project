@@ -24,6 +24,11 @@ public class OrderEntity {
     @JoinColumn(name = "room_id")
 	private RoomEntity room;
 
+    @Mapping("roomCategory")
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "room_category",  unique = false)
+    private RoomCategoryEntity roomCategory;
+
     @ManyToOne(targetEntity = UserEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
 	private UserEntity customer;
@@ -37,7 +42,7 @@ public class OrderEntity {
 	private Date endDate;
 
     @Mapping("confirmed")
-    @Column(name = "confurmed")
+    @Column(name = "confirmed")
 	private Boolean confirmed;
 
 	public final Integer getId() {
