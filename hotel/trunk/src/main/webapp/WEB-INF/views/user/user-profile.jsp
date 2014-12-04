@@ -9,5 +9,5 @@
     <b>${currentUser.firstName} ${currentUser.lastName}</b> (<spring:message code="title.login"/> ${currentUser.login})<br>
    <b><spring:message code="user.Gender"/>: </b><spring:message code="gender.${currentUser.gender}"/><br>
     <b><spring:message code="user.Role"/>: </b><spring:message code="role.${currentUser.role}"/><br>
-    <b><spring:message code="user.Email"/>: </b>${currentUser.email}
+    <b><spring:message code="user.Email"/>: </b><a href="mailto:">${currentUser.email}</a>
 </c:if>

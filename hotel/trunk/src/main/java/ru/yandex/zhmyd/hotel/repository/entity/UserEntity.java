@@ -3,11 +3,12 @@ package ru.yandex.zhmyd.hotel.repository.entity;
 import org.dozer.Mapping;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class UserEntity implements Serializable{
 
     @Id
     @Mapping("id")

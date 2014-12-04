@@ -46,6 +46,10 @@ public class HotelController {
         return mav;
     }
 
+   /*
+* TODO delete
+   * non used ajax methods
+    */
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> getHotels(@RequestBody final ListViewPart part){
@@ -78,6 +82,9 @@ public class HotelController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> searchHotelsByParameter(@RequestBody SearchParam param) {
+        if (param.getValue().isEmpty() || param.getValue().equals(" ")||param.getValue().equals("")) {
+            return null;
+        }
         switch (param.getParameter()) {
             case "name":
                 return searchHotelService.searchByName( param.getValue(),0,20);
@@ -94,6 +101,10 @@ public class HotelController {
     @RequestMapping(value = "/search/length", method = RequestMethod.POST)
     @ResponseBody
     public Long lengthSearchHotelsByParameter(@RequestBody SearchParam param) {
+        //TODO
+        if (param.getValue().isEmpty() || param.getValue().equals(" ")||param.getValue().equals("")) {
+            return null;
+        }
         switch (param.getParameter()) {
             case "name":
                 return searchHotelService.lengthSearchByName(param.getValue());
