@@ -25,6 +25,10 @@
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressStateEntity</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
+            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.HotelEntityToIntegerConverter">
+                <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelEntity</class-a>
+                <class-b>java.lang.Integer</class-b>
+            </converter>
         </custom-converters>
     </configuration>
     <mapping>
@@ -37,6 +41,10 @@
         <field custom-converter-param="room">
             <a>room</a>
             <b>roomId</b>
+        </field>
+        <field custom-converter-param="hotel">
+            <a>hotel</a>
+            <b>hotelId</b>
         </field>
     </mapping>
 </mappings> 

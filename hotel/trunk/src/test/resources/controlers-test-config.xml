@@ -12,7 +12,6 @@
     <!-- TODO review included spring-contexts and remove already scanning packages -->
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.conventers"/>
-    <context:component-scan base-package="ru.yandex.zhmyd.hotel.service"/>
 
     <!--<mvc:annotation-driven/>-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
@@ -28,10 +27,6 @@
         </property>
     </bean>
 
-    <!-- CURRENT DATABASE PROPERTY -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-          p:location="jdbc.properties"/>
-    <!-- end -->
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp" p:suffix=".jsp"/>
@@ -48,8 +43,4 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:messages" p:defaultEncoding="UTF-8"/>
 
-
-    <!-- imports supported configured files -->
-    <import resource="classpath:repository-config.xml"/>
-    <import resource="classpath:service-config.xml"/>
 </beans>

@@ -1,7 +1,6 @@
 package ru.yandex.zhmyd.hotel.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +24,6 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserDetailsService detailsService;
-
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String editUser(Model model) {
         User user=new User();
@@ -39,24 +35,20 @@ public class RegistrationController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public String newClientSubmit(@Valid @ModelAttribute("client") User client,
                                   BindingResult bindingResult, Model model) {
-        String view = "redirect:/profile";
         if (bindingResult.hasErrors()) {
-            view = "registration";
+            return "registration";
         } else {
+            //TODO set default role and encode password for user
             client.setRole(UserRole.CUSTOMER);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             client.setPassword(passwordEncoder.encode(client.getPassword()));
-
             try {
                 userService.save(client);
-              /*  UserDetails userDetails=detailsService.loadUserByUsername(client.getLogin());
-                Authentication authentication =  new UsernamePasswordAuthenticationToken(userDetails,userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);*/
             } catch (ServiceException e) {
                 model.addAttribute("errors",e.getMessage());
-                view = "registration";
+                return "registration";
             }
         }
-        return view;
+        return "redirect:/login";
     }
 }

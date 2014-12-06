@@ -32,7 +32,7 @@ public class ProfileController {
     private UserService userService;
 
     //TODO
-    @PreAuthorize("isFullyAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String showUserProfile(Authentication authentication, HttpSession session, Model model) {
         Object user=session.getAttribute("user");

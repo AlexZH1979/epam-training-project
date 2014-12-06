@@ -60,4 +60,7 @@ public class DisplayedOrder {
         return order.getHotelId();
     }
 
+    public RoomCategory getRoomCategory(){
+        return  order.getRoomCategory();
+    }
 }

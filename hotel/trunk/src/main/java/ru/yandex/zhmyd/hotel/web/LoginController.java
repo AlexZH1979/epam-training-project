@@ -26,7 +26,6 @@ public class LoginController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         if (logout != null) {
-            mav.addObject("msg", "You've been logged out successfully.");
             session.setAttribute("user", null);
             session.invalidate();
             mav.setViewName("search.hotel");

@@ -5,13 +5,14 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
-import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
 
 import javax.servlet.http.HttpSession;
@@ -40,8 +41,10 @@ public class OrderController {
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/{param}", method = RequestMethod.GET)
-    public String registerOrder(@MatrixVariable Map<String, Object> param, HttpSession session, Authentication authentication) {
+    public ModelAndView registerOrder(@MatrixVariable Map<String, Object> param, HttpSession session, Authentication authentication) {
         User user=(User)session.getAttribute("user");
+        DisplayedOrder displayedOrder;
+        ModelAndView mav = new ModelAndView();
         if (user == null) {
             ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
             user=userService.getUserByPrincipal(appUser);
@@ -50,19 +53,50 @@ public class OrderController {
         Order order = createOrder(param, user.getId());
         try {
             LOG.info("Before save order: " + order);
-            orderService.save(order);
-        } catch (ServiceException e) {
+            //TODO
+            displayedOrder = orderService.convertToDisplayedOrder(order);
+            mav.addObject("order", displayedOrder);
+            mav.setViewName("confurm.order");
+            session.setAttribute("order", order);
+        } catch (Exception e) {
+            mav.setViewName("error");
         }
-        return "search.hotel";
+        return mav;
     }
 
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping(value = "/register/send", method = RequestMethod.GET)
+    public String sendOrder(HttpSession session) {
+        //TODO
+        try {
+            Order order = (Order) session.getAttribute("order");
+            orderService.save(order);
+        }catch (Exception e){
+            //TODO
+            return "error";
+        }
+        return "redirect:order.list";
+    }
+
+    /*
+     *========================
+     * -------AJAX METHODS----
+     * =======================
+     */
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
-    public List<Order> getOrders(@RequestBody final ListViewPart  part){
-        return orderService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
+    public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part) {
+        List<Order> orders = orderService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
+        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
+        return displayedOrders;
 
     }
 
+    /*
+    *==========================================
+    *  ------------- PRIVATE METHODS-----------
+    * =========================================
+    */
     private Order createOrder(Map<String, Object> param, Integer userId) throws IllegalArgumentException {
         Set<Map.Entry<String, Object>> entrySet = param.entrySet();
         Order order = new Order();
@@ -88,7 +122,8 @@ public class OrderController {
                     case "roomCategory":
                         order.setRoomCategory(RoomCategory.valueOf(value));
                         break;
-
+                    default:
+                        throw new Exception();
                 }
             }
         } catch (Exception e) {
