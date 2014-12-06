@@ -13,9 +13,12 @@
 
         var i = 0;
         for (var k in o_obj) {
+            var start =new Date(o_obj[k].startDate);
+            var end=new Date(o_obj[k].endDate);
             var row = $('<tr id="c_' + i + '"></tr>');
             row.append("<td>" + o_obj[k].id + "</td>");
-            row.append("<td>" + o_obj[k].price + "</td>");
+            row.append("<td>" + new Date(o_obj[k].startDate).toLocaleDateString() + "</td>");
+            row.append("<td>" + new Date(o_obj[k].endDate).toLocaleDateString() + "</td>");
             var link = $("<td></td>");
             link.append('<a href="' + ${profile} +o_obj[k].customerId + '">link</a>');
             row.append(link);
@@ -43,8 +46,9 @@
 <table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th>Order ID</th>
-        <th>Price</th>
+        <th class="col-sm-pull-1">Order ID</th>
+        <th>Start Date</th>
+        <th>End Date</th>
         <th>Client link</th>
     </tr>
     </thead>

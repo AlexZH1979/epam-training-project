@@ -10,7 +10,7 @@
 <div class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="<c:url value="/login"/>"><spring:message code="app.Name"/></a>
+			<a class="navbar-brand" href="${startPage}"><spring:message code="app.Name"/></a>
 			<c:if test="${user.role eq 'ADMINISTRATOR'}">
 				<a class="navbar-brand" href="<c:url value="/users/"/>">View Clients</a>
 			</c:if>

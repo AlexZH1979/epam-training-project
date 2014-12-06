@@ -78,7 +78,6 @@ public class HotelController {
      *
      */
 
-    //TODO
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> searchHotelsByParameter(@RequestBody SearchParam param) {
@@ -101,7 +100,6 @@ public class HotelController {
     @RequestMapping(value = "/search/length", method = RequestMethod.POST)
     @ResponseBody
     public Long lengthSearchHotelsByParameter(@RequestBody SearchParam param) {
-        //TODO
         if (param.getValue().isEmpty() || param.getValue().equals(" ")||param.getValue().equals("")) {
             return null;
         }

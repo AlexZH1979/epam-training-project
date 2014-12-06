@@ -10,14 +10,13 @@
 
     <context:annotation-config/>
 
-    <!-- TODO review included spring-contexts and remove already scanning packages -->
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.conventers"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.service"/>
 
     <!--<mvc:annotation-driven/>-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-    <mvc:annotation-driven conversion-service="conversionService" />
+    <mvc:annotation-driven conversion-service="conversionService" enableMatrixVariables="true"/>
 
     <bean id="conversionService"
           class="org.springframework.context.support.ConversionServiceFactoryBean">

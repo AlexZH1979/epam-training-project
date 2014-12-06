@@ -23,13 +23,13 @@ public class LoginController {
     @PreAuthorize("permitAll")
     @RequestMapping(value = {"/login"}, method = {RequestMethod.GET})
     public ModelAndView login(Authentication authentication, HttpSession session, @RequestParam(value = "logout", required = false) String logout) {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("login");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login");
         if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
+            mav.addObject("msg", "You've been logged out successfully.");
             session.setAttribute("user", null);
             session.invalidate();
-            model.setViewName("search.hotel");
+            mav.setViewName("search.hotel");
         } else if (isUserSessionFound(session)) {
             Object user=session.getAttribute("user");
 
@@ -38,14 +38,14 @@ public class LoginController {
                 user = userService.getUserByPrincipal(appUser);
             }
             session.removeAttribute("user");
-            model.addObject("currentUser", user);
+            mav.addObject("currentUser", user);
             session.setAttribute("user", user);
-            model.setViewName("profile");
+            mav.setViewName("profile");
         }
-        return model;
+        return mav;
     }
 
-    //REDIRECT CURRENT START PAGE
+    @PreAuthorize("permitAll")
     @RequestMapping(value = {"", "/"}, method = {RequestMethod.GET})
     public String firstPage() {
         return "redirect:/hotels/search";
