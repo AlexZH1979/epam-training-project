@@ -15,6 +15,8 @@
             <list>
                 <ref bean="userEntityConverter"/>
                 <ref bean="roomEntityConverter"/>
+                <ref bean="hotelEntityConverter"/>
+                <ref bean="addressCountyConverter"/>
             </list>
         </property>
         <property name="mappingFiles">
@@ -25,5 +27,6 @@
     </bean>
     <bean id="userEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.UserEntityToIntegerConverter"/>
     <bean id="roomEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.RoomEntityToIntegerConverter"/>
-    <bean id="addressCountyConventer" class="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCountyToStringConverter"/>
+    <bean id="addressCountyConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCountyToStringConverter"/>
+    <bean id="hotelEntityConverter" class="ru.yandex.zhmyd.hotel.service.mapper.converter.HotelEntityToIntegerConverter"/>
 </beans>

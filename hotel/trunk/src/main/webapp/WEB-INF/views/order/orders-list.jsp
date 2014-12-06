@@ -4,6 +4,7 @@
 
 <c:url value="/orders/ajax" var="ajaxPath"/>
 <c:url value="/profile/" var="profile"/>
+<c:url value="/hotels/" var="hotel"/>
 <script type="text/javascript">
     var body_id = '#tableBody';
 
@@ -13,14 +14,15 @@
 
         var i = 0;
         for (var k in o_obj) {
-            var start =new Date(o_obj[k].startDate);
-            var end=new Date(o_obj[k].endDate);
             var row = $('<tr id="c_' + i + '"></tr>');
-            row.append("<td>" + o_obj[k].id + "</td>");
+            var link = $("<td></td>");
+            link.append('<a href="' + ${hotel}+o_obj[k].hotelId + '"> ' +o_obj[k].hotelName+ '</a>');
+            row.append(link);
+            row.append("<td>"+o_obj[k].roomCategory+"</td>");
             row.append("<td>" + new Date(o_obj[k].startDate).toLocaleDateString() + "</td>");
             row.append("<td>" + new Date(o_obj[k].endDate).toLocaleDateString() + "</td>");
-            var link = $("<td></td>");
-            link.append('<a href="' + ${profile} +o_obj[k].customerId + '">link</a>');
+            link = $("<td></td>");
+            link.append('<a href="' + ${profile} +o_obj[k].customerId + '">'+o_obj[k].userFullName+'</a>');
             row.append(link);
             $(o_id).append(row);
             i++;
@@ -46,7 +48,8 @@
 <table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th class="col-sm-pull-1">Order ID</th>
+        <th>Hotel</th>
+        <th>Room Category</th>
         <th>Start Date</th>
         <th>End Date</th>
         <th>Client link</th>

@@ -24,6 +24,5 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <authentication-provider user-service-ref="userDetailService">
             <password-encoder ref="bCryptPasswordEncoder"/>
         </authentication-provider>
-
     </authentication-manager>
 </beans:beans>

@@ -42,11 +42,12 @@
                 </ul>
             </li>
             <c:if test="${not empty user}">
-                <li><a href="<c:url value="/profile/${user.id}" />">${user.firstName} (ID: ${user.id})</a></li>
+                <li><a href="<c:url value="/profile/"/>">${user.firstName}</a></li>
                 <li><a href="<c:url value="/j_spring_security_logout"/>">Logout</a></li>
             </c:if>
             <c:if test="${empty user}">
                 <li><a href="<c:url value="/login"/>">Log In</a></li>
+                <li><a href="<c:url value="/reg/"/>">Registration</a></li>
             </c:if>
         </ul>
     </div>

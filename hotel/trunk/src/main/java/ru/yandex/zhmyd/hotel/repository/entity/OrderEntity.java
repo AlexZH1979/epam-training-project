@@ -20,9 +20,15 @@ public class OrderEntity {
     @Column(name = "price")
 	private Integer price;
 
+    @Mapping("roomId")
     @ManyToOne(targetEntity = RoomEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
 	private RoomEntity room;
+
+    @Mapping("hotelId")
+    @ManyToOne(targetEntity = HotelEntity.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+	private HotelEntity hotel;
 
     @Mapping("roomCategory")
     @Enumerated(EnumType.ORDINAL)
@@ -101,4 +107,19 @@ public class OrderEntity {
 		this.confirmed = confirmed;
 	}
 
+    public HotelEntity getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(HotelEntity hotel) {
+        this.hotel = hotel;
+    }
+
+    public RoomCategoryEntity getRoomCategory() {
+        return roomCategory;
+    }
+
+    public void setRoomCategory(RoomCategoryEntity roomCategory) {
+        this.roomCategory = roomCategory;
+    }
 }

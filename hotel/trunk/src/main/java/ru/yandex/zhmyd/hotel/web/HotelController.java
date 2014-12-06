@@ -47,8 +47,12 @@ public class HotelController {
     }
 
    /*
-* TODO delete
-   * non used ajax methods
+    *
+    *
+    * TODO delete
+    *
+    *
+    * non used ajax methods
     */
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
