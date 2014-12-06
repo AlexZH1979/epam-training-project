@@ -20,6 +20,7 @@
     <script type="text/javascript" src="<c:url value='/resources/js/main.js' />"></script>
 </head>
 <body>
+<c:url value="/hotels/search" var="startPage"/>
 <div class="container">
     <div class="row">
         <tiles:insertAttribute name="header" />

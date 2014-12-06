@@ -1,5 +1,6 @@
 package ru.yandex.zhmyd.hotel.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -9,9 +10,14 @@ public class Order {
     private RoomCategory roomCategory;
     private Integer price;
     private Integer roomId;
+ private Integer places;
+    @NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
+    @NotNull(message = "Customer don\'t maybe empty")
     private Integer customerId;
+    @NotNull(message = "Order start date don\'t maybe empty")
     private Date startDate;
+    @NotNull(message = "Order end date don\'t maybe empty")
     private Date endDate;
     private Boolean confirmed;
 
@@ -73,6 +79,22 @@ public class Order {
 
     public void setHotelId(Integer hotelId) {
         this.hotelId = hotelId;
+    }
+
+    public RoomCategory getRoomCategory() {
+        return roomCategory;
+    }
+
+    public void setRoomCategory(RoomCategory roomCategory) {
+        this.roomCategory = roomCategory;
+    }
+
+    public Integer getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(Integer places) {
+        this.places = places;
     }
 
     @Override

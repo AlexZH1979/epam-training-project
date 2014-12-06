@@ -37,7 +37,7 @@ public class SbeUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         UserEntity userEntity = userDao.getByCriteria(Restrictions.eq("login", login)).get(0);
 
-        if ((userEntity == null)) {
+        if (userEntity == null) {
             throw new UsernameNotFoundException("login is not found");
         }
         Set<GrantedAuthority> roles = new HashSet<>();

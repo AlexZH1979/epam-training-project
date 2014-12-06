@@ -1,7 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:url value="/orders/register" var="register"/>
+<c:url value="/orders/register/param" var="registerPath"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/resources/calendar/daterangepicker-bs3.css'/>"/>
 <script type="text/javascript" src="<c:url value='/resources/calendar/moment.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/calendar/daterangepicker.js'/>"></script>
@@ -15,10 +15,34 @@
     }
 </style>
 <script>
-    var orderDates={
+    var orderDatas={
         start:new Date(),
-        end:new Date()
+        end:new Date(),
+        places:1,
+        roomCategory:"ECONOMY"
     };
+
+    //
+    $(document).ready(function () {
+        $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
+        $('\#${calendar}').daterangepicker({
+            opens: 'center',
+            startDate: orderDatas.start,
+            format: 'D MMMM, YYYY',
+            minDate: orderDatas.start
+        }, function (start, end) {
+            $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+            orderDatas.start=start;
+            orderDatas.end=end;
+    });
+    })
+    function sendOrder(){
+        location.href='${registerPath};hotelId=${hotel.id};start='+orderDatas.start.valueOf()+
+                ';end='+orderDatas.end.valueOf()+';places='+orderDatas.places+
+                ';roomCategory='+orderDatas.roomCategory;
+    }
+</script>
+<script type="text/javascript">
     //
     function initialize() {
         var mapOptions = {
@@ -31,25 +55,6 @@
     }
     //
     google.maps.event.addDomListener(window, 'load', initialize);
-    //
-    $(document).ready(function () {
-        $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
-        $('\#${calendar}').daterangepicker({
-            opens: 'center',
-            startDate: orderDates.start,
-            format: 'D MMMM, YYYY',
-            minDate: orderDates.start
-        }, function (start, end) {
-            $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-            orderDates.start=start;
-            orderDates.end=end;
-    });
-    })
-    function sendOrder(){
-        var lick='${register}?hotelId=${hotel.id}&startDate='+orderDates.start.valueOf()+
-                '&endDate='+orderDates.end.valueOf();
-        location.href=lick;
-    }
 </script>
 <div>
     <h3><spring:message code="title.Hotel"/></h3>

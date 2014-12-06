@@ -1,6 +1,7 @@
 package ru.yandex.zhmyd.hotel.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,8 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserDetailsService detailsService;
 
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String editUser(Model model) {
@@ -36,21 +39,24 @@ public class RegistrationController {
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public String newClientSubmit(@Valid @ModelAttribute("client") User client,
                                   BindingResult bindingResult, Model model) {
+        String view = "redirect:/profile";
         if (bindingResult.hasErrors()) {
-            model.addAllAttributes(bindingResult.getModel());
-            return "registration";
-        }
+            view = "registration";
+        } else {
+            client.setRole(UserRole.CUSTOMER);
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            client.setPassword(passwordEncoder.encode(client.getPassword()));
 
-        client.setRole(UserRole.CUSTOMER);
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //TODO
-        client.setPassword(passwordEncoder.encode(client.getPassword()));
-
-        try {
-            userService.save(client);
-        }catch (ServiceException e){
-            return "registration";
+            try {
+                userService.save(client);
+              /*  UserDetails userDetails=detailsService.loadUserByUsername(client.getLogin());
+                Authentication authentication =  new UsernamePasswordAuthenticationToken(userDetails,userDetails.getAuthorities());
+                SecurityContextHolder.getContext().setAuthentication(authentication);*/
+            } catch (ServiceException e) {
+                model.addAttribute("errors",e.getMessage());
+                view = "registration";
+            }
         }
-        return "redirect:/login";
+        return view;
     }
 }

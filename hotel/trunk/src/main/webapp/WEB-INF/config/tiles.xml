@@ -57,4 +57,8 @@
         <put-attribute name="title" value="Send order"/>
         <put-attribute name="body" value="/WEB-INF/views/order/order-send.jsp"/>
     </definition>
+    <definition name="error">
+        <put-attribute name="title" value="Error page"/>
+        <put-attribute name="body" value="error"/>
+    </definition>
 </tiles-definitions>
