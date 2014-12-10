@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:url value="/hotels/ajax" var="ajaxPath"/>
 <c:url value="/hotels/ajax/size" var="ajaxPathSize"/>
 <c:url value="/hotels/" var="hotel"/>
@@ -44,10 +45,10 @@
         </td>
     </tr>
     <tr>
-        <th>Hotel ID</th>
-        <th>Name</th>
-        <th>Category</th>
-        <th>Address</th>
+        <th><spring:message code="title.Hotel"/> <spring:message code="title.Id"/></th>
+        <th><spring:message code="title.Name"/></th>
+        <th><spring:message code="hotel.Category"/></th>
+        <th><spring:message code="address.Address"/></th>
     </tr>
     </thead>
     <tbody id="tableBody">

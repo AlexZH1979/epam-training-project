@@ -23,6 +23,14 @@ public class ListViewPart implements Serializable{
         this.selectCount = selectCount;
     }
 
+    public Integer getFirst(){
+       return Integer.parseInt(this.firstResult);
+    }
+
+    public Integer getCount(){
+       return Integer.parseInt(this.selectCount);
+    }
+
     @Override
     public String toString() {
         return "ListViewPart{" +

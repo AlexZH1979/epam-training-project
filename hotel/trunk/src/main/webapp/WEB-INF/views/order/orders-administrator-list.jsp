@@ -15,24 +15,6 @@
 
         var i = 0;
         for (var k in o_obj) {
-            var color;
-            var confirm;
-            switch (o_obj[k].confirmed) {
-                case true:
-                    color = "#0C0";
-                    confirm="Confirm";
-                    break;
-                case false:
-                    color = "#C00";
-                    confirm="Disc";
-                    break;
-                default:
-                    color = "";
-                    confirm="XZ";
-                    break;
-            }
-
-
             var row = $('<tr id="c_' + i + '"></tr>');
             var link = $("<td></td>");
             link.append('<a href="' + ${hotel}+o_obj[k].hotelId + '"> ' +o_obj[k].hotelName+ '</a>');
@@ -40,8 +22,9 @@
             row.append("<td>"+o_obj[k].roomCategory+"</td>");
             row.append("<td>" + new Date(o_obj[k].startDate).toDateString() + "</td>");
             row.append("<td>" + new Date(o_obj[k].endDate).toDateString() + "</td>");
-            //TODO visual check
-            row.append("<td style='background: "+color+";'>" + confirm + "</td>");
+            link = $("<td></td>");
+            link.append('<a href="' + ${profile} +o_obj[k].customerId + '">'+o_obj[k].userFullName+'</a>');
+            row.append(link);
             $(o_id).append(row);
             i++;
         }
@@ -64,11 +47,11 @@
 <table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th><spring:message code="title.Hotel"/></th>
-        <th><spring:message code="title.Room_Category"/></th>
-        <th><spring:message code="order.Start_Date"/></th>
-        <th><spring:message code="order.End_Date"/></th>
-        <th><spring:message code="order.Confurm"/></th>
+        <th><spring:message code="title.Hotel"/> </th>
+        <th><spring:message code="title.Room_Category"/> </th>
+        <th><spring:message code="order.Start_Date"/> </th>
+        <th><spring:message code="order.End_Date"/> </th>
+        <th><spring:message code="order.Customer"/> </th>
     </tr>
     </thead>
     <tbody id="tableBody">

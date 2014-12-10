@@ -20,6 +20,10 @@ public class OrderEntity {
     @Column(name = "price")
 	private Integer price;
 
+    @Mapping("places")
+    @Column(name = "places")
+    private Integer places;
+
     @Mapping("roomId")
     @ManyToOne(targetEntity = RoomEntity.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
@@ -121,5 +125,13 @@ public class OrderEntity {
 
     public void setRoomCategory(RoomCategoryEntity roomCategory) {
         this.roomCategory = roomCategory;
+    }
+
+    public Integer getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(Integer places) {
+        this.places = places;
     }
 }

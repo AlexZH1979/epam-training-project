@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/reg")
-public class RegistrationController {
+public class RegistrationUserController {
 
     @Autowired
     private UserService userService;

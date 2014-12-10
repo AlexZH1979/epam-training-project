@@ -8,9 +8,17 @@ import java.util.List;
 public interface OrderService extends BasicService<Order, Integer>{
 
     public List<Order> getOrdersByUserId(Integer userId);
-    public List<DisplayedOrder> getDisplayedOrdersByUserId(Integer id);
+
+    List<Order> getIntervalOrdersByUserId(Integer id, Integer begin, Integer count);
+
+    List<Order> getIntervalOrdersByHotelId(Integer hotelId, Integer begin, Integer count);
+
     public DisplayedOrder convertToDisplayedOrder(Order order);
+
     @Deprecated
     public List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders);
+
     public void delete(Integer id);
+
+
 }

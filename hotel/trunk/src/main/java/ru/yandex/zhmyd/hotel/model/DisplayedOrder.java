@@ -1,8 +1,11 @@
 package ru.yandex.zhmyd.hotel.model;
 
 
-import java.util.Date;
-
+/*
+*This class present order in view
+* have all displayed parameter, and not modified order
+*One way transform Order->DisplayedOrder
+ */
 public class DisplayedOrder {
     private Order order;
     private String userFullName;
@@ -44,12 +47,12 @@ public class DisplayedOrder {
         return order.getCustomerId();
     }
 
-    public Date getStartDate() {
-        return order.getStartDate();
+    public String getStartDate() {
+        return order.getStartDate().toGMTString();
     }
 
-    public Date getEndDate() {
-        return order.getEndDate();
+    public String getEndDate() {
+        return order.getEndDate().toGMTString();
     }
 
     public Boolean getConfirmed() {
@@ -62,5 +65,9 @@ public class DisplayedOrder {
 
     public RoomCategory getRoomCategory(){
         return  order.getRoomCategory();
+    }
+
+    public Integer getPlaces(){
+        return order.getPlaces();
     }
 }

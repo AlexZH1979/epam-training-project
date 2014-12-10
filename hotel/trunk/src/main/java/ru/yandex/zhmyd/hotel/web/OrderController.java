@@ -10,9 +10,9 @@ import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.model.User;
-import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
+import ru.yandex.zhmyd.hotel.web.util.ControllerUtil;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
 
 import javax.servlet.http.HttpSession;
@@ -34,25 +34,34 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-    public String getOrders() {
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+    public String getOrders(Authentication authentication, HttpSession session) {
+        User user=ControllerUtil.setUserSession(session, authentication,userService);
         return "order.list";
     }
 
+    //TODO
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+         @RequestMapping(value = "admin/{property}",method = RequestMethod.GET)
+         public String administrateOrders(@MatrixVariable(value ="property", required = false) Map<String, Object> property){
+        return null;
+    }
+
+
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/{param}", method = RequestMethod.GET)
-    public ModelAndView registerOrder(@MatrixVariable Map<String, Object> param, HttpSession session, Authentication authentication) {
-        User user=(User)session.getAttribute("user");
+    public ModelAndView registerOrder(@MatrixVariable Map<String, Object> param, HttpSession session,
+                                      Authentication authentication) {
+
+        User user = ControllerUtil.setUserSession(session, authentication, userService);
+
         DisplayedOrder displayedOrder;
         ModelAndView mav = new ModelAndView();
-        if (user == null) {
-            ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
-            user=userService.getUserByPrincipal(appUser);
-            session.setAttribute("user", user);
-        }
-        Order order = createOrder(param, user.getId());
+
         try {
-            LOG.info("Before save order: " + order);
+            Order order = createOrder(param, user.getId());
+            LOG.info("Before convert order: " + order);
             //TODO
             displayedOrder = orderService.convertToDisplayedOrder(order);
             mav.addObject("order", displayedOrder);
@@ -68,14 +77,17 @@ public class OrderController {
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public String sendOrder(HttpSession session) {
         //TODO
+        String view = "redirect:/orders";
         try {
             Order order = (Order) session.getAttribute("order");
             orderService.save(order);
         }catch (Exception e){
             //TODO
-            return "error";
+            view = "error";
+        } finally {
+            session.removeAttribute("order");
         }
-        return "redirect:order.list";
+        return view;
     }
 
     /*
@@ -83,13 +95,50 @@ public class OrderController {
      * -------AJAX METHODS----
      * =======================
      */
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
-    public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part) {
-        List<Order> orders = orderService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
+    public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part,Authentication authentication) {
+        Integer userId=ControllerUtil.getUser(authentication, userService).getId();
+        List<Order> orders = orderService.getIntervalOrdersByUserId(userId,part.getFirst(), part.getCount());
         List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
         return displayedOrders;
+    }
 
+    /*
+    * get orders in interval begin->begin+count
+     */
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = {"/ajax/all"}, method = RequestMethod.POST)
+    @ResponseBody
+    public List<DisplayedOrder> getAllOrders(@RequestBody final ListViewPart part) {
+        List<Order> orders = orderService.getInterval(part.getFirst(),part.getCount());
+        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
+        return displayedOrders;
+    }
+
+    /*
+    * get user orders in interval begin->begin+count
+     */
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = {"/ajax/user/{userId}"}, method = RequestMethod.POST)
+    @ResponseBody
+    public List<DisplayedOrder> getOrdersByUserId(@RequestBody final ListViewPart part,@PathVariable Integer userId) {
+        List<Order> orders = orderService.getIntervalOrdersByUserId(userId,part.getFirst(),part.getCount());
+        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
+        return displayedOrders;
+    }
+
+    /*
+    * get hotel orders in interval begin->begin+count
+     */
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = {"/ajax/hotel/{hotelId}"}, method = RequestMethod.POST)
+    @ResponseBody
+    public List<DisplayedOrder> getOrdersByHotelId(@RequestBody final ListViewPart part,@PathVariable Integer hotelId) {
+        List<Order> orders = orderService.getIntervalOrdersByHotelId(hotelId, part.getFirst(), part.getCount());
+        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
+        return displayedOrders;
     }
 
     /*
@@ -97,40 +146,35 @@ public class OrderController {
     *  ------------- PRIVATE METHODS-----------
     * =========================================
     */
-    private Order createOrder(Map<String, Object> param, Integer userId) throws IllegalArgumentException {
+    private Order createOrder(Map<String, Object> param, Integer userId) throws Exception {
         Set<Map.Entry<String, Object>> entrySet = param.entrySet();
         Order order = new Order();
         order.setCustomerId(userId);
-
-        try {
-            for (Map.Entry<String, Object> entry : entrySet) {
-                List list = (List) entry.getValue();
-                String value = (String) list.get(0);
-                switch (entry.getKey()) {
-                    case "hotelId":
-                        order.setHotelId(Integer.valueOf(value));
-                        break;
-                    case "start":
-                        order.setStartDate(new Date(Long.valueOf(value)));
-                        break;
-                    case "end":
-                        order.setEndDate(new Date(Long.valueOf(value)));
-                        break;
-                    case "places":
-                        order.setPlaces(Integer.valueOf(value));
-                        break;
-                    case "roomCategory":
-                        order.setRoomCategory(RoomCategory.valueOf(value));
-                        break;
-                    default:
-                        throw new Exception();
-                }
+        //if found unknown parameter throw exception
+        //TODO VALIDATE
+        for (Map.Entry<String, Object> entry : entrySet) {
+            List list = (List) entry.getValue();
+            String value = (String) list.get(0);
+            switch (entry.getKey()) {
+                case "hotelId":
+                    order.setHotelId(Integer.valueOf(value));
+                    break;
+                case "start":
+                    order.setStartDate(new Date(Long.valueOf(value)));
+                    break;
+                case "end":
+                    order.setEndDate(new Date(Long.valueOf(value)));
+                    break;
+                case "places":
+                    order.setPlaces(Integer.valueOf(value));
+                    break;
+                case "roomCategory":
+                    order.setRoomCategory(RoomCategory.valueOf(value));
+                    break;
+                default:
+                    throw new Exception();
             }
-        } catch (Exception e) {
-            LOG.warning(e.toString());
-            throw new IllegalArgumentException(e);
         }
-
         return order;
     }
 }
