@@ -40,14 +40,20 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         Criterion criterion= Restrictions.eq("customer", userEntity);
         return Util.map(mapper, dao.getByCriteria(criterion), Order.class);
     }
-
     @Override
-    public List<DisplayedOrder> getDisplayedOrdersByUserId(Integer id) {
-        UserEntity userEntity = userDao.getById(id);
-        Criterion criterion = Restrictions.eq("customer", userEntity);
-        return Util.map(mapper, dao.getByCriteria(criterion), DisplayedOrder.class);
+    public List<Order> getIntervalOrdersByUserId(Integer id, Integer begin, Integer count) {
+        UserEntity userEntity=userDao.getById(id);
+        Criterion criterion= Restrictions.eq("customer", userEntity);
+        return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
 
+
+    @Override
+    public List<Order> getIntervalOrdersByHotelId(Integer hotelId, Integer begin, Integer count) {
+        HotelEntity userEntity=hotelDao.getById(hotelId);
+        Criterion criterion= Restrictions.eq("hotel", userEntity);
+        return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
+    }
     @Override
     public DisplayedOrder convertToDisplayedOrder(Order order) {
         DisplayedOrder displayedOrder = new DisplayedOrder(order);
@@ -61,7 +67,6 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
     @Override
     public List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders) {
         List<DisplayedOrder> displayedOrders = new ArrayList<>(orders.size());
-        //cyclic call this.convertToDisplayedOrder(Order order)
         for (Order order : orders) {
             displayedOrders.add(convertToDisplayedOrder(order));
         }

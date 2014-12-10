@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<c:url value='/resources/calendar/daterangepicker.js'/>"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <c:set value="reportrange2" var="calendar"/>
+<c:set value="places" var="showPlaces"/>
 <style>
     #map-canvas {
         height: 300%;
@@ -15,35 +16,36 @@
     }
 </style>
 <script>
-    var orderDatas={
+    var orderDetails = {
         start:new Date(),
         end:new Date(),
         places:1,
         roomCategory:"ECONOMY"
     };
-
-    //
     $(document).ready(function () {
         $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
         $('\#${calendar}').daterangepicker({
             opens: 'center',
-            startDate: orderDatas.start,
+            startDate: orderDetails.start,
             format: 'D MMMM, YYYY',
-            minDate: orderDatas.start
+            minDate: orderDetails.start
         }, function (start, end) {
             $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-            orderDatas.start=start;
-            orderDatas.end=end;
+            orderDetails.start = start;
+            orderDetails.end = end;
+        });
     });
-    })
     function sendOrder(){
-        location.href='${registerPath};hotelId=${hotel.id};start='+orderDatas.start.valueOf()+
-                ';end='+orderDatas.end.valueOf()+';places='+orderDatas.places+
-                ';roomCategory='+orderDatas.roomCategory;
+        location.href = '${registerPath};hotelId=${hotel.id};start=' + orderDetails.start.valueOf() +
+                ';end=' + orderDetails.end.valueOf() + ';places=' + orderDetails.places +
+                ';roomCategory=' + orderDetails.roomCategory;
+    }
+    function setPlaces(places) {
+        orderDetails.places = places;
+        $('\#${showPlaces}').html(places);
     }
 </script>
 <script type="text/javascript">
-    //
     function initialize() {
         var mapOptions = {
             zoom:12,
@@ -53,7 +55,6 @@
         var map = new google.maps.Map(document.getElementById('map-canvas'),
                 mapOptions);
     }
-    //
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <div>
@@ -80,10 +81,18 @@
             </c:if>
         </address>
         <div class="well">
+            <label style="text-align: center;"><spring:message code="order.Create"/></label>
+            <form>
+                <p><spring:message code="title.Places"/>: <span id="${showPlaces}">1</span></p>
+                <input type="radio" name="places" value="1" onchange="setPlaces($(this).val());" checked/>
+                <input type="radio" name="places" value="2" onchange="setPlaces($(this).val());"/>
+                <input type="radio" name="places" value="3" onchange="setPlaces($(this).val());"/>
+                <input type="radio" name="places" value="4" onchange="setPlaces($(this).val());"/>
+            </form>
             <div style="display: inline-block;">
                 <input type="button" class="btn btn-primary"
-                        onclick="sendOrder();"
-                        value="<spring:message code='send.Order'/>"/>
+                       onclick="sendOrder();"
+                       value="<spring:message code='send.Order'/>"/>
             </div>
             <div id="${calendar}" class="btn"
                  style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -92,6 +101,11 @@
                 <b class="caret"></b>
             </div>
         </div>
-        <div id="map-canvas" class="col-md-4 well"></div>
+        <div id="map " hidden="hidden">
+            <!-- TODO -->
+            <span>Show map</span>
+
+            <div id="map-canvas" class="col-md-4 well"></div>
+        </div>
     </c:if>
 </div>

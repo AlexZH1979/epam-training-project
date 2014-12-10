@@ -3,14 +3,12 @@ package ru.yandex.zhmyd.hotel.model;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-
 public class Order {
 
     private Long id;
     private RoomCategory roomCategory;
     private Integer price;
     private Integer roomId;
- private Integer places;
     @NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
     @NotNull(message = "Customer don\'t maybe empty")
@@ -20,6 +18,8 @@ public class Order {
     @NotNull(message = "Order end date don\'t maybe empty")
     private Date endDate;
     private Boolean confirmed;
+
+    private Integer places;
 
     public Long getId() {
         return id;
