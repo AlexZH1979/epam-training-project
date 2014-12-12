@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.yandex.zhmyd.hotel.model.Hotel;
+import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
@@ -42,6 +43,7 @@ public class HotelController {
     public ModelAndView getHotels(@PathVariable("hotelId") Hotel hotel){
         ModelAndView mav=new ModelAndView();
         mav.addObject("hotel", hotel);
+        mav.addObject("roomCategory", RoomCategory.values());
         mav.setViewName("hotel");
         return mav;
     }

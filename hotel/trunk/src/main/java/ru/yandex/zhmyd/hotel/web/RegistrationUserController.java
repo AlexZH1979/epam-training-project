@@ -1,7 +1,6 @@
 package ru.yandex.zhmyd.hotel.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.yandex.zhmyd.hotel.model.Gender;
 import ru.yandex.zhmyd.hotel.model.User;
-import ru.yandex.zhmyd.hotel.model.UserRole;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 
@@ -38,12 +36,8 @@ public class RegistrationUserController {
         if (bindingResult.hasErrors()) {
             return "registration";
         } else {
-            //TODO set default role and encode password for user
-            client.setRole(UserRole.CUSTOMER);
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            client.setPassword(passwordEncoder.encode(client.getPassword()));
             try {
-                userService.save(client);
+                userService.registrationCustomer(client);
             } catch (ServiceException e) {
                 model.addAttribute("errors",e.getMessage());
                 return "registration";

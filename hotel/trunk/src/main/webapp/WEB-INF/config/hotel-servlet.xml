@@ -27,8 +27,6 @@
             </set>
         </property>
     </bean>
-    <!--TODO validation support -->
-
     <!-- CURRENT DATABASE PROPERTY -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/config/jdbc.properties"/>

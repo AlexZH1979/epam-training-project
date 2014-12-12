@@ -4,8 +4,10 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.yandex.zhmyd.hotel.model.User;
+import ru.yandex.zhmyd.hotel.model.UserRole;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
@@ -44,6 +46,14 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
     @Override
     public User getUserByPrincipal(ApplicationUserDetails details) {
         return mapper.map(details.getAccount(),User.class);
+    }
+
+    @Override
+    public void registrationCustomer(User customer) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        customer.setRole(UserRole.CUSTOMER);
+        save(customer);
     }
 
     @Override

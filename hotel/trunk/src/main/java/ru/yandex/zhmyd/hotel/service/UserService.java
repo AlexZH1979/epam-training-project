@@ -11,4 +11,5 @@ public interface UserService extends BasicService<User, Integer> {
     public User getUserByCredits(String login, String password);
     public User getUserByPrincipal(ApplicationUserDetails details);
 
+    void registrationCustomer(User customer);
 }
