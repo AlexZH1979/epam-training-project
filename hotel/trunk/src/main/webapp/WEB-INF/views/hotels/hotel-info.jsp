@@ -8,6 +8,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <c:set value="reportrange2" var="calendar"/>
 <c:set value="places" var="showPlaces"/>
+<c:set value="category" var="showCategory"/>
 <style>
     #map-canvas {
         height: 300%;
@@ -23,6 +24,9 @@
         roomCategory:"ECONOMY"
     };
     $(document).ready(function () {
+        $('#place_1').attr('checked', 'checked');
+        $('#category_ECONOMY').toggle('toggle');
+
         $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
         $('\#${calendar}').daterangepicker({
             opens: 'center',
@@ -44,6 +48,12 @@
         orderDetails.places = places;
         $('\#${showPlaces}').html(places);
     }
+    ;
+
+    function setCategory(category) {
+        orderDetails.roomCategory = category;
+        $('\#${showCategory}').html(category);
+    }
 </script>
 <script type="text/javascript">
     function initialize() {
@@ -58,9 +68,11 @@
     google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 <div>
-    <h3><spring:message code="title.Hotel"/></h3>
+    <div class="row">
     <c:if test="${not empty hotel}">
-        <address>
+        <div class="col-md-5">
+            <h3><b><spring:message code="title.Hotel"/></b></h3>
+            <address>
             <h3><strong><i>${hotel.name}</i></strong></h3>
             <h4><spring:message code="hotel.Category"/>: ${hotel.category}</h4>
             <h4><b><spring:message code="address.Address"/>:</b></h4>
@@ -80,32 +92,46 @@
                 <b><spring:message code="address.ZIP"/>: </b>${hotel.hotelAddress.zip}<br>
             </c:if>
         </address>
-        <div class="well">
-            <label style="text-align: center;"><spring:message code="order.Create"/></label>
-            <form>
-                <p><spring:message code="title.Places"/>: <span id="${showPlaces}">1</span></p>
-                <input type="radio" name="places" value="1" onchange="setPlaces($(this).val());" checked/>
-                <input type="radio" name="places" value="2" onchange="setPlaces($(this).val());"/>
-                <input type="radio" name="places" value="3" onchange="setPlaces($(this).val());"/>
-                <input type="radio" name="places" value="4" onchange="setPlaces($(this).val());"/>
-            </form>
-            <div style="display: inline-block;">
-                <input type="button" class="btn btn-primary"
-                       onclick="sendOrder();"
-                       value="<spring:message code='send.Order'/>"/>
-            </div>
-            <div id="${calendar}" class="btn"
-                 style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
+        </div>
+        <div class="col-md-7">
+            <div class="well">
+                <label style="text-align: center;"><spring:message code="order.Create"/></label>
+                <div>
+                    <div tyle="display: inline-block;">
+                        <c:forEach begin="1" end="4" var="place">
+                            <input id="place_${place}" type="radio" name="places" value="${place}"
+                                   onchange="setPlaces($(this).val());"/>
+                        </c:forEach>
+                        <p><spring:message code="title.Places"/>: <span id="${showPlaces}">1</span></p>
+                    </div>
+                    <div class="btn-group" data-toggle="buttons">
+                        <c:forEach items="${roomCategory}" var="category">
+                            <label class="btn btn-sm btn-success">
+                                <input id="category_${category}" type="radio" name="category" value="${category}"
+                                       onchange="setCategory($(this).val());"/>${category}
+                            </label>
+                        </c:forEach>
+                    </div>
+                    <div style="display: inline-block;" class="btn">
+                        <!-- TODO -->
+                        <p><spring:message code="title.Room_Category"/>: <span id="${showCategory}">ECONOMY</span></p>
+                    </div>
+                </div>
+                <div style="display: inline-block;">
+                    <input type="button" class="btn btn-sm btn-primary"
+                           onclick="sendOrder();"
+                           value="<spring:message code='send.Order'/>"/>
+                </div>
+                <div id="${calendar}" class="btn"
+                     style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                 <span></span>
                 <b class="caret"></b>
             </div>
         </div>
-        <div id="map " hidden="hidden">
-            <!-- TODO -->
-            <span>Show map</span>
-
-            <div id="map-canvas" class="col-md-4 well"></div>
-        </div>
+    </div>
+    <div>
+        <div id="map-canvas" class="col-md-4 well"></div>
+    </div>
     </c:if>
 </div>

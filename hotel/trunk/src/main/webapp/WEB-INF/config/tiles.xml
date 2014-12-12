@@ -53,10 +53,6 @@
         <put-attribute name="title" value="Search"/>
         <put-attribute name="body" value="/WEB-INF/views/hotels/search-hotel.jsp"/>
     </definition>
-    <definition name="order.send" extends="base.definition">
-        <put-attribute name="title" value="Send order"/>
-        <put-attribute name="body" value="/WEB-INF/views/order/order-send.jsp"/>
-    </definition>
     <definition name="error">
         <put-attribute name="title" value="Error page"/>
         <put-attribute name="body" value="error"/>
