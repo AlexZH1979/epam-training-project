@@ -27,18 +27,15 @@
     </div>
     <div class="row" >
         <c:if test="${not empty user}">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <tiles:insertAttribute name="menu" />
             </div>
-            <div class="col-md-9 well">
+            <div class="col-md-10 well">
                 <tiles:insertAttribute name="body" />
             </div>
         </c:if>
         <c:if test="${empty user}">
-            <div class="col-md-3">
-                <tiles:insertAttribute name="menu"/>
-            </div>
-            <div class="col-md-9 well">
+            <div class="col-md-12 well">
                 <tiles:insertAttribute name="body"/>
             </div>
         </c:if>

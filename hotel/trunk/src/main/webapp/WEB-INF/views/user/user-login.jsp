@@ -8,13 +8,17 @@
     <c:redirect url="/profile/"/>
 </security:authorize>
 <c:url value="/reg/" var="registration"/>
-<h3><spring:message code="title.signin"/></h3>
 <c:if test="${not empty error}">
     <div class="danger">
         <p class="alert alert-danger">${error}</p>
     </div>
 </c:if>
-<form name='loginForm' action="<c:url value='/j_spring_security_check'/> " method='POST' class="form-horizontal" role="form">
+<div class="col-md-3"></div>
+<div class="col-md-6 well">
+    <h3><spring:message code="title.signin"/></h3>
+
+    <form name='loginForm' action="<c:url value='/j_spring_security_check'/> " method='POST' class="form-horizontal"
+          role="form">
     <form:errors path="*" cssClass="errorblock" element="div"/>
     <div class="form-group">
         <div class="col-sm-8">
@@ -45,3 +49,5 @@
         </div>
     </div>
 </form>
+</div>
+<div class="col-md-3"></div>
