@@ -7,7 +7,9 @@
         <p class="alert alert-danger">${errors}</p>
     </div>
 </c:if>
-<form:form action="${action}" method="post" commandName="client" modelAttribute="client" cssClass="form-horizontal">
+<div class="col-md-3"></div>
+<div class="col-md-6 well">
+    <form:form action="${action}" method="post" commandName="client" modelAttribute="client" cssClass="form-horizontal">
     <div class="form-group">
         <form:label path="firstName" cssClass="col-sm-4 control-label"><spring:message code="user.FirstName"/>:
         </form:label>
@@ -76,3 +78,5 @@
     <input name="submit" type="submit" class="btn btn-success" value="Save"/>
     <input name="submit" type="button" class="btn btn-sm btn-warning" value="Cancel" onclick="window.history.back()"/>
 </form:form>
+</div>
+<div class="col-md-3"></div>

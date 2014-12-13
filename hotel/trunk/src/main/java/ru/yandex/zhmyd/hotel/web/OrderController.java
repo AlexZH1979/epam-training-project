@@ -1,5 +1,6 @@
 package ru.yandex.zhmyd.hotel.web;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -12,21 +13,18 @@ import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
+import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.web.util.ControllerUtil;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.Logger;
+import java.util.*;
 
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
 
-    private static final Logger LOG = Logger.getLogger(OrderController.class.getName());
+    private static final Logger LOG = Logger.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -36,8 +34,7 @@ public class OrderController {
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String getOrders(Authentication authentication, HttpSession session) {
-        User user=ControllerUtil.setUserSession(session, authentication,userService);
+    public String getOrders() {
         return "order.list";
     }
 
@@ -95,6 +92,25 @@ public class OrderController {
      * -------AJAX METHODS----
      * =======================
      */
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public List<String> deleteOrders(@RequestBody List<String> listId) {
+            List<String> deletedId=new ArrayList<>();
+        LOG.info("GET to delete List ids="+listId);
+        for (String id : listId) {
+            LOG.info("GET to delete id="+Integer.valueOf(id));
+            try {
+                orderService.delete(Integer.valueOf(id));
+                deletedId.add(id);
+            }catch (ServiceException e){
+                LOG.warn(e.getMessage());
+            }
+        }
+        return deletedId;
+    }
+
+
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody

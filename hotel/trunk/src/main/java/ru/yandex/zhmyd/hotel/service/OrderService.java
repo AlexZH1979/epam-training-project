@@ -17,8 +17,4 @@ public interface OrderService extends BasicService<Order, Integer>{
 
     @Deprecated
     public List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders);
-
-    public void delete(Integer id);
-
-
 }

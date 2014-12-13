@@ -2,13 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <c:url value="/orders/ajax" var="ajaxPath"/>
+<c:url value="/orders/ajax/delete" var="ajaxPathDelete"/>
 <c:url value="/profile/" var="profile"/>
 <c:url value="/hotels/" var="hotel"/>
-<script type="text/javascript">
-    var body_id = '#tableBody';
 
+<c:set value="tableBody" var="tableBody"/>
+<script type="text/javascript">
     var f = function fillOrdersTable(o_id, o_obj) {
         //delete all
         $(o_id).html("");
@@ -38,6 +40,7 @@
 
 
             var row = $('<tr id="c_' + i + '"  class='+clazz+'></tr>');
+            row.append("<td><input value="+o_obj[k].id+" type='checkbox'></td>");
             row.append("<td>"+o_obj[k].id+"</td>");
             var link = $("<td></td>");
             link.append('<a href="' + ${hotel}+o_obj[k].hotelId + '"> ' +o_obj[k].hotelName+ '</a>');
@@ -51,26 +54,55 @@
             $(o_id).append(row);
             i++;
         }
-    };
+    }
 
     function loadTable(begin, countSize) {
-        loadTableAjax("${ajaxPath}", body_id, f, begin, countSize);
+        loadTableAjax("${ajaxPath}", '\#${tableBody}', f, begin, countSize);
     }
 
+    function deleteOrders(){
+        var jsonDelete=$.map( $(":checkbox:checked"), function(el){ return $(el).val(); });
+
+        console.log(jsonDelete);
+        $.ajax({
+            url:"${ajaxPathDelete}",
+            data:JSON.stringify(jsonDelete),
+            type:"POST",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function(delId){
+                for(var i in delId){
+                    console.log(delId[i]);
+                    console.log($('#delId[i]'));
+                    $('#delId[i]').html("");
+                }
+                console.log("delete "+delId);
+            },
+            error: function () {
+                console.log("error witch ajax "+jsonDelete);
+            }
+        })
+
+    };
+
     window.onload = function () {
-        loadTableAjax("${ajaxPath}", body_id, f, 0, 10);
+        loadTableAjax("${ajaxPath}",  '\#${tableBody}', f, 0, 10);
     }
 </script>
+    <security:authorize access="isFullyAuthenticated()">
 <select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">
     <option disabled selected>count</option>
     <option value="10">10</option>
     <option value="50">50</option>
     <option value="100">100</option>
 </select>
+ <button onclick="deleteOrders();"><spring:message code="title.delete"/></button>
 <table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th><spring:message code="title.Id"/></th>
+        <th colspan="2"><spring:message code="title.Id"/></th>
         <th><spring:message code="title.Hotel"/></th>
         <th><spring:message code="title.Places"/></th>
         <th><spring:message code="title.Room_Category"/></th>
@@ -79,6 +111,7 @@
         <th><spring:message code="order.Confurm"/></th>
     </tr>
     </thead>
-    <tbody id="tableBody">
+    <tbody id=${tableBody}>
     </tbody>
 </table>
+</security:authorize>

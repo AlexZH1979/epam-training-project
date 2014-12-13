@@ -54,6 +54,8 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         Criterion criterion= Restrictions.eq("hotel", userEntity);
         return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
+
+    //TODO mapper
     @Override
     public DisplayedOrder convertToDisplayedOrder(Order order) {
         DisplayedOrder displayedOrder = new DisplayedOrder(order);
@@ -75,11 +77,20 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
 
     @Override
     public void delete(Integer id) throws ServiceException {
-        LOG.debug("GET to delete id=" + id);
+        LOG.info("GET to delete id=" + id);
         //don't delete confirmed order
-        if(getById(id).getConfirmed()){
-            throw new ServiceException();
+        //if not found -> nothing
+        // (if found) AND (administrator don't work witch his OR it's non confirm)->delete; else throw
+        Order order=getById(id);
+        if (order != null) {
+            if (order.getConfirmed() == null || !order.getConfirmed()) {
+                LOG.info("ORDER with id=" + id + " delete");
+                //throw new ServiceException();
+                super.delete(id);
+            } else {
+                LOG.info("ORDER with id=" + id + " don\'t delete");
+                throw new ServiceException();
+            }
         }
-        super.delete(id);
     }
 }

@@ -97,7 +97,7 @@
             <div class="well">
                 <label style="text-align: center;"><spring:message code="order.Create"/></label>
                 <div>
-                    <div tyle="display: inline-block;">
+                    <div style="display: inline-block;">
                         <c:forEach begin="1" end="4" var="place">
                             <input id="place_${place}" type="radio" name="places" value="${place}"
                                    onchange="setPlaces($(this).val());"/>
@@ -129,6 +129,7 @@
                 <b class="caret"></b>
             </div>
         </div>
+    </div>
     </div>
     <div>
         <div id="map-canvas" class="col-md-4 well"></div>
