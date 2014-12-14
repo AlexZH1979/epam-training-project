@@ -12,10 +12,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${startPage}"><spring:message code="app.Name"/></a>
-            <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
-				<a class="navbar-brand" href="<c:url value="/users/"/>">View Clients</a>
-			</security:authorize>
-		</div>
+        </div>
         <c:set var="currentLocale">${pageContext.response.locale}</c:set>
         <c:set var="localeCode" value="${fn:toUpperCase(currentLocale)}"/>
         <c:set var="availLanguages" value="EN,RU"/>

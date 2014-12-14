@@ -46,8 +46,8 @@
             row.append(link);
             row.append("<td>"+o_obj[k].places+"</td>");
             row.append("<td>"+o_obj[k].roomCategory+"</td>");
-            row.append("<td>" + new Date(o_obj[k].startDate).toDateString() + "</td>");
-            row.append("<td>" + new Date(o_obj[k].endDate).toDateString() + "</td>");
+            row.append("<td>" + o_obj[k].startDate + "</td>");
+            row.append("<td>" + o_obj[k].endDate + "</td>");
             //TODO visual check
             row.append("<td style='background: "+color+";'>" + confirm + "</td>");
             $(o_id).append(row);

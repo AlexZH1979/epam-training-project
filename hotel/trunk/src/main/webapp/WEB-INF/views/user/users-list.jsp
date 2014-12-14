@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url value="/users/ajax" var="ajaxPath"/>
+<c:url value="/profile/" var="profile"/>
 <script type="text/javascript">
     var body_id='#tableBody';
     var f = function fillOrdersTable(id, obj) {
@@ -12,7 +13,9 @@
         var i = 0;
         for (var k in obj) {
             var row = $('<tr id="c_' + i + '"></tr>');
-            row.append("<td>" + obj[k].id + "</td>");
+            var link = $("<td></td>");
+            link.append('<a href="' + ${profile}+obj[k].id + '"> ' +obj[k].id+ '</a>');
+            row.append(link);
             //noinspection JSUnfilteredForInLoop,JSUnfilteredForInLoop,JSUnfilteredForInLoop
             row.append("<td>" + obj[k].firstName + "</td>");
             row.append("<td>" + obj[k].lastName + "</td>");

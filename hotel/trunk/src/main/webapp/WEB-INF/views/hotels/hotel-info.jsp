@@ -97,24 +97,25 @@
             <div class="well">
                 <label style="text-align: center;"><spring:message code="order.Create"/></label>
                 <div>
-                    <div style="display: inline-block;">
-                        <c:forEach begin="1" end="4" var="place">
-                            <input id="place_${place}" type="radio" name="places" value="${place}"
-                                   onchange="setPlaces($(this).val());"/>
-                        </c:forEach>
-                        <p><spring:message code="title.Places"/>: <span id="${showPlaces}">1</span></p>
+                    <div>
+                        <label>
+                            <c:forEach begin="1" end="4" var="place">
+                                <input id="place_${place}" type="radio" name="places" value="${place}"
+                                       onchange="setPlaces($(this).val());"/>
+                            </c:forEach>
+                            <spring:message code="title.Places"/>: <span id="${showPlaces}">1</span>
+                        </label>
                     </div>
-                    <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group" data-toggle="buttons" style="display: inline-block;">
+                        <label></label>
                         <c:forEach items="${roomCategory}" var="category">
                             <label class="btn btn-sm btn-success">
                                 <input id="category_${category}" type="radio" name="category" value="${category}"
                                        onchange="setCategory($(this).val());"/>${category}
                             </label>
                         </c:forEach>
-                    </div>
-                    <div style="display: inline-block;" class="btn">
-                        <!-- TODO -->
                         <p><spring:message code="title.Room_Category"/>: <span id="${showCategory}">ECONOMY</span></p>
+                        </label>
                     </div>
                 </div>
                 <div style="display: inline-block;">

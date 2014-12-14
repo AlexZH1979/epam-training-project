@@ -61,7 +61,7 @@
         <put-attribute name="title" value="Confurm Order"/>
         <put-attribute name="body" value="/WEB-INF/views/order/confurm-send-oder.jsp"/>
     </definition>
-    <definition name="orders.administrator.list">
+    <definition name="orders.administrator.list" extends="base.definition">
         <put-attribute name="title" value="Administrate Orders"/>
         <put-attribute name="body" value="/WEB-INF/views/order/orders-administrator-list.jsp"/>
     </definition>

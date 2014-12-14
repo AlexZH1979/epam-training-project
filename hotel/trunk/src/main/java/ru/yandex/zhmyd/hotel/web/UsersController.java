@@ -1,6 +1,7 @@
 package ru.yandex.zhmyd.hotel.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = {"admin/"}, method = RequestMethod.GET)
     public String getRoom(Model model){
         return "users.list";
     }
