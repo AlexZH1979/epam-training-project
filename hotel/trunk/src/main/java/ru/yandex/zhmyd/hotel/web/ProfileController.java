@@ -12,8 +12,6 @@ import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.UserService;
 
-import javax.servlet.http.HttpSession;
-
 /*
 *
 * Display and control user profile
@@ -34,30 +32,17 @@ public class ProfileController {
     //TODO
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String showUserProfile(Authentication authentication, HttpSession session, Model model) {
-        Object user=session.getAttribute("user");
-
-        if((user==null)||!(user instanceof User)) {
-            ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
-            user = userService.getUserByPrincipal(appUser);
-        }
-        session.removeAttribute("user");
+    public String showUserProfile(Authentication authentication, Model model) {
+        ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
+        User  user = userService.getUserByPrincipal(appUser);
         model.addAttribute("currentUser", user);
-        session.setAttribute("user", user);
         return "profile";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public String showUserProfile(
-            @PathVariable("userId") User userProfiled,
-            HttpSession session, Model model) {
-
-       Object userObject = session.getAttribute("user");
-        if ((userObject != null) && (userObject instanceof User)) {
-            User user = (User) userObject;
-            model.addAttribute("user", user);
-        }
+            @PathVariable("userId") User userProfiled, Model model) {
         model.addAttribute("currentUser", userProfiled);
         return "profile";
     }

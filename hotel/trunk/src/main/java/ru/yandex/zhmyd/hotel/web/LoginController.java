@@ -26,19 +26,12 @@ public class LoginController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         if (logout != null) {
-            session.setAttribute("user", null);
             session.invalidate();
             mav.setViewName("search.hotel");
-        } else if (isUserSessionFound(session)) {
-            Object user=session.getAttribute("user");
-
-            if((user==null)||!(user instanceof User)) {
-                ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
-                user = userService.getUserByPrincipal(appUser);
-            }
-            session.removeAttribute("user");
+        } else if(authentication!=null){
+            ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
+            User user = userService.getUserByPrincipal(appUser);
             mav.addObject("currentUser", user);
-            session.setAttribute("user", user);
             mav.setViewName("profile");
         }
         return mav;
@@ -54,10 +47,5 @@ public class LoginController {
     @RequestMapping("/map")
     public String getMap(){
         return "map";
-    }
-
-
-    private boolean isUserSessionFound(HttpSession session) {
-        return session.getAttribute("user") instanceof User;
     }
 }

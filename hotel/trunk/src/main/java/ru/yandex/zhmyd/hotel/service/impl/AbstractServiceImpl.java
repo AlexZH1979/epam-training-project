@@ -41,7 +41,10 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
         LOG.debug("GET to getById id=" + id);
         E entity = (E) dao.getById(id);
         LOG.debug("FIND entity=" + entity);
-        T dto = mapper.map(entity, this.getGenericTargetClass());
+        T dto = null;
+        if (entity != null) {
+            dto = mapper.map(entity, this.getGenericTargetClass());
+        }
         LOG.debug("RETURN from ru.yandex.zhmyd.hotel.ru.yandex.zhmyd.hotel.service getById dto=" + dto);
         return dto;
     }

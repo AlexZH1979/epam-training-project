@@ -38,8 +38,7 @@
                     break;
             };
 
-
-            var row = $('<tr id="c_' + i + '"  class='+clazz+'></tr>');
+            var row = $('<tr id="o_' + o_obj[k].id + '"  class='+clazz+'></tr>');
             row.append("<td><input value="+o_obj[k].id+" type='checkbox'></td>");
             row.append("<td>"+o_obj[k].id+"</td>");
             var link = $("<td></td>");
@@ -61,7 +60,7 @@
     }
 
     function deleteOrders(){
-        var jsonDelete=$.map( $(":checkbox:checked"), function(el){ return $(el).val(); });
+        var jsonDelete=$.map( $("\#${tableBody}>tr>td>input:checkbox:checked"), function(el){ return $(el).val(); });
 
         console.log(jsonDelete);
         $.ajax({
@@ -74,11 +73,13 @@
             },
             success: function(delId){
                 for(var i in delId){
-                    console.log(delId[i]);
-                    console.log($('#delId[i]'));
-                    $('#delId[i]').html("");
+                    var tr = $('#o_'+delId[i]);
+                    tr.css("background-color","#FF3700");
+
+                    tr.fadeOut(1000, function(){
+                        tr.remove();
+                    });
                 }
-                console.log("delete "+delId);
             },
             error: function () {
                 console.log("error witch ajax "+jsonDelete);
