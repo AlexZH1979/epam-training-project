@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
     $(document).ready(
             $('.dropdown-toggle').dropdown()
@@ -11,9 +12,9 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand" href="${startPage}"><spring:message code="app.Name"/></a>
-			<c:if test="${user.role eq 'ADMINISTRATOR'}">
+            <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
 				<a class="navbar-brand" href="<c:url value="/users/"/>">View Clients</a>
-			</c:if>
+			</security:authorize>
 		</div>
         <c:set var="currentLocale">${pageContext.response.locale}</c:set>
         <c:set var="localeCode" value="${fn:toUpperCase(currentLocale)}"/>
@@ -41,14 +42,14 @@
                     </c:forEach>
                 </ul>
             </li>
-            <c:if test="${not empty user}">
-                <li><a href="<c:url value="/profile/"/>">${user.firstName}</a></li>
-                <li><a href="<c:url value="/j_spring_security_logout"/>">Logout</a></li>
-            </c:if>
-            <c:if test="${empty user}">
-                <li><a href="<c:url value="/login"/>">Log In</a></li>
-                <li><a href="<c:url value="/reg/"/>">Registration</a></li>
-            </c:if>
+            <security:authorize access="isFullyAuthenticated()">
+            <li><a href="<c:url value="/profile/"/>"><security:authentication property="principal.Username"/></a></li>
+                <li><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="title.Logout"/></a></li>
+            </security:authorize>
+            <security:authorize access="not isFullyAuthenticated()">
+                <li><a href="<c:url value="/login"/>"><spring:message code="title.Login"/></a></li>
+                <li><a href="<c:url value="/reg/"/>"><spring:message code="title.Registration"/></a></li>
+            </security:authorize>
         </ul>
     </div>
 </div>

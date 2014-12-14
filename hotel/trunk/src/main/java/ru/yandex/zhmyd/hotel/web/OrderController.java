@@ -13,6 +13,7 @@ import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
+import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.web.util.ControllerUtil;
 import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
@@ -84,7 +85,7 @@ public class OrderController {
         } finally {
             session.removeAttribute("order");
         }
-        return view;
+        return "redirect:/orders";
     }
 
     /*
@@ -103,6 +104,10 @@ public class OrderController {
             try {
                 orderService.delete(Integer.valueOf(id));
                 deletedId.add(id);
+            } catch (EntityNonFoundException e) {
+                //object absent in present time, remove it's from view table
+                deletedId.add(id);
+                LOG.warn(e.getMessage());
             }catch (ServiceException e){
                 LOG.warn(e.getMessage());
             }

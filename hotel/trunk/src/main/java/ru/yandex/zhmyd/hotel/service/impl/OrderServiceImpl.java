@@ -15,6 +15,7 @@ import ru.yandex.zhmyd.hotel.repository.entity.HotelEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.service.OrderService;
+import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
 
@@ -91,6 +92,9 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
                 LOG.info("ORDER with id=" + id + " don\'t delete");
                 throw new ServiceException();
             }
+        }else{
+            LOG.info("ORDER with id=" + id + " don\'t found");
+            throw new EntityNonFoundException("ORDER with id=" + id + " don\'t found");
         }
     }
 }
