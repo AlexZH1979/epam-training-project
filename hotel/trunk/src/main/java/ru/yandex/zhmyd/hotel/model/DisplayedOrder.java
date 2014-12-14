@@ -1,6 +1,8 @@
 package ru.yandex.zhmyd.hotel.model;
 
 
+import java.util.Date;
+
 /*
 *This class present order in view
 * have all displayed parameter, and not modified order
@@ -48,11 +50,13 @@ public class DisplayedOrder {
     }
 
     public String getStartDate() {
-        return order.getStartDate().toString();
+        Date date=order.getStartDate();
+        return date.getDate()+"-"+(date.getMonth()+1)+"-"+(1900+date.getYear());
     }
 
     public String getEndDate() {
-        return order.getEndDate().toString();
+        Date date=order.getEndDate();
+        return date.getDate()+"-"+(date.getMonth()+1)+"-"+(1900+date.getYear());
     }
 
     public Boolean getConfirmed() {
