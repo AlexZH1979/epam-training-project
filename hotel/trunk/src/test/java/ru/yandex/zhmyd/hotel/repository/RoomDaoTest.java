@@ -1,5 +1,6 @@
 package ru.yandex.zhmyd.hotel.repository;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Transactional
 public class RoomDaoTest extends AbstractDaoTest{
+    private static final Logger LOG=Logger.getLogger(RoomDaoTest.class);
 
     @Autowired
     private RoomDao roomDao;
@@ -37,12 +39,9 @@ public class RoomDaoTest extends AbstractDaoTest{
         date.setDate(11);
         order.setEndDate(date);
         order.setPlaces((byte) 1);
-        order.setRoomCategory(RoomCategoryEntity.BUSINESS);
+        order.setRoomCategory(RoomCategoryEntity.ECONOMY);
         order.setHotel(hotelEntity);
-        String stringDate="---------"+(1900+date.getYear())+"-"+(1+date.getMonth())+"-"+date.getDate();
-        System.out.println(stringDate);
-        System.out.println(date);
 
-        System.out.println(roomDao.getFreeRooms(order));
+        LOG.info(roomDao.getFreeRooms(order));
     }
 }

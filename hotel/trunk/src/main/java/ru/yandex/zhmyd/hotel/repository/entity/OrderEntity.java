@@ -134,4 +134,18 @@ public class OrderEntity {
     public void setPlaces(Byte places) {
         this.places = places;
     }
+
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", price=" + price +
+                ", places=" + places +
+                ", hotelId=" + hotel.getId() +
+                ", roomCategory=" + roomCategory +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", confirmed=" + confirmed +
+                '}';
+    }
 }
