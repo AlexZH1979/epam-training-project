@@ -89,7 +89,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
                 //throw new ServiceException();
                 super.delete(id);
             } else {
-                LOG.info("ORDER with id=" + id + " don\'t delete");
+                LOG.info("ORDER with id=" + id + " don\'t delete, cause - order confirm=true");
                 throw new ServiceException();
             }
         }else{

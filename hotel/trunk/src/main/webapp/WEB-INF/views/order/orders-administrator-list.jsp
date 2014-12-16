@@ -8,6 +8,7 @@
 <c:url value="/hotels/" var="hotel"/>
 <script type="text/javascript">
     var body_id = '#tableBody';
+    var hidenOrders="false";
 
     var f = function fillOrdersTable(o_id, o_obj) {
         //delete all
@@ -15,7 +16,7 @@
 
         var i = 0;
         for (var k in o_obj) {
-            var row = $('<tr id="c_' + i + '"></tr>');
+            var row = $('<tr class="" id="c_' + i + '"></tr>');
             var link = $("<td></td>");
             link.append('<a href="' + ${hotel}+o_obj[k].id + '"> #' +o_obj[k].id+ '</a>');
             row.append(link)
@@ -34,11 +35,11 @@
     };
 
     function loadTable(begin, countSize) {
-        loadTableAjax("${ajaxPath}", body_id, f, begin, countSize);
+        loadTableAjax("${ajaxPath}?hiden="+hidenOrders, body_id, f, begin, countSize);
     }
 
     window.onload = function () {
-        loadTableAjax("${ajaxPath}", body_id, f, 0, 10);
+        loadTableAjax("${ajaxPath}?hiden="+hidenOrders, body_id, f, 0, 10);
     }
 </script>
 <c:if test="${not empty intem}">

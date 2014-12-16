@@ -22,7 +22,7 @@ public class OrderEntity {
 
     @Mapping("places")
     @Column(name = "places")
-    private Integer places;
+    private  Byte places;
 
     @Mapping("roomId")
     @ManyToOne(targetEntity = RoomEntity.class, fetch = FetchType.LAZY)
@@ -127,11 +127,11 @@ public class OrderEntity {
         this.roomCategory = roomCategory;
     }
 
-    public Integer getPlaces() {
+    public Byte getPlaces() {
         return places;
     }
 
-    public void setPlaces(Integer places) {
+    public void setPlaces(Byte places) {
         this.places = places;
     }
 }

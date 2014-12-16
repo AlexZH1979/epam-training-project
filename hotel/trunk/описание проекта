@@ -33,3 +33,8 @@ redirect:/profile/id используется для просмотра проф
 (возможно в профиль по id добавить кнопку показ заказов данного пользователя)
 **********************************************************************************************************************
 В сервисы добавил удаление ордера с проверкой: don't delete confirmed order -> throw new ServiceException()
+**********************************************************************************************************************
+тестовый sql  для выбора свободных комнат
+select * from (select * from room where room.size=1 and room.hotel_id=269) as r left join
+(SELECT * FROM room_order o where hotel_id=269 and not((o.start_date<'2014-12-10' and o.end_date<'2014-12-10')
+or (o.start_date>'2014-12-11' and o.end_date>'2014-12-11'))) as t on r.id=t.room_id where t.id is null;

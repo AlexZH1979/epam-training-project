@@ -40,9 +40,9 @@
         });
     });
     function sendOrder(){
-        location.href = '${registerPath};hotelId=${hotel.id};start=' + orderDetails.start.valueOf() +
-                ';end=' + orderDetails.end.valueOf() + ';places=' + orderDetails.places +
-                ';roomCategory=' + orderDetails.roomCategory;
+        location.href = '${registerPath}?hotelId=${hotel.id}&startDate=' + orderDetails.start.valueOf() +
+                '&endDate=' + orderDetails.end.valueOf() + '&places=' + orderDetails.places +
+                '&roomCategory=' + orderDetails.roomCategory;
     }
     function setPlaces(places) {
         orderDetails.places = places;

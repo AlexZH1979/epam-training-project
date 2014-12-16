@@ -110,6 +110,6 @@ public class RoomEntity {
 
     @Override
     public String toString(){
-        return "Room: id="+id+", name="+roomName+", size="+size+", price="+price+", category="+category;
+        return "id="+id;
     }
 }

@@ -19,7 +19,7 @@ public class Order {
     private Date endDate;
     private Boolean confirmed;
 
-    private Integer places;
+    private Byte places;
 
     public Long getId() {
         return id;
@@ -89,11 +89,11 @@ public class Order {
         this.roomCategory = roomCategory;
     }
 
-    public Integer getPlaces() {
+    public Byte getPlaces() {
         return places;
     }
 
-    public void setPlaces(Integer places) {
+    public void setPlaces(Byte places) {
         this.places = places;
     }
 
