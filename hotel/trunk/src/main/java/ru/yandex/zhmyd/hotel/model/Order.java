@@ -9,13 +9,13 @@ public class Order {
     private RoomCategory roomCategory;
     private Integer price;
     private Integer roomId;
-    @NotNull(message = "Hotel don\'t maybe empty")
+    //@NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
-    @NotNull(message = "Customer don\'t maybe empty")
+    //@NotNull(message = "Customer don\'t maybe empty")
     private Integer customerId;
-    @NotNull(message = "Order start date don\'t maybe empty")
+    //@NotNull(message = "Order start date don\'t maybe empty")
     private Date startDate;
-    @NotNull(message = "Order end date don\'t maybe empty")
+    //@NotNull(message = "Order end date don\'t maybe empty")
     private Date endDate;
     private Boolean confirmed;
 

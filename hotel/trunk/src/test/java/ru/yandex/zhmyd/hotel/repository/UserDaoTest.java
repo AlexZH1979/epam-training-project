@@ -33,7 +33,7 @@ public class UserDaoTest extends AbstractDaoTest {
         List<UserEntity> users = userDao.getAll();
         LOG.info("Find all: length="+users.size()+"; Entity: "+users);
 
-        LOG.info("ORDERS for roomId=1: "+ orderDao.getRoomByOrderId(1));
+        LOG.info("ORDERS for roomId=1: "+ orderDao.getRoomByOrderId(Long.valueOf(1)));
 
         LOG.info("SUBSEQUENSE Users with NULL Criteria: " + userDao.getByCriteria(null, 5, 10));
 
@@ -46,10 +46,10 @@ public class UserDaoTest extends AbstractDaoTest {
         *   Evil lazy-load problem won which use   Hibernate.initialize(user);
         *   or used transaction on service level
         */
-        UserEntity userEntity = orderDao.getUserByOrderId(1);
+        UserEntity userEntity = orderDao.getUserByOrderId(Long.valueOf(1));
         LOG.info("User in order id=1: " + userEntity);
 
-        RoomEntity room= orderDao.getRoomByOrderId(1);
+        RoomEntity room= orderDao.getRoomByOrderId(Long.valueOf(1));
         LOG.info("Room in order id=1: "+room);
     }
 

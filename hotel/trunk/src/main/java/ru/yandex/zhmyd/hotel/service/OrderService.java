@@ -5,7 +5,7 @@ import ru.yandex.zhmyd.hotel.model.Order;
 
 import java.util.List;
 
-public interface OrderService extends BasicService<Order, Integer>{
+public interface OrderService extends BasicService<Order, Long>{
 
     public List<Order> getOrdersByUserId(Integer userId);
 

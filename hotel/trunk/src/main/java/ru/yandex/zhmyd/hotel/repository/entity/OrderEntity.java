@@ -14,7 +14,7 @@ public class OrderEntity {
     @Mapping("id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-	private Integer id;
+	private Long id;
 
     @Mapping("price")
     @Column(name = "price")
@@ -55,11 +55,11 @@ public class OrderEntity {
     @Column(name = "confirmed")
 	private Boolean confirmed;
 
-	public final Integer getId() {
+	public final Long getId() {
 		return id;
 	}
 
-	public final void setId(Integer id) {
+	public final void setId(Long id) {
 		this.id = id;
 	}
 

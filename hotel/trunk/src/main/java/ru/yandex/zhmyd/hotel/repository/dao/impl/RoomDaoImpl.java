@@ -26,10 +26,8 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
         return criteria.list();
     }
 
-    //TODO
-
     /*
-     * sample SQL
+     * sample SQL <- this is begin
      * select * from (select * from room where room.size=SIZE and room.hotel_id=HOTEL_ID) as r left join (SELECT * FROM room_order o where hotel_id=HOTEL_ID and
      * not((o.start_date<START_DATE and o.end_date<START_DATE)
      * or (o.start_date>END_DATE and o.end_date>END_DATE))) as t on r.id=t.room_id where t.id is null;
@@ -55,6 +53,7 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
     @Override
     @Deprecated
     public List<RoomEntity> getAll(){
-        throw new UnsupportedOperationException("Don't support for "+RoomEntity.class+", cause - very bad performance. Use List<T> getByCriteria(Criterion criterion, int begin, int count);");
+        throw new UnsupportedOperationException("Don't support for "+RoomEntity.class+
+                ", cause - very bad performance. Use List<T> getByCriteria(Criterion criterion, int begin, int count);");
     }
 }
