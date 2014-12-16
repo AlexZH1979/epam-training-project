@@ -38,3 +38,28 @@ redirect:/profile/id используется для просмотра проф
 select * from (select * from room where room.size=1 and room.hotel_id=269) as r left join
 (SELECT * FROM room_order o where hotel_id=269 and not((o.start_date<'2014-12-10' and o.end_date<'2014-12-10')
 or (o.start_date>'2014-12-11' and o.end_date>'2014-12-11'))) as t on r.id=t.room_id where t.id is null;
+***********************************************************************************************************************
+HQL-ины
+/*        hql ="FROM RoomEntity R WHERE R.hotel=:hotel AND R.size=:sizze AND R.category=:category";
+        query.setParameter("startDate", order.getStartDate());
+        query.setParameter("endDate", order.getEndDate());
+        query.setParameter("sizze", order.getPlaces());
+        query.setParameter("category", order.getRoomCategory());
+        query.setParameter("hotel", order.getHotel());
+        System.out.println("TEST "+ query.list());*/
+
+/*        String hql =" SELECT R FROM RoomEntity R WHERE R.hotel=:hotel";
+        Query query=getSession().createQuery(hql);
+        query.setParameter("hotel", order.getHotel());
+        List<RoomEntity> allRooms=query.list();
+        LOG.info("[FIND allRooms BY QUERY size="+order.getPlaces()+" hotelId="+order.getHotel().getId()+" category="+order.getRoomCategory()+"]="+allRooms);
+
+        hql ="SELECT O.room FROM OrderEntity O WHERE O.hotel=:hotel AND NOT " +
+                "((O.startDate<:startDate AND O.endDate<:startDate) OR (O.startDate>:endDate AND O.endDate>:endDate))";
+        query=getSession().createQuery(hql);
+        query.setParameter("startDate", order.getStartDate());
+        query.setParameter("endDate", order.getEndDate());
+        query.setParameter("hotel", order.getHotel());
+        List<RoomEntity> excludeRooms=query.list();
+        LOG.info("[FIND excludeRooms BY QUERY startDate="+order.getStartDate()+" endDate"+order.getEndDate()+"]="+excludeRooms);
+        allRooms.removeAll(excludeRooms);*/

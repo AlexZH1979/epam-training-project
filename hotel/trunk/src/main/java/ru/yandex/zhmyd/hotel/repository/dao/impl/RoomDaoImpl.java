@@ -29,31 +29,27 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
     //TODO
 
     /*
-     *
-     * select * from (select * from room where room.size=1 and room.hotel_id=269) as r left join (SELECT * FROM room_order o where hotel_id=269 and
-     * not((o.start_date<'2014-12-10' and o.end_date<'2014-12-10')
-     * or (o.start_date>'2014-12-11' and o.end_date>'2014-12-11'))) as t on r.id=t.room_id where t.id is null;
+     * sample SQL
+     * select * from (select * from room where room.size=SIZE and room.hotel_id=HOTEL_ID) as r left join (SELECT * FROM room_order o where hotel_id=HOTEL_ID and
+     * not((o.start_date<START_DATE and o.end_date<START_DATE)
+     * or (o.start_date>END_DATE and o.end_date>END_DATE))) as t on r.id=t.room_id where t.id is null;
      */
     @Override
     public List<RoomEntity> getFreeRooms(OrderEntity order) {
-        String hql =" SELECT R FROM RoomEntity R WHERE R.hotel=:hotel";
+
+        String hql ="FROM RoomEntity R WHERE R.hotel=:hotel AND R.category=:category AND R.size=:sizze AND R NOT IN " +
+                "(SELECT O.room  FROM OrderEntity O WHERE O.hotel=:hotel AND NOT " +
+                "((O.startDate<:startDate AND O.endDate<:startDate) OR (O.startDate>:endDate AND O.endDate>:endDate)))";
+
         Query query=getSession().createQuery(hql);
-       // query.setParameter("sizze", order.getPlaces());
-        query.setParameter("hotel", order.getHotel());
-       // query.setParameter("category", order.getRoomCategory());
-        List<RoomEntity> allRooms=query.list();
-        LOG.info("[FIND allRooms BY QUERY size="+order.getPlaces()+" hotelId="+order.getHotel().getId()+" category="+order.getRoomCategory()+"]="+allRooms);
-        hql ="SELECT O.room FROM OrderEntity O WHERE O.hotel=:hotel AND NOT " +
-                "((O.startDate<:startDate AND O.endDate<:startDate) OR (O.startDate>:endDate AND O.endDate>:endDate))";
-        query=getSession().createQuery(hql);
         query.setParameter("startDate", order.getStartDate());
         query.setParameter("endDate", order.getEndDate());
+        query.setParameter("sizze", order.getPlaces());
+        query.setParameter("category", order.getRoomCategory());
         query.setParameter("hotel", order.getHotel());
-        List<RoomEntity> excludeRooms=query.list();
-        LOG.info("[FIND excludeRooms BY QUERY startDate="+order.getStartDate()+" endDate"+order.getEndDate()+"]="+excludeRooms);
-        allRooms.removeAll(excludeRooms);
+        List<RoomEntity> rooms=query.list();
 
-        return allRooms;
+        return rooms;
     }
 
     @Override
