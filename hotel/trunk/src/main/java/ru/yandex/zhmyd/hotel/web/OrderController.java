@@ -129,15 +129,15 @@ public class OrderController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
     @ResponseBody
-    public List<String> deleteOrders(@RequestBody List<String> listId) {
+    public List<Long> deleteOrders(@RequestBody List<Long> listId) {
         //list orderIds then delete success or object don't exist
-        List<String> deletedId = new ArrayList<>();
+        List<Long> deletedId = new ArrayList<>();
         LOG.info("GET to delete List ids="+listId);
 
-        for (String id : listId) {
-            LOG.info("GET to delete id="+Integer.valueOf(id));
+        for (Long id : listId) {
+            LOG.info("GET to delete id="+id);
             try {
-                orderService.delete(Integer.valueOf(id));
+                orderService.delete(id);
                 deletedId.add(id);
             } catch (EntityNonFoundException e) {
                 //object absent in present time, remove it's from view table

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RoomService extends BasicService<Room, Integer>{
     List<Room> getFreeRoom(Order order);
+
+    List<Room> getFreeRoom(Long id);
 }

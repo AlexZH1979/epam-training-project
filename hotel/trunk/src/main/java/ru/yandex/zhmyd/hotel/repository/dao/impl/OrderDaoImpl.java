@@ -10,10 +10,10 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 @Repository
 @SuppressWarnings("unused")
-public class OrderDaoImpl extends AbstractHibernateDao<OrderEntity, Integer> implements OrderDao {
+public class OrderDaoImpl extends AbstractHibernateDao<OrderEntity, Long> implements OrderDao {
 
     @Override
-    public UserEntity getUserByOrderId(Integer id) {
+    public UserEntity getUserByOrderId(Long id) {
 
         OrderEntity order = (OrderEntity) getSession().get(OrderEntity.class, id);
         UserEntity user=order.getCustomer();
@@ -22,7 +22,7 @@ public class OrderDaoImpl extends AbstractHibernateDao<OrderEntity, Integer> imp
     }
 
     @Override
-    public RoomEntity getRoomByOrderId(Integer id){
+    public RoomEntity getRoomByOrderId(Long id){
         OrderEntity order=(OrderEntity) getSession().get(OrderEntity.class, id);
         RoomEntity room=order.getRoom();
         Hibernate.initialize(room);

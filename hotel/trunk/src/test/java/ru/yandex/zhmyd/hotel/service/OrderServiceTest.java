@@ -21,7 +21,7 @@ public class OrderServiceTest extends AbstractDaoTest {
     @Ignore
     @Test
     public void test() {
-        Order order=orderService.getById(1);
+        Order order=orderService.getById(1L);
         LOG.info(order.toString());
 
         List<Order> orders=orderService.getOrdersByUserId(1);

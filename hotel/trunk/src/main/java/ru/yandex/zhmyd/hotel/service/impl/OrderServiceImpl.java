@@ -25,7 +25,7 @@ import java.util.List;
 @Service
 @Transactional
 @SuppressWarnings("unused")
-public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, OrderDao, Integer> implements OrderService {
+public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, OrderDao, Long> implements OrderService {
 
     private static final Logger LOG= Logger.getLogger(OrderServiceImpl.class);
 
@@ -77,7 +77,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
     }
 
     @Override
-    public void delete(Integer id) throws ServiceException {
+    public void delete(Long id) throws ServiceException {
         LOG.info("GET to delete id=" + id);
         //don't delete confirmed order
         //if not found -> nothing
