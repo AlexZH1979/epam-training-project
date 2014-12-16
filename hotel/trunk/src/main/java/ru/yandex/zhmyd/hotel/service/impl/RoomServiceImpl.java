@@ -1,12 +1,17 @@
 package ru.yandex.zhmyd.hotel.service.impl;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.zhmyd.hotel.model.Hotel;
+import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.model.Room;
 import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
 import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.service.RoomService;
+import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -19,13 +24,13 @@ public class RoomServiceImpl extends AbstractServiceImpl<Room, RoomEntity, RoomD
 
     private static final Logger LOG = Logger.getLogger(RoomServiceImpl.class);
 
-    @Override
-    public List<Room> getRoomsByHotel(Hotel hotel) {
-        return null;
-    }
+    @Autowired
+    private RoomDao roomDao;
 
+    //TODO
     @Override
-    public List<Room> getRoomsByHotel(Integer integer) {
-        return null;
+    public List<Room> getFreeRoom(Order order){
+
+        return Util.map(mapper,roomDao.getFreeRooms(null),Room.class);
     }
 }

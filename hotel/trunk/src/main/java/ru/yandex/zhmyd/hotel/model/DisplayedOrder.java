@@ -71,7 +71,7 @@ public class DisplayedOrder {
         return  order.getRoomCategory();
     }
 
-    public Integer getPlaces(){
+    public Byte getPlaces(){
         return order.getPlaces();
     }
 }
