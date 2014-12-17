@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.service.mapper.util;
+package ru.yandex.zhmyd.hotel.service.util.mapper;
 
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;

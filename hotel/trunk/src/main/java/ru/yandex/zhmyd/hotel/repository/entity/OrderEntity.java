@@ -18,7 +18,7 @@ public class OrderEntity {
 
     @Mapping("price")
     @Column(name = "price")
-	private Integer price;
+	private Double price;
 
     @Mapping("places")
     @Column(name = "places")
@@ -63,11 +63,11 @@ public class OrderEntity {
 		this.id = id;
 	}
 
-	public final Integer getPrice() {
+	public final Double getPrice() {
 		return price;
 	}
 
-	public final void setPrice(Integer price) {
+	public final void setPrice(Double price) {
 		this.price = price;
 	}
 

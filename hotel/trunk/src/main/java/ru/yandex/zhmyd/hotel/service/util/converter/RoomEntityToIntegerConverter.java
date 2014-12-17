@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.service.mapper.converter;
+package ru.yandex.zhmyd.hotel.service.util.converter;
 
 import org.dozer.DozerConverter;
 import org.springframework.beans.factory.annotation.Autowired;

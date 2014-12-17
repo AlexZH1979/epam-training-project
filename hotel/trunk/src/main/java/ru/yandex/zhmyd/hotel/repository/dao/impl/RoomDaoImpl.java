@@ -1,5 +1,8 @@
 package ru.yandex.zhmyd.hotel.repository.dao.impl;
 
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations;
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.ID;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -19,10 +22,10 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
     private static final Logger LOG=Logger.getLogger(RoomDaoImpl.class);
 
     @Override
-    public List<OrderEntity> getOrdersByRoomId(Integer id) {
+    public List<OrderEntity> getOrdersByRoomId(final Integer id) {
         Criteria criteria=getSession().createCriteria(OrderEntity.class);
-        Criteria roomCriteria=criteria.createCriteria("room");
-        roomCriteria.add(Restrictions.eq("id", id));
+        Criteria roomCriteria=criteria.createCriteria(Associations.ROOM);
+        roomCriteria.add(Restrictions.eq(ID, id));
         return criteria.list();
     }
 
@@ -33,7 +36,7 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
      * or (o.start_date>END_DATE and o.end_date>END_DATE))) as t on r.id=t.room_id where t.id is null;
      */
     @Override
-    public List<RoomEntity> getFreeRooms(OrderEntity order) {
+    public List<RoomEntity> getFreeRooms(final OrderEntity order) {
 
         String hql ="FROM RoomEntity R WHERE R.hotel=:hotel AND R.category=:category AND R.size=:sizze AND R NOT IN " +
                 "(SELECT O.room  FROM OrderEntity O WHERE O.hotel=:hotel AND NOT " +

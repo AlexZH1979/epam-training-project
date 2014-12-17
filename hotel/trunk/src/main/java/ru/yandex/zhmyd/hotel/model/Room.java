@@ -1,13 +1,17 @@
 package ru.yandex.zhmyd.hotel.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Room {
 
 	private Integer id;
 	private String roomName;
-	
+
+	@NotNull
 	private Byte size;
 	private Integer pricePerDay;
 	private String description;
+
     private RoomCategory category;
 
     public String getRoomName() {

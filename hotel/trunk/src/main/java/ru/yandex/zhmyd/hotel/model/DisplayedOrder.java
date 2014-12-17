@@ -37,7 +37,7 @@ public class DisplayedOrder {
         return order.getId();
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return order.getPrice();
     }
 

@@ -1,13 +1,12 @@
 package ru.yandex.zhmyd.hotel.model;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class Order {
 
     private Long id;
     private RoomCategory roomCategory;
-    private Integer price;
+    private Double price;
     private Integer roomId;
     //@NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
@@ -25,11 +24,11 @@ public class Order {
         return id;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

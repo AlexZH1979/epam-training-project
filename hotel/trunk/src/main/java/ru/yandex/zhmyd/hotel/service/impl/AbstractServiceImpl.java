@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.GenericDao;
 import ru.yandex.zhmyd.hotel.service.BasicService;
-import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
+import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

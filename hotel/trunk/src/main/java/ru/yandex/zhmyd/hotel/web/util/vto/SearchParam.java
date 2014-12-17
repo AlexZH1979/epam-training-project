@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.web.vto;
+package ru.yandex.zhmyd.hotel.web.util.vto;
 
 
 import java.io.Serializable;

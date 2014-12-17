@@ -34,7 +34,7 @@ public class OrderServiceTest extends AbstractDaoTest {
         order1.setCustomerId(20);
         order1.setStartDate(new Date());
         order1.setEndDate(new Date());
-        order1.setPrice(300);
+        order1.setPrice(300.0);
         order1.setConfirmed(false);
         orderService.save(order1);
     }

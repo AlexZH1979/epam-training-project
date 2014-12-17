@@ -17,10 +17,12 @@ import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
-import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
+import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations;
 
 @Service
 @Transactional
@@ -38,21 +40,21 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
     @Override
     public List<Order> getOrdersByUserId(Integer id) {
         UserEntity userEntity=userDao.getById(id);
-        Criterion criterion= Restrictions.eq("customer", userEntity);
+        Criterion criterion= Restrictions.eq(Associations.CUSTOMER, userEntity);
         return Util.map(mapper, dao.getByCriteria(criterion), Order.class);
     }
     @Override
     public List<Order> getIntervalOrdersByUserId(Integer id, Integer begin, Integer count) {
         UserEntity userEntity=userDao.getById(id);
-        Criterion criterion= Restrictions.eq("customer", userEntity);
+        Criterion criterion= Restrictions.eq(Associations.CUSTOMER, userEntity);
         return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
 
 
     @Override
     public List<Order> getIntervalOrdersByHotelId(Integer hotelId, Integer begin, Integer count) {
-        HotelEntity userEntity=hotelDao.getById(hotelId);
-        Criterion criterion= Restrictions.eq("hotel", userEntity);
+        HotelEntity hotelEntity=hotelDao.getById(hotelId);
+        Criterion criterion= Restrictions.eq(Associations.HOTEL, hotelEntity);
         return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
 
