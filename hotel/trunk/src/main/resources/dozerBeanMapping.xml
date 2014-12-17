@@ -5,27 +5,27 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <configuration>
         <custom-converters>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.UserEntityToIntegerConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.UserEntityToIntegerConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.UserEntity</class-a>
                 <class-b>java.lang.Integer</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.RoomEntityToIntegerConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.RoomEntityToIntegerConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.RoomEntity</class-a>
                 <class-b>java.lang.Integer</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCountyToStringConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.AddressCountyToStringConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCountyEntity</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressCityToStringConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.AddressCityToStringConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCityEntity</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.AddressStateToStringConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.AddressStateToStringConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelAddressStateEntity</class-a>
                 <class-b>java.lang.String</class-b>
             </converter>
-            <converter type="ru.yandex.zhmyd.hotel.service.mapper.converter.HotelEntityToIntegerConverter">
+            <converter type="ru.yandex.zhmyd.hotel.service.util.converter.HotelEntityToIntegerConverter">
                 <class-a>ru.yandex.zhmyd.hotel.repository.entity.HotelEntity</class-a>
                 <class-b>java.lang.Integer</class-b>
             </converter>
@@ -47,4 +47,4 @@
             <b>hotelId</b>
         </field>
     </mapping>
-</mappings> 
+</mappings>

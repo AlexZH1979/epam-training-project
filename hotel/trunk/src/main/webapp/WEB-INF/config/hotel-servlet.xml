@@ -11,7 +11,7 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web"/>
-    <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.conventers"/>
+    <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.util.conventers"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.service"/>
 
     <!--<mvc:annotation-driven/>-->
@@ -22,9 +22,10 @@
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="ru.yandex.zhmyd.hotel.web.conventers.StringToDateConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.conventers.StringToUserConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.conventers.StringToHotelConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringToDateConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToUserConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToHotelConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToOrderConverter"/>
             </set>
         </property>
     </bean>
@@ -64,5 +65,4 @@
     <import resource="classpath:service-config.xml"/>
     <!-- security.xml empty, because spring-security don't added-->
     <import resource="security.xml"/>
-
 </beans>

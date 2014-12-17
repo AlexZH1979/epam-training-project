@@ -8,8 +8,8 @@ import ru.yandex.zhmyd.hotel.model.Hotel;
 import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.SearchHotelService;
-import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
-import ru.yandex.zhmyd.hotel.web.vto.SearchParam;
+import ru.yandex.zhmyd.hotel.web.util.vto.ListViewPart;
+import ru.yandex.zhmyd.hotel.web.util.vto.SearchParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;

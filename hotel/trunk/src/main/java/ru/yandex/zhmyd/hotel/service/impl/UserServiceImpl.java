@@ -14,6 +14,9 @@ import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.EMAIL;
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.LOGIN;
+
 /*
 * @Transactional
 * interface UserService
@@ -59,8 +62,8 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
     @Override
     public void save(User user) {
         UserEntity userEntity=mapper.map(user, UserEntity.class);
-        Criterion cr= Restrictions.or(Restrictions.eq("login", userEntity.getLogin()),
-                Restrictions.eq("email",userEntity.getEmail()));
+        Criterion cr= Restrictions.or(Restrictions.eq(LOGIN, userEntity.getLogin()),
+                Restrictions.eq(EMAIL,userEntity.getEmail()));
         /*
          *   verify before saved, if user which this criteria already exist throws exception
          */

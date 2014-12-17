@@ -1,44 +1,48 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:url value="/orders/register/param" var="registerPath"/>
-<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/resources/calendar/daterangepicker-bs3.css'/>"/>
-<script type="text/javascript" src="<c:url value='/resources/calendar/moment.js'/>"></script>
-<script type="text/javascript" src="<c:url value='/resources/calendar/daterangepicker.js'/>"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<c:set value="reportrange2" var="calendar"/>
-<c:set value="places" var="showPlaces"/>
-<c:set value="category" var="showCategory"/>
-<style>
-    #map-canvas {
-        height: 300%;
-        width: 100%;
-        padding: 300px
-    }
-</style>
-<script>
-    var orderDetails = {
-        start:new Date(),
-        end:new Date(),
-        places:1,
-        roomCategory:"ECONOMY"
-    };
-    $(document).ready(function () {
-        $('#place_1').attr('checked', 'checked');
-        $('#category_ECONOMY').toggle('toggle');
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<c:if test="${not empty hotel}">
+    <c:url value="/orders/register/param" var="registerPath"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="<c:url value='/resources/calendar/daterangepicker-bs3.css'/>"/>
+    <script type="text/javascript" src="<c:url value='/resources/calendar/moment.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/resources/calendar/daterangepicker.js'/>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <c:set value="reportrange2" var="calendar"/>
+    <c:set value="places" var="showPlaces"/>
+    <c:set value="category" var="showCategory"/>
+    <c:url value="/orders/admin/hotel/${hotel.id}" var="showOrders"/>
+    <style>
+        #map-canvas {
+            height: 300%;
+            width: 100%;
+            padding: 300px
+        }
+    </style>
+    <script>
+        var orderDetails = {
+            start: new Date(),
+            end: new Date(),
+            places: 1,
+            roomCategory: "ECONOMY"
+        };
+        $(document).ready(function () {
+            $('#place_1').attr('checked', 'checked');
+            $('#category_ECONOMY').toggle('toggle');
 
-        $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
-        $('\#${calendar}').daterangepicker({
-            opens: 'center',
-            startDate: orderDetails.start,
-            format: 'D MMMM, YYYY',
-            minDate: orderDetails.start
-        }, function (start, end) {
-            $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
-            orderDetails.start = start;
-            orderDetails.end = end;
+            $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
+            $('\#${calendar}').daterangepicker({
+                opens: 'center',
+                startDate: orderDetails.start,
+                format: 'D MMMM, YYYY',
+                minDate: orderDetails.start
+            }, function (start, end) {
+                $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+                orderDetails.start = start;
+                orderDetails.end = end;
+            });
         });
-    });
     function sendOrder(){
         location.href = '${registerPath}?hotelId=${hotel.id}&startDate=' + orderDetails.start.valueOf() +
                 '&endDate=' + orderDetails.end.valueOf() + '&places=' + orderDetails.places +
@@ -48,29 +52,35 @@
         orderDetails.places = places;
         $('\#${showPlaces}').html(places);
     }
-    ;
 
-    function setCategory(category) {
-        orderDetails.roomCategory = category;
-        $('\#${showCategory}').html(category);
-    }
-</script>
-<script type="text/javascript">
-    function initialize() {
-        var mapOptions = {
-            zoom:12,
-            center: new google.maps.LatLng(${hotel.hotelLocation.locLat}, ${hotel.hotelLocation.locLong}),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-<div>
-    <div class="row">
-    <c:if test="${not empty hotel}">
-        <div class="col-md-5">
+        function setCategory(category) {
+            orderDetails.roomCategory = category;
+            $('\#${showCategory}').html(category);
+        }
+    </script>
+    <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                zoom: 12,
+                center: new google.maps.LatLng(${hotel.hotelLocation.locLat}, ${hotel.hotelLocation.locLong}),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                    mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <div>
+        <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
+            <div name="admin_menu" class="col-lg-12">
+                <button class="btn btn-sm" type="button" onclick="location.href='${showOrders}'">
+                    <spring:message code='title.Orders'/>
+                </button>
+            </div>
+        </security:authorize>
+        <div class="row">
+            <c:if test="${not empty hotel}">
+            <div class="col-md-5">
             <h3><b><spring:message code="title.Hotel"/></b></h3>
             <address>
             <h3><strong><i>${hotel.name}</i></strong></h3>
@@ -137,3 +147,4 @@
     </div>
     </c:if>
 </div>
+</c:if>

@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.web.conventers;
+package ru.yandex.zhmyd.hotel.web.util.conventers;
 
 import org.springframework.core.convert.converter.Converter;
 

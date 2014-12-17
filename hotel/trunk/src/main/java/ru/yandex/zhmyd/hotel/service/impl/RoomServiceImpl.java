@@ -10,7 +10,7 @@ import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
 import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.service.RoomService;
-import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
+import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import javax.transaction.Transactional;
 import java.util.List;

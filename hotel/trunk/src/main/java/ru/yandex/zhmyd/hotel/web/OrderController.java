@@ -1,5 +1,6 @@
 package ru.yandex.zhmyd.hotel.web;
 
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,12 +17,15 @@ import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
-import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
+import ru.yandex.zhmyd.hotel.web.util.vto.ListViewPart;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+
+import static ru.yandex.zhmyd.hotel.web.util.PathSelector.HOTEL;
+import static ru.yandex.zhmyd.hotel.web.util.PathSelector.USER;
 
 @Controller
 @RequestMapping("/orders")
@@ -54,7 +58,6 @@ public class OrderController {
         return mav;
     }*/
 
-    //TODO
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/", method = RequestMethod.GET)
     public ModelAndView administrateOrders() {
@@ -63,30 +66,58 @@ public class OrderController {
         return mav;
     }
 
-    //TODO добавить страницу отображения свойств заказа
+    @PreAuthorize("isFullyAuthenticated()")
+    @RequestMapping(value = "/{order}", method = RequestMethod.GET)
+    public ModelAndView orderInfo(@PathVariable Order order,Authentication authentication) {
+        ModelAndView mav;
+        ApplicationUserDetails appUser = (ApplicationUserDetails)authentication.getPrincipal();
+        Integer userId=userService.getUserByPrincipal(appUser).getId();
+        if(order.getCustomerId().equals(userId)) {
+            mav = new ModelAndView("order.info");
+            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        }else{
+            mav=new ModelAndView("error");
+        }
+        return mav;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = "admin/{order}", method = RequestMethod.GET)
+    public ModelAndView administrateOrder(@PathVariable Order order) {
+        System.out.println(order);
+        ModelAndView mav = new ModelAndView("order.info");
+        mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        return mav;
+    }
+
+
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/{selector}/{id}", method = RequestMethod.GET)
-    public ModelAndView administrateOrder(@PathVariable("selector") String selector, @PathVariable("id") Integer id) {
+    public ModelAndView administrateOrder(@PathVariable String selector, @PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("orders.administrator.list");
-        switch (selector) {
-            case "user":
-                mav.addObject("path", "/orders/ajax/user/" + id);
-                mav.addObject("intem", userService.getById(id).getFirstName());
-                mav.addObject("nameIntem", "User");
-                break;
-            case "hotel":
-                mav.addObject("path", "/orders/ajax/hotel/" + id);
-                mav.addObject("intem", hotelService.getById(id).getName());
-                mav.addObject("nameIntem", "Hotel");
-                break;
-            default:
-                mav.addObject("path", "/orders/ajax/all/");
+        try {
+            switch (selector) {
+                case USER:
+                    mav.addObject("path", "/orders/ajax/user/" + id);
+                    mav.addObject("nameIntem", "User");
+                    mav.addObject("intem", userService.getById(id).getFirstName());
+                    break;
+                case HOTEL:
+                    mav.addObject("path", "/orders/ajax/hotel/" + id);
+                    mav.addObject("nameIntem", "Hotel");
+                    mav.addObject("intem", hotelService.getById(id).getName());
+                    break;
+                default:
+                    mav.addObject("path", "/orders/ajax/all/");
+            }
+        }catch(NullPointerException e){
+            mav.addObject("error", "BAD REQUEST PARAMETER");
         }
         return mav;
     }
 
     @PreAuthorize("isFullyAuthenticated()")
-    @RequestMapping(value = "/register/{param}", method = RequestMethod.GET)
+    @RequestMapping(value = "/register/param", method = RequestMethod.GET)
     public ModelAndView registerOrder(@Valid @ModelAttribute Order order, HttpSession session,
                                       Authentication authentication) {
     //TODO валидация дат
@@ -94,10 +125,10 @@ public class OrderController {
         User user = userService.getUserByPrincipal(appUser);
         //set user only in server-side
         order.setCustomerId(user.getId());
-        DisplayedOrder displayedOrder;
-        ModelAndView mav = new ModelAndView();
         LOG.info("ORDER "+order);
-        displayedOrder = orderService.convertToDisplayedOrder(order);
+        DisplayedOrder displayedOrder = orderService.convertToDisplayedOrder(order);
+
+        ModelAndView mav = new ModelAndView();
         mav.addObject("order", displayedOrder);
         mav.setViewName("confirm.order");
         session.setAttribute("order", order);
@@ -107,7 +138,6 @@ public class OrderController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public String sendOrder(HttpSession session) {
-        //TODO
         String view = "redirect:/orders";
         try {
             Order order = (Order) session.getAttribute("order");
@@ -187,19 +217,21 @@ public class OrderController {
                                                   @RequestParam(value = "hide", required = false) String hide) {
         List<Order> orders = null;
         LOG.info("Selector="+selector+"; id="+id+"; hide="+hide);
+        //TODO
         if (hide == null || hide.equals("false")) {
             switch (selector) {
-                case "user":
+                case USER:
                     orders = orderService.getIntervalOrdersByUserId(id, part.getFirst(), part.getCount());
                     break;
-                case "hotel":
+                case HOTEL:
                     orders = orderService.getIntervalOrdersByHotelId(id, part.getFirst(), part.getCount());
+                    break;
+                default:
                     break;
             }
         }else if (hide.equals("confurm")){
-
+            //TODO
         }
-        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
-        return displayedOrders;
+        return orderService.convertToDisplayedOrders(orders);
     }
 }

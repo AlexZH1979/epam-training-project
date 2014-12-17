@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.service.UserService;
-import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
+import ru.yandex.zhmyd.hotel.web.util.vto.ListViewPart;
 
 import java.util.List;
 

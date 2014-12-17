@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.yandex.zhmyd.hotel.model.Room;
 import ru.yandex.zhmyd.hotel.service.RoomService;
-import ru.yandex.zhmyd.hotel.web.vto.ListViewPart;
+import ru.yandex.zhmyd.hotel.web.util.vto.ListViewPart;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;

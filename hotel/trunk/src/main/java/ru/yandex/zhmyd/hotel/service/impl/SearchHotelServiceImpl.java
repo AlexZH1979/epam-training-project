@@ -11,9 +11,10 @@ import ru.yandex.zhmyd.hotel.model.Hotel;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelAddressDao;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
 import ru.yandex.zhmyd.hotel.service.SearchHotelService;
-import ru.yandex.zhmyd.hotel.service.mapper.util.Util;
+import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.List;
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.NAME;
 
 @Service
 @Transactional
@@ -85,7 +86,7 @@ public class SearchHotelServiceImpl implements SearchHotelService {
     }
 
     private Criterion getCriterionForLikeName(String name){
-        return Restrictions.or(Restrictions.like("name", "% " + name + "%"),
-                Restrictions.like("name", name + "%"));
+        return Restrictions.or(Restrictions.like(NAME, "% " + name + "%"),
+                Restrictions.like(NAME, name + "%"));
     }
 }

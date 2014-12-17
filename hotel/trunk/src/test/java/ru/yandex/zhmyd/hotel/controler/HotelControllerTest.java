@@ -4,7 +4,7 @@ package ru.yandex.zhmyd.hotel.controler;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.web.HotelController;
-import ru.yandex.zhmyd.hotel.web.vto.SearchParam;
+import ru.yandex.zhmyd.hotel.web.util.vto.SearchParam;
 
 import java.util.logging.Logger;
 

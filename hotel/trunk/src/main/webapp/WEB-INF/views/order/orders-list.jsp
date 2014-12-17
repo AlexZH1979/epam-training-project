@@ -8,6 +8,7 @@
 <c:url value="/orders/ajax/delete" var="ajaxPathDelete"/>
 <c:url value="/profile/" var="profile"/>
 <c:url value="/hotels/" var="hotel"/>
+<c:url value="/orders/" var="orders"/>
 
 <c:set value="tableBody" var="tableBody"/>
 <script type="text/javascript">
@@ -23,26 +24,27 @@
             switch (o_obj[k].confirmed) {
                 case true:
                     color = "#0C0";
-                    confirm="Confirm";
+                    confirm="<spring:message code="order.Confurm.True"/>";
                     clazz='success';
                     break;
                 case false:
                     color = "#C00";
-                    confirm="Disc";
+                    confirm="<spring:message code="order.Confurm.False"/>";
                     clazz='danger';
                     break;
                 default:
                     color = "";
-                    confirm="XZ";
+                    confirm="<spring:message code="order.Confurm.Unknown"/>";
                     clazz='';
                     break;
             };
-
-            var row = $('<tr id="o_' + o_obj[k].id + '"  class='+clazz+'></tr>');
-            row.append("<td><input value="+o_obj[k].id+" type='checkbox'></td>");
-            row.append("<td>"+o_obj[k].id+"</td>");
+            var row = $('<tr id=\"o_' + o_obj[k].id + '\"  class='+clazz+'></tr>');
+            row.append("<td><input value="+o_obj[k].id+" type=\'checkbox\'></td>");
+            var orderLink=$("<td></td>");
+            orderLink.append("<a href=\'${orders}"+o_obj[k].id + "\'> #" +o_obj[k].id+ "</a>");
+            row.append(orderLink);
             var link = $("<td></td>");
-            link.append('<a href="' + ${hotel}+o_obj[k].hotelId + '"> ' +o_obj[k].hotelName+ '</a>');
+            link.append('<a href=\"${orders}'+o_obj[k].hotelId + '\"> ' +o_obj[k].hotelName+ '</a>');
             row.append(link);
             row.append("<td>"+o_obj[k].places+"</td>");
             row.append("<td>"+o_obj[k].roomCategory+"</td>");

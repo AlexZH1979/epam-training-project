@@ -1,18 +1,18 @@
-package ru.yandex.zhmyd.hotel.service.mapper.converter;
+package ru.yandex.zhmyd.hotel.service.util.converter;
 
 import org.dozer.DozerConverter;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelAddressDao;
-import ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCountyEntity;
+import ru.yandex.zhmyd.hotel.repository.entity.HotelAddressStateEntity;
 
-public class AddressCountyToStringConverter extends DozerConverter<HotelAddressCountyEntity, String> {
+public class AddressStateToStringConverter extends DozerConverter<HotelAddressStateEntity, String> {
 
     @Autowired
     private HotelAddressDao addressDao;
 
-    public AddressCountyToStringConverter() {
-        super(HotelAddressCountyEntity.class, String.class);
+    public AddressStateToStringConverter() {
+        super(HotelAddressStateEntity.class, String.class);
     }
 
     /**
@@ -24,7 +24,7 @@ public class AddressCountyToStringConverter extends DozerConverter<HotelAddressC
      * @return the resulting value for the destinatino field
      */
     @Override
-    public String convertTo(HotelAddressCountyEntity source, String destination) {
+    public String convertTo(HotelAddressStateEntity source, String destination) {
         return source.getName();
     }
 
@@ -37,7 +37,7 @@ public class AddressCountyToStringConverter extends DozerConverter<HotelAddressC
      * @return the resulting value for the destinatino field
      */
     @Override
-    public HotelAddressCountyEntity convertFrom(String source, HotelAddressCountyEntity destination) {
-        return addressDao.getByCriteria(Restrictions.eq("name",source)).get(0).getCounty();
+    public HotelAddressStateEntity convertFrom(String source, HotelAddressStateEntity destination) {
+        return addressDao.getByCriteria(Restrictions.eq("name",source)).get(0).getState();
     }
 }
