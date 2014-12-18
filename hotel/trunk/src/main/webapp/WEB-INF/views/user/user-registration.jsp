@@ -2,13 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<c:if test="${not empty errors}">
-    <div class="danger">
-        <p class="alert alert-danger">${errors}</p>
-    </div>
-</c:if>
 <div class="col-md-3"></div>
 <div class="col-md-6 well">
+    <c:if test="${not empty errors}">
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            ${errors}
+        </div>
+    </c:if>
+    <h1>
+        <spring:message code="title.Registration"/>
+    </h1>
     <form:form action="${action}" method="post" commandName="client" modelAttribute="client" cssClass="form-horizontal">
     <div class="form-group">
         <form:label path="firstName" cssClass="col-sm-4 control-label"><spring:message code="user.FirstName"/>:
@@ -18,7 +22,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
                 <form:input class="form-control" path="firstName"/>
             </div>
-            <form:errors path="firstName" cssClass="alert alert-danger"/>
+            <form:errors path="firstName" cssClass="alert alert-danger col-sm-12"/>
         </div>
     </div>
     <div class="form-group">
@@ -29,7 +33,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-user"></span></div>
                 <form:input class="form-control" path="lastName"/>
             </div>
-            <form:errors path="lastName" cssClass="alert alert-danger"/>
+            <form:errors path="lastName" cssClass="alert alert-danger col-sm-12"/>
         </div>
     </div>
     <div class="form-group">
@@ -40,7 +44,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span></div>
                 <form:input class="form-control" path="login"/>
             </div>
-            <form:errors path="login" cssClass="alert alert-danger"/>
+            <form:errors path="login" cssClass="alert alert-danger col-sm-12"/>
         </div>
     </div>
     <div class="form-group">
@@ -51,7 +55,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
                 <form:input class="form-control" path="password" type="password"/>
             </div>
-            <form:errors path="password" cssClass="alert alert-danger"/>
+            <form:errors path="password" cssClass="alert alert-danger col-sm-12"/>
         </div>
     </div>
     <div class="form-group">
@@ -62,7 +66,7 @@
                 <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
                 <form:input class="form-control" path="email" type="email"/>
             </div>
-            <form:errors path="email" cssClass="alert alert-danger"/>
+            <form:errors path="email" cssClass="alert alert-danger col-sm-12"/>
         </div>
     </div>
     <div class="form-group">

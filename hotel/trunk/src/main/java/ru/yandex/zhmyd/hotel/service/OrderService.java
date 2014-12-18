@@ -7,14 +7,19 @@ import java.util.List;
 
 public interface OrderService extends BasicService<Order, Long>{
 
-    public List<Order> getOrdersByUserId(Integer userId);
+    List<Order> getOrdersByUserId(Integer userId);
 
     List<Order> getIntervalOrdersByUserId(Integer id, Integer begin, Integer count);
 
     List<Order> getIntervalOrdersByHotelId(Integer hotelId, Integer begin, Integer count);
 
-    public DisplayedOrder convertToDisplayedOrder(Order order);
+    DisplayedOrder convertToDisplayedOrder(Order order);
 
     @Deprecated
-    public List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders);
+    List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders);
+
+    Order confirmOrder(Long orderId, Integer roomId);
+
+    //TODO
+    Order disconfirmOrder(Long orderId);
 }

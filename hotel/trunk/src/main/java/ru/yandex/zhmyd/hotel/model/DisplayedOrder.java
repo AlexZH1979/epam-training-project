@@ -45,6 +45,9 @@ public class DisplayedOrder {
         return order.getRoomId();
     }
 
+    public void setRoomId(Integer id){
+        order.setRoomId(id);
+    }
     public Integer getCustomerId() {
         return order.getCustomerId();
     }

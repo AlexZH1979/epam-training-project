@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
+import ru.yandex.zhmyd.hotel.model.Room;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.OrderService;
+import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
@@ -41,6 +43,9 @@ public class OrderController {
 
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private RoomService roomService;
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
@@ -76,7 +81,7 @@ public class OrderController {
             mav = new ModelAndView("order.info");
             mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
         }else{
-            mav=new ModelAndView("error");
+            mav=new ModelAndView("redirect://error");
         }
         return mav;
     }
@@ -84,16 +89,33 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/{order}", method = RequestMethod.GET)
     public ModelAndView administrateOrder(@PathVariable Order order) {
-        System.out.println(order);
-        ModelAndView mav = new ModelAndView("order.info");
-        mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        ModelAndView mav = new ModelAndView("order.administrator.info");
+        try {
+            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        }catch(NullPointerException e){
+            mav.addObject("error", "Order not found");
+        }
         return mav;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = "admin/confirm/", method = RequestMethod.GET)
+    public String orderConfirm(@RequestParam(required = true) Long orderId,
+                               @RequestParam(required = true) Integer roomId) {
+            orderService.confirmOrder(orderId, roomId);
+        return "redirect:/orders/admin/"+orderId;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = "admin/disconfirm/", method = RequestMethod.GET)
+    public String orderDisconfirm(@RequestParam(required = true) Long orderId) {
+        orderService.disconfirmOrder(orderId);
+        return "redirect:/orders/admin/"+orderId;
+    }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/{selector}/{id}", method = RequestMethod.GET)
-    public ModelAndView administrateOrder(@PathVariable String selector, @PathVariable Integer id) {
+    public ModelAndView showAdministrateOrder(@PathVariable String selector, @PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("orders.administrator.list");
         try {
             switch (selector) {
@@ -152,9 +174,11 @@ public class OrderController {
     }
 
     /*
+     *
      *========================
      * -------AJAX METHODS----
      * =======================
+     *
      */
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
@@ -180,7 +204,6 @@ public class OrderController {
         }
         return deletedId;
     }
-
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
@@ -233,5 +256,12 @@ public class OrderController {
             //TODO
         }
         return orderService.convertToDisplayedOrders(orders);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @ResponseBody
+    @RequestMapping(value = "/ajax/admin/rooms/{id}", method = RequestMethod.POST)
+    public List<Room> findFreeRoom(@PathVariable Long id){
+        return roomService.getFreeRoom(id);
     }
 }
