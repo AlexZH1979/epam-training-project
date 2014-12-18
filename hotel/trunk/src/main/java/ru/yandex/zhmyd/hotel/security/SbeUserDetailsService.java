@@ -16,6 +16,8 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.LOGIN;
+
 @Service("userService")
 @Transactional
 public class SbeUserDetailsService implements UserDetailsService {
@@ -35,11 +37,17 @@ public class SbeUserDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        UserEntity userEntity = userDao.getByCriteria(Restrictions.eq("login", login)).get(0);
+        UserEntity userEntity=null;
+        try {
+            userEntity = userDao.getByCriteria(Restrictions.eq(LOGIN, login)).get(0);
+        }catch (Exception e){
+            throw new UsernameNotFoundException("error");
+        }
 
         if (userEntity == null) {
             throw new UsernameNotFoundException("login is not found");
         }
+
         Set<GrantedAuthority> roles = new HashSet<>();
         roles.add(new SimpleGrantedAuthority("ROLE_"+userEntity.getRole().name()));
         ApplicationUserDetails userDetails = new ApplicationUserDetails(userEntity, roles);

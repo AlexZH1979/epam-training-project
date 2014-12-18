@@ -9,7 +9,7 @@ public class Room {
 
 	@NotNull
 	private Byte size;
-	private Integer pricePerDay;
+	private Double pricePerDay;
 	private String description;
 
     private RoomCategory category;
@@ -42,11 +42,11 @@ public class Room {
         this.size = size;
     }
 
-    public Integer getPricePerDay() {
+    public Double getPricePerDay() {
         return pricePerDay;
     }
 
-    public void setPricePerDay(Integer pricePerDay) {
+    public void setPricePerDay(Double pricePerDay) {
         this.pricePerDay = pricePerDay;
     }
 

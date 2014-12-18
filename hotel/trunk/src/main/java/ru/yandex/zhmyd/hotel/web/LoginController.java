@@ -22,7 +22,8 @@ public class LoginController {
 
     @PreAuthorize("permitAll")
     @RequestMapping(value = {"/login"}, method = {RequestMethod.GET})
-    public ModelAndView login(Authentication authentication, HttpSession session, @RequestParam(value = "logout", required = false) String logout) {
+    public ModelAndView login(Authentication authentication, HttpSession session,
+                              @RequestParam(value = "logout", required = false) String logout) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("login");
         if (logout != null) {

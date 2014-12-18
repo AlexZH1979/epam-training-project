@@ -57,16 +57,16 @@
                         <b>
                             <spring:message code="order.Price"/>:&nbsp;
                         </b>
-                        ${displayedOrder.price}$
+                        ${displayedOrder.price}&euro;
                     </p>
                 </c:if>
-                <c:if test="${not displayedOrder.confirmed}">
+                <c:if test="${displayedOrder.confirmed eq false}">
                     <spring:message code="order.Confurm.False"/>
                 </c:if>
                 <c:if test="${empty displayedOrder.confirmed}">
                     <spring:message code="order.Confurm.Unknown"/>
                 </c:if>
-                <c:if test="${(not displayedOrder.confirmed) or (empty displayedOrder.confirmed)}">
+                <c:if test="${(not displayedOrder.confirmed ) or (empty displayedOrder.confirmed)}">
                     <p>
                         <button type="button" class="btn btn-danger">
                             <spring:message code="title.delete"/>
@@ -74,7 +74,7 @@
                     </p>
                 </c:if>
             </div>
-        </div>--
+        </div>
         <div class=col-md-3"></div>
     </security:authorize>
 </c:if>

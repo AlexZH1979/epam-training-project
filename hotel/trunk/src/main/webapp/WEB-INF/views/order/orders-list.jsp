@@ -44,7 +44,7 @@
             orderLink.append("<a href=\'${orders}"+o_obj[k].id + "\'> #" +o_obj[k].id+ "</a>");
             row.append(orderLink);
             var link = $("<td></td>");
-            link.append('<a href=\"${orders}'+o_obj[k].hotelId + '\"> ' +o_obj[k].hotelName+ '</a>');
+            link.append('<a href=\"${hotel}'+o_obj[k].hotelId + '\"> ' +o_obj[k].hotelName+ '</a>');
             row.append(link);
             row.append("<td>"+o_obj[k].places+"</td>");
             row.append("<td>"+o_obj[k].roomCategory+"</td>");
@@ -111,7 +111,7 @@
         <th><spring:message code="title.Room_Category"/></th>
         <th><spring:message code="order.Start_Date"/></th>
         <th><spring:message code="order.End_Date"/></th>
-        <th><spring:message code="order.Confurm"/></th>
+        <th><spring:message code="order.Status"/></th>
     </tr>
     </thead>
     <tbody id=${tableBody}>

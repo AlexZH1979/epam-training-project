@@ -68,7 +68,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
          *   verify before saved, if user which this criteria already exist throws exception
          */
         if(!userDao.getByCriteria(cr).isEmpty()) {
-            throw new ServiceException("user  already exist");
+            throw new ServiceException("user with login: "+user.getLogin()+", or email: "+user.getEmail()+" already exist");
         }
         super.save(user);
     }

@@ -39,7 +39,7 @@ function loadTableByParamAjax(path, e_id, funcFill, parameter, value) {
             funcFill(e_id, e_obj);
         },
         error: function () {
-            alert('failure');
+            console.log("error")
         }
 
     });

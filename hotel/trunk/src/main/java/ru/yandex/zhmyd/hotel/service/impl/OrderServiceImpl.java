@@ -10,9 +10,11 @@ import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
 import ru.yandex.zhmyd.hotel.repository.dao.OrderDao;
+import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
+import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
@@ -36,6 +38,12 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
 
     @Autowired
     private HotelDao hotelDao;
+
+    @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
+    private RoomDao roomDao;
 
     @Override
     public List<Order> getOrdersByUserId(Integer id) {
@@ -76,6 +84,41 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
             displayedOrders.add(convertToDisplayedOrder(order));
         }
         return displayedOrders;
+    }
+
+    //TODO
+    @Override
+    public Order confirmOrder(Long orderId, Integer roomId) {
+        OrderEntity order=orderDao.getById(orderId);
+        if(order==null){
+            throw new EntityNonFoundException("OrderEntity witch id="+orderId+" not found");
+        }
+        RoomEntity roomEntity=roomDao.getById(roomId);
+        if(roomEntity==null){
+            throw new EntityNonFoundException("RoomEntity witch id="+roomId+" not found");
+        }
+        order.setRoom(roomEntity);
+        long days=1+(order.getEndDate().getTime()-order.getStartDate().getTime())/86400000;
+        LOG.info("DAYS " + days);
+        order.setPrice((double) (roomEntity.getPrice()*days));
+        order.setConfirmed(true);
+        orderDao.update(order);
+        return mapper.map(order, Order.class);
+    }
+
+    //TODO
+    @Override
+    public Order disconfirmOrder(Long orderId) {
+        OrderEntity order=orderDao.getById(orderId);
+        if(order==null){
+            throw new EntityNonFoundException("OrderEntity witch id="+orderId+" not found");
+        }
+        order.setRoom(null);
+        order.setPrice(null);
+        order.setConfirmed(false);
+        orderDao.update(order);
+
+        return mapper.map(order, Order.class);
     }
 
     @Override
