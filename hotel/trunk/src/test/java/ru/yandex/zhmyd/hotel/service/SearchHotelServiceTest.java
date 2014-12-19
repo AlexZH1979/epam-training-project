@@ -17,13 +17,6 @@ public class SearchHotelServiceTest extends  AbstractDaoTest{
     @Autowired
     private HotelService hotelService;
 
-
-
-    @Test
-    public void getListStringsStates(){
-        LOG.info(searchHotelService.getStates().toString());
-    }
-
     @Test
     public void getHotels(){
      /*   LOG.info("SEARCH state=MI: "+searchHotelService.searchByAddress("state","MI"));

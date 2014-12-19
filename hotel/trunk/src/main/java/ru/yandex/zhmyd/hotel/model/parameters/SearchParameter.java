@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.repository.dao.util;
+package ru.yandex.zhmyd.hotel.model.parameters;
 
 public final class SearchParameter {
     public static final String NAME="name";

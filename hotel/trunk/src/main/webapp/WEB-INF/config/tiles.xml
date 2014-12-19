@@ -29,17 +29,9 @@
         <put-attribute name="title" value="User List"/>
         <put-attribute name="body" value="/WEB-INF/views/user/users-list.jsp"/>
     </definition>
-    <definition name="map" extends="base.definition">
-        <put-attribute name="title" value="User List"/>
-        <put-attribute name="body" value="/WEB-INF/views/map/google-map.jsp"/>
-    </definition>
     <definition name="registration" extends="base.definition">
         <put-attribute name="title" value="Register"/>
         <put-attribute name="body" value="/WEB-INF/views/user/user-registration.jsp"/>
-    </definition>
-    <definition name="room.list" extends="base.definition">
-        <put-attribute name="tile" value="Rooms"/>
-        <put-attribute name="body" value="/WEB-INF/views/room/rooms-list.jsp"/>
     </definition>
     <definition name="hotels.list" extends="base.definition">
         <put-attribute name="tile" value="Hotels"/>
@@ -52,10 +44,6 @@
     <definition name="search.hotel" extends="base.definition">
         <put-attribute name="title" value="Search"/>
         <put-attribute name="body" value="/WEB-INF/views/hotels/search-hotel.jsp"/>
-    </definition>
-    <definition name="error">
-        <put-attribute name="title" value="Error page"/>
-        <put-attribute name="body" value="error"/>
     </definition>
     <definition name="confirm.order" extends="base.definition">
         <put-attribute name="title" value="Confirm Order"/>
@@ -72,5 +60,10 @@
     <definition name="order.administrator.info" extends="base.definition">
         <put-attribute name="title" value="Order info"/>
         <put-attribute name="body" value="/WEB-INF/views/order/order-administrator-info.jsp"/>
+    </definition>
+    <!--ERROR-->
+    <definition name="error" extends="base.definition">
+        <put-attribute name="title" value="Error"/>
+        <put-attribute name="body" value="/WEB-INF/views/error/error.jsp"/>
     </definition>
 </tiles-definitions>

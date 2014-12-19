@@ -43,15 +43,15 @@
                 orderDetails.end = end;
             });
         });
-    function sendOrder(){
-        location.href = '${registerPath}?hotelId=${hotel.id}&startDate=' + orderDetails.start.valueOf() +
-                '&endDate=' + orderDetails.end.valueOf() + '&places=' + orderDetails.places +
-                '&roomCategory=' + orderDetails.roomCategory;
-    }
-    function setPlaces(places) {
-        orderDetails.places = places;
-        $('\#${showPlaces}').html(places);
-    }
+        function sendOrder() {
+            location.href = '${registerPath}?hotelId=${hotel.id}&startDate=' + orderDetails.start.valueOf() +
+                    '&endDate=' + orderDetails.end.valueOf() + '&places=' + orderDetails.places +
+                    '&roomCategory=' + orderDetails.roomCategory;
+        }
+        function setPlaces(places) {
+            orderDetails.places = places;
+            $('\#${showPlaces}').html(places);
+        }
 
         function setCategory(category) {
             orderDetails.roomCategory = category;
@@ -70,43 +70,36 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-    <div>
-        <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
-            <div name="admin_menu" class="col-lg-12">
-                <button class="btn btn-sm" type="button" onclick="location.href='${showOrders}'">
-                    <spring:message code='title.Orders'/>
-                </button>
-            </div>
-        </security:authorize>
-        <div class="row">
-            <c:if test="${not empty hotel}">
+    <div class="row">
+        <c:if test="${not empty hotel}">
             <div class="col-md-5">
-            <h3><b><spring:message code="title.Hotel"/></b></h3>
-            <address>
-            <h3><strong><i>${hotel.name}</i></strong></h3>
-            <h4><spring:message code="hotel.Category"/>: ${hotel.category}</h4>
-            <h4><b><spring:message code="address.Address"/>:</b></h4>
-            <c:if test="${not empty hotel.hotelAddress.state}">
-                <b><spring:message code="address.State"/>: </b>${hotel.hotelAddress.state}<br>
-            </c:if>
-            <c:if test="${not empty hotel.hotelAddress.county}">
-                <b><spring:message code="address.County"/>: </b> ${hotel.hotelAddress.county}<br>
-            </c:if>
-            <c:if test="${not empty hotel.hotelAddress.city}">
-                <b><spring:message code="address.Sity"/>: </b>${hotel.hotelAddress.city}<br>
-            </c:if>
-            <c:if test="${not empty hotel.hotelAddress.address}">
-                <b><spring:message code="address.Address"/>: </b>${hotel.hotelAddress.address}<br>
-            </c:if>
-            <c:if test="${not empty hotel.hotelAddress.zip}">
-                <b><spring:message code="address.ZIP"/>: </b>${hotel.hotelAddress.zip}<br>
-            </c:if>
-        </address>
-        </div>
-        <div class="col-md-7">
-            <div class="well">
-                <label style="text-align: center;"><spring:message code="order.Create"/></label>
-                <div>
+                <h3><b><spring:message code="title.Hotel"/></b></h3>
+                <address>
+                    <h3><strong><i>${hotel.name}</i></strong></h3>
+                    <h4><spring:message code="hotel.Category"/>: ${hotel.category}</h4>
+                    <h4><b><spring:message code="address.Address"/>:</b></h4>
+                    <c:if test="${not empty hotel.hotelAddress.state}">
+                        <b><spring:message code="address.State"/>: </b>${hotel.hotelAddress.state}<br>
+                    </c:if>
+                    <c:if test="${not empty hotel.hotelAddress.county}">
+                        <b><spring:message code="address.County"/>: </b> ${hotel.hotelAddress.county}<br>
+                    </c:if>
+                    <c:if test="${not empty hotel.hotelAddress.city}">
+                        <b><spring:message code="address.Sity"/>: </b>${hotel.hotelAddress.city}<br>
+                    </c:if>
+                    <c:if test="${not empty hotel.hotelAddress.address}">
+                        <b><spring:message code="address.Address"/>: </b>${hotel.hotelAddress.address}<br>
+                    </c:if>
+                    <c:if test="${not empty hotel.hotelAddress.zip}">
+                        <b><spring:message code="address.ZIP"/>: </b>${hotel.hotelAddress.zip}<br>
+                    </c:if>
+                </address>
+            </div>
+            <div class="col-md-7">
+                <div class="well">
+                    <label style="text-align: center;"><spring:message code="order.Create"/></label>
+
+                    <div>
                     <div>
                         <label>
                             <c:forEach begin="1" end="4" var="place">
@@ -125,7 +118,6 @@
                             </label>
                         </c:forEach>
                         <p><spring:message code="title.Room_Category"/>: <span id="${showCategory}">ECONOMY</span></p>
-                        </label>
                     </div>
                 </div>
                 <div style="display: inline-block;">
@@ -135,16 +127,15 @@
                 </div>
                 <div id="${calendar}" class="btn"
                      style="display: inline-block; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                <span></span>
-                <b class="caret"></b>
+                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                    <span></span>
+                    <b class="caret"></b>
+                </div>
+                </div>
             </div>
-        </div>
+            <div>
+                <div id="map-canvas" class="col-md-4 well"></div>
+            </div>
+        </c:if>
     </div>
-    </div>
-    <div>
-        <div id="map-canvas" class="col-md-4 well"></div>
-    </div>
-    </c:if>
-</div>
 </c:if>

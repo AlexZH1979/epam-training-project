@@ -1,6 +1,5 @@
 package ru.yandex.zhmyd.hotel.service.impl;
 
-import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
@@ -14,13 +13,13 @@ import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.List;
-import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.NAME;
+
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.*;
 
 @Service
 @Transactional
 public class SearchHotelServiceImpl implements SearchHotelService {
 
-    private static final Logger LOG = Logger.getLogger(SearchHotelServiceImpl.class);
 
     @Autowired
     private HotelDao hotelDao;
@@ -32,30 +31,17 @@ public class SearchHotelServiceImpl implements SearchHotelService {
     private Mapper mapper;
 
     @Override
-    public List<String> getStates() {
-        return Util.map(mapper,addressDao.getStates(),String.class);
-    }
-
-    //TODO
-    @Override
-    public List<String> getCounties(String state) {
-        throw new RuntimeException("TODO");
-    }
-
-    //TODO
-    @Override
     public List<Hotel> searchByAddress(String association, String name,Integer begin, Integer count) {
         switch (association) {
-            case "address":
+            case ADDRESS:
                 return Util.map(mapper, hotelDao.searchLikeAddress(name), Hotel.class);
-            case "state":
+            case Associations.STATE:
                 return Util.map(mapper, hotelDao.searchAddressAssociation(association, name, begin, count), Hotel.class);
-            case "city":
-            case "county":
+            case Associations.CITY:
+            case Associations.COUNTY:
                 return Util.map(mapper, hotelDao.searchLikeAddressAssociation(association, name, begin, count), Hotel.class);
             default:
-                throw new IllegalArgumentException("Parameter " + association + "don't acceptable first param 'association'" +
-                        " for searchByAddress(String association, String name)");
+                return null;
         }
     }
 
@@ -72,19 +58,23 @@ public class SearchHotelServiceImpl implements SearchHotelService {
     @Override
     public Long lengthSearchByAddress(String association, String name) {
         switch (association) {
-            case "address":
+            case ADDRESS:
                 return Long.valueOf(hotelDao.lengthSearchLikeAddress(name));
-            case "state":
+            case Associations.STATE:
                 return Long.valueOf(hotelDao.lengthSearchAddressAssociation(association, name));
-            case "city":
-            case "county":
+            case Associations.CITY:
+            case Associations.COUNTY:
                 return Long.valueOf(hotelDao.lengthSearchLikeAddressAssociation(association, name));
             default:
-                throw new IllegalArgumentException("Parameter " + association + "don't acceptable first param 'association'" +
-                        " for searchByAddress(String association, String name)");
+                return 0L;
         }
     }
 
+    /*
+     *
+     * private method
+     *
+     */
     private Criterion getCriterionForLikeName(String name){
         return Restrictions.or(Restrictions.like(NAME, "% " + name + "%"),
                 Restrictions.like(NAME, name + "%"));
