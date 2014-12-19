@@ -20,13 +20,13 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"admin/"}, method = RequestMethod.GET)
     public String getUsers(){
         return "users.list";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<User> getUsersAjax(@RequestBody final ListViewPart part){

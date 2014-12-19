@@ -18,12 +18,12 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/registration")
-@PreAuthorize("isAnonymous()")
 public class RegistrationUserController {
 
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String editUser(Model model) {
         User user=new User();
@@ -32,6 +32,7 @@ public class RegistrationUserController {
         return "registration";
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping(value = {"", "/"}, method = RequestMethod.POST)
     public String newClientSubmit(@Valid @ModelAttribute("client") User client,
                                   BindingResult bindingResult, Model model) {

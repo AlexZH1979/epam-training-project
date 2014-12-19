@@ -12,6 +12,7 @@ import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
+import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
@@ -35,13 +36,16 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HotelService hotelService;
+
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String getOrders() {
         return "order.list";
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/", method = RequestMethod.GET)
     public ModelAndView administrateOrders() {
         ModelAndView mav = new ModelAndView("orders.administrator.list");
@@ -52,12 +56,18 @@ public class OrderController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
     public ModelAndView orderInfo(@PathVariable Order order,Authentication authentication) {
-        ModelAndView mav = new ModelAndView("order.info");
-        ApplicationUserDetails appUser = (ApplicationUserDetails)authentication.getPrincipal();
-        Integer userId=userService.getUserByPrincipal(appUser).getId();
-        if(order.getCustomerId().equals(userId)) {
-                orderService.basicValidateOrder(order);
-                mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        ModelAndView mav;
+        try {
+            orderService.basicValidateOrder(order);
+            mav = new ModelAndView("order.info");
+            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
+        } catch (IllegalArgumentException e) {
+            mav = new ModelAndView("hotel");
+            mav.addObject("hotel", hotelService.getById(order.getHotelId()));
+            mav.addObject("error", "Order not correct");
+        } catch (NullPointerException e) {
+            mav = new ModelAndView("redirect:/error");
+            mav.addObject("error", e.getMessage());
         }
         return mav;
     }
@@ -68,29 +78,38 @@ public class OrderController {
     @RequestMapping(value = "/register/param", method = RequestMethod.GET)
     public ModelAndView registerOrder(@Valid @ModelAttribute Order order, HttpSession session,
                                       Authentication authentication) {
-    //TODO валидация дат
+        ModelAndView mav = new ModelAndView();
         ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
         User user = userService.getUserByPrincipal(appUser);
-        //set user only in server-side
-        order.setCustomerId(user.getId());
-        LOG.info("ORDER " + order);
-        ModelAndView mav = new ModelAndView();
-            orderService.basicValidateOrder(order);
+        try {
+            //set user only in server-side
+            order.setCustomerId(user.getId());
+            LOG.info("ORDER " + order);
             DisplayedOrder displayedOrder = orderService.convertToDisplayedOrder(order);
             mav.addObject("order", displayedOrder);
             mav.setViewName("confirm.order");
             session.setAttribute("order", order);
-
+        } catch (NullPointerException e) {
+            mav = new ModelAndView("redirect:/error");
+            mav.addObject("error", "Error oder");
+        }
         return mav;
     }
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
-    public String sendOrder(HttpSession session) {
-        String view = "redirect:/orders";
-            Order order = (Order) session.getAttribute("order");
+    public ModelAndView sendOrder(HttpSession session) {
+        ModelAndView mav;
+        Order order = (Order) session.getAttribute("order");
+        try {
+
             orderService.save(order);
-        return view;
+            mav = new ModelAndView("redirect:/orders");
+        } catch (Exception e) {
+            mav = new ModelAndView("redirect:/error");
+            mav.addObject("error", "Order don't save");
+        }
+        return mav;
     }
 
     /*
