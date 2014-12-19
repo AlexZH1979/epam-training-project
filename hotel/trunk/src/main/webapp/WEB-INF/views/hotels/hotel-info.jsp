@@ -71,6 +71,11 @@
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
     <div class="row">
+        <c:if test="${not empty error}">
+        <div>
+           ${error}
+        </div>
+        </c:if>
         <c:if test="${not empty hotel}">
             <div class="col-md-5">
                 <h3><b><spring:message code="title.Hotel"/></b></h3>

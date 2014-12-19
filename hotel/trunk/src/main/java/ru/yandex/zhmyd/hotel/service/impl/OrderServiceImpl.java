@@ -22,7 +22,6 @@ import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations;
@@ -87,7 +86,6 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         return displayedOrders;
     }
 
-    //TODO
     @Override
     public Order confirmOrder(Long orderId, Integer roomId) {
         OrderEntity order=orderDao.getById(orderId);
@@ -108,7 +106,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         return mapper.map(order, Order.class);
     }
 
-    //TODO
+
     @Override
     public Order disconfirmOrder(Long orderId) {
         OrderEntity order=orderDao.getById(orderId);
@@ -146,13 +144,13 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
     }
 
     @Override
-    public void basicValidateOrder(Order order){
+    public void basicValidateOrder(Order order) {
         if(hotelDao.getById(order.getHotelId())==null||
-                userDao.getById(order.getCustomerId())==null||
-                order.getEndDate().before(order.getStartDate())||
-                order.getEndDate().before(new Date())){
+                userDao.getById(order.getCustomerId()) == null) {
+            throw new NullPointerException();
+        } else if(order.getEndDate().compareTo(order.getStartDate()) < 0){
             LOG.warn("ORDER "+order+" NOT VALID");
-            throw new IllegalArgumentException("Non valid order");
+            throw new IllegalArgumentException("Non valid order ");
         }
     }
 }

@@ -14,13 +14,13 @@ import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.service.UserService;
+import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 
 import static ru.yandex.zhmyd.hotel.web.util.PathSelector.HOTEL;
 import static ru.yandex.zhmyd.hotel.web.util.PathSelector.USER;
 
 @Controller
 @RequestMapping("/orders/admin")
-@PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
 public class AdministratorOrderController {
 
     private static final Logger LOG = Logger.getLogger(AdministratorOrderController.class);
@@ -37,6 +37,7 @@ public class AdministratorOrderController {
     @Autowired
     private RoomService roomService;
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
     public ModelAndView administrateOrder(@PathVariable Order order) {
         ModelAndView mav = new ModelAndView("order.administrator.info");
@@ -48,19 +49,34 @@ public class AdministratorOrderController {
         return mav;
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/confirm/", method = RequestMethod.GET)
     public String orderConfirm(@RequestParam(required = true) Long orderId,
                                @RequestParam(required = true) Integer roomId) {
-        orderService.confirmOrder(orderId, roomId);
-        return "redirect:/orders/admin/"+orderId;
+        String view;
+        try {
+            orderService.confirmOrder(orderId, roomId);
+            view = "redirect:/orders/admin/" + orderId;
+        } catch (EntityNonFoundException e) {
+            view = "redirect:/error?error=" + e.getMessage();
+        }
+        return view;
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/disconfirm/", method = RequestMethod.GET)
     public String orderDisconfirm(@RequestParam(required = true) Long orderId) {
-        orderService.disconfirmOrder(orderId);
-        return "redirect:/orders/admin/"+orderId;
+        String view;
+        try {
+            orderService.disconfirmOrder(orderId);
+            view = "redirect:/orders/admin/" + orderId;
+        } catch (EntityNonFoundException e) {
+            view = "redirect:/error?error=" + e.getMessage();
+        }
+        return view;
     }
 
+    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/{selector}/{id}", method = RequestMethod.GET)
     public ModelAndView showAdministrateOrder(@PathVariable String selector, @PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("orders.administrator.list");

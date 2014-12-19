@@ -21,7 +21,6 @@ import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.NAME;
 
 @Controller
 @RequestMapping("/hotels")
-@PreAuthorize("permitAll()")
 public class HotelController {
 
     private static final Logger LOG = Logger.getLogger(HotelController.class.getName());
@@ -33,6 +32,7 @@ public class HotelController {
     private SearchHotelService searchHotelService;
 
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String getHotels(){
         return "hotels.list";
@@ -44,6 +44,7 @@ public class HotelController {
     }
 
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value ="/{hotelId}", method = RequestMethod.GET)
     public ModelAndView getHotels(@PathVariable("hotelId") Hotel hotel){
         ModelAndView mav=new ModelAndView();
@@ -57,6 +58,8 @@ public class HotelController {
     *    *
     * non used ajax methods
     */
+
+    @PreAuthorize("permitAll")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> getHotels(@RequestBody final ListViewPart part){
@@ -76,6 +79,7 @@ public class HotelController {
      *
      */
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> searchHotelsByParameter(@RequestBody SearchParam param) {
@@ -95,6 +99,7 @@ public class HotelController {
         }
     }
 
+    @PreAuthorize("permitAll")
     @RequestMapping(value = "/search/length", method = RequestMethod.POST)
     @ResponseBody
     public Long lengthSearchHotelsByParameter(@RequestBody SearchParam param) {

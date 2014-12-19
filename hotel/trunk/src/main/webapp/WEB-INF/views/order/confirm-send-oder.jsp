@@ -1,8 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:url value="/hotels/${order.hotelId}" var="cancel"/>
-<c:url value="/orders/register/send" var="send"/>
+<c:if test="${empty error}">
+    <c:url value="/hotels/${order.hotelId}" var="cancel"/>
+    <c:url value="/orders/register/send" var="send"/>
 <div>
     <div class="col-md-2"></div>
     <div class="well col-md-6">
@@ -21,3 +21,18 @@
     </div>
     <div class="col-md-2"></div>
 </div>
+</c:if>
+<c:if test="${not empty error}">
+    <div class="col-md-2"></div>
+    <div class="well col-md-6">
+        <div class="row">
+            <div class="alert alert-danger">
+                <p>${error}</p>
+            </div>
+            <div>
+                <button type="reset" class="btn btn-primary" onclick="window.history.back()"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</c:if>
