@@ -17,11 +17,12 @@ public class StringIdToUserConverter implements Converter<String, User>{
 
     @Override
     public User convert(String source) {
-        User user=null;
+        User user;
         try{
             user= userService.getById(Integer.valueOf(source));
         }catch(Exception e){
             LOG.error("Don't convert id="+source+"; to user",e);
+            throw new NullPointerException();
         }
         return user;
     }

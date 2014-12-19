@@ -22,4 +22,6 @@ public interface OrderService extends BasicService<Order, Long>{
 
     //TODO
     Order disconfirmOrder(Long orderId);
+
+    void basicValidateOrder(Order order);
 }

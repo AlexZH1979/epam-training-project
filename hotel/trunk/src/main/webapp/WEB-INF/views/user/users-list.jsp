@@ -31,7 +31,7 @@
         loadTableAjax("${ajaxPath}",body_id, f, begin, countSize);
     }
     window.onload = function () {
-        loadTableAjax("${ajaxPath}",body_id, f, 0, 10);
+        loadTableAjax("${ajaxPath}",body_id, f, 0, 100);
     }
 </script>
 <select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">

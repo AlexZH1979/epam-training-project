@@ -7,7 +7,7 @@
 <security:authorize access="isAuthenticated()">
     <c:redirect url="/profile/"/>
 </security:authorize>
-<c:url value="/reg/" var="registration"/>
+<c:url value="/registration" var="registration"/>
 <c:if test="${not empty error}">
     <div class="danger">
         <p class="alert alert-danger">${error}</p>
@@ -23,10 +23,12 @@
     <div class="form-group">
         <div class="col-sm-8">
             <div class="input-group">
-                <div class="input-group-addon"><span class="glyphicon glyphicon-log-in"/></div>
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-log-in"
+                          title="<spring:message code='title.Login'/>"></span>
+                </div>
                 <input type="text" id="username" name="username" class="form-control"
-                       placeholder="<spring:message code='title.enter_login'/>"
-                       title="<spring:message code='title.Login'/>">
+                       placeholder="<spring:message code='title.enter_login'/>">
             </div>
         </div>
     </div>
@@ -35,7 +37,8 @@
             <div class="input-group">
                 <div class="input-group-addon">
                     <span class="glyphicon glyphicon-lock"
-                          title="<spring:message code='title.password'/>"></span></div>
+                          title="<spring:message code='title.password'/>"></span>
+                </div>
                 <input type="password" id="password" name="password" class="form-control"
                        placeholder="<spring:message code='title.enter_password'/>">
             </div>

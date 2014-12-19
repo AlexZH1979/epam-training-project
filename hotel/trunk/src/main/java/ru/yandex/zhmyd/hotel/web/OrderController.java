@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
-import ru.yandex.zhmyd.hotel.model.Room;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
-import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.OrderService;
-import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.service.UserService;
 import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
@@ -25,9 +22,6 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-
-import static ru.yandex.zhmyd.hotel.web.util.PathSelector.HOTEL;
-import static ru.yandex.zhmyd.hotel.web.util.PathSelector.USER;
 
 @Controller
 @RequestMapping("/orders")
@@ -41,27 +35,11 @@ public class OrderController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private HotelService hotelService;
-
-    @Autowired
-    private RoomService roomService;
-
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String getOrders() {
         return "order.list";
     }
-
-/*    //TODO
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/user/{userId}", method = RequestMethod.GET)
-    public ModelAndView getOrdersByUserId(@PathVariable Integer userId) {
-        ModelAndView mav = new ModelAndView("orders.administrator.list");
-        mav.addObject("path", "/orders/ajax/user/" + userId);
-        mav.addObject("user", userService.getById(userId));
-        return mav;
-    }*/
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "admin/", method = RequestMethod.GET)
@@ -74,69 +52,17 @@ public class OrderController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
     public ModelAndView orderInfo(@PathVariable Order order,Authentication authentication) {
-        ModelAndView mav;
+        ModelAndView mav = new ModelAndView("order.info");
         ApplicationUserDetails appUser = (ApplicationUserDetails)authentication.getPrincipal();
         Integer userId=userService.getUserByPrincipal(appUser).getId();
         if(order.getCustomerId().equals(userId)) {
-            mav = new ModelAndView("order.info");
-            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
-        }else{
-            mav=new ModelAndView("redirect://error");
+                orderService.basicValidateOrder(order);
+                mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
         }
         return mav;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/{order}", method = RequestMethod.GET)
-    public ModelAndView administrateOrder(@PathVariable Order order) {
-        ModelAndView mav = new ModelAndView("order.administrator.info");
-        try {
-            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
-        }catch(NullPointerException e){
-            mav.addObject("error", "Order not found");
-        }
-        return mav;
-    }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/confirm/", method = RequestMethod.GET)
-    public String orderConfirm(@RequestParam(required = true) Long orderId,
-                               @RequestParam(required = true) Integer roomId) {
-            orderService.confirmOrder(orderId, roomId);
-        return "redirect:/orders/admin/"+orderId;
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/disconfirm/", method = RequestMethod.GET)
-    public String orderDisconfirm(@RequestParam(required = true) Long orderId) {
-        orderService.disconfirmOrder(orderId);
-        return "redirect:/orders/admin/"+orderId;
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/{selector}/{id}", method = RequestMethod.GET)
-    public ModelAndView showAdministrateOrder(@PathVariable String selector, @PathVariable Integer id) {
-        ModelAndView mav = new ModelAndView("orders.administrator.list");
-        try {
-            switch (selector) {
-                case USER:
-                    mav.addObject("path", "/orders/ajax/user/" + id);
-                    mav.addObject("nameIntem", "User");
-                    mav.addObject("intem", userService.getById(id).getFirstName());
-                    break;
-                case HOTEL:
-                    mav.addObject("path", "/orders/ajax/hotel/" + id);
-                    mav.addObject("nameIntem", "Hotel");
-                    mav.addObject("intem", hotelService.getById(id).getName());
-                    break;
-                default:
-                    mav.addObject("path", "/orders/ajax/all/");
-            }
-        }catch(NullPointerException e){
-            mav.addObject("error", "BAD REQUEST PARAMETER");
-        }
-        return mav;
-    }
 
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/param", method = RequestMethod.GET)
@@ -147,13 +73,14 @@ public class OrderController {
         User user = userService.getUserByPrincipal(appUser);
         //set user only in server-side
         order.setCustomerId(user.getId());
-        LOG.info("ORDER "+order);
-        DisplayedOrder displayedOrder = orderService.convertToDisplayedOrder(order);
-
+        LOG.info("ORDER " + order);
         ModelAndView mav = new ModelAndView();
-        mav.addObject("order", displayedOrder);
-        mav.setViewName("confirm.order");
-        session.setAttribute("order", order);
+            orderService.basicValidateOrder(order);
+            DisplayedOrder displayedOrder = orderService.convertToDisplayedOrder(order);
+            mav.addObject("order", displayedOrder);
+            mav.setViewName("confirm.order");
+            session.setAttribute("order", order);
+
         return mav;
     }
 
@@ -161,15 +88,8 @@ public class OrderController {
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public String sendOrder(HttpSession session) {
         String view = "redirect:/orders";
-        try {
             Order order = (Order) session.getAttribute("order");
             orderService.save(order);
-        }catch (Exception e){
-            //TODO
-            view = "error";
-        } finally {
-            session.removeAttribute("order");
-        }
         return view;
     }
 
@@ -209,59 +129,17 @@ public class OrderController {
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part,Authentication authentication) {
+        List<DisplayedOrder> displayedOrders=null;
+        try {
+
         ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
         Integer userId = userService.getUserByPrincipal(appUser).getId();
         List<Order> orders = orderService.getIntervalOrdersByUserId(userId,part.getFirst(), part.getCount());
-        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
-        return displayedOrders;
-    }
-
-    /*
-    * get orders in interval begin->begin+count
-     */
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = {"/ajax/all"}, method = RequestMethod.POST)
-    @ResponseBody
-    public List<DisplayedOrder> getAllOrders(@RequestBody final ListViewPart part) {
-        List<Order> orders = orderService.getInterval(part.getFirst(),part.getCount());
-        List<DisplayedOrder> displayedOrders = orderService.convertToDisplayedOrders(orders);
-        return displayedOrders;
-    }
-
-    /*
-    * get user orders in interval begin->begin+count
-     */
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = {"/ajax/{selector}/{id}"}, method = RequestMethod.POST)
-    @ResponseBody
-    public List<DisplayedOrder> getOrdersByUserId(@RequestBody final ListViewPart part,
-                                                  @PathVariable("selector") String selector,
-                                                  @PathVariable("id") Integer id,
-                                                  @RequestParam(value = "hide", required = false) String hide) {
-        List<Order> orders = null;
-        LOG.info("Selector="+selector+"; id="+id+"; hide="+hide);
-        //TODO
-        if (hide == null || hide.equals("false")) {
-            switch (selector) {
-                case USER:
-                    orders = orderService.getIntervalOrdersByUserId(id, part.getFirst(), part.getCount());
-                    break;
-                case HOTEL:
-                    orders = orderService.getIntervalOrdersByHotelId(id, part.getFirst(), part.getCount());
-                    break;
-                default:
-                    break;
-            }
-        }else if (hide.equals("confurm")){
-            //TODO
+        displayedOrders = orderService.convertToDisplayedOrders(orders);
+        }catch (Exception ignore){
+            //IGNORE
+            LOG.error(ignore);
         }
-        return orderService.convertToDisplayedOrders(orders);
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @ResponseBody
-    @RequestMapping(value = "/ajax/admin/rooms/{id}", method = RequestMethod.POST)
-    public List<Room> findFreeRoom(@PathVariable Long id){
-        return roomService.getFreeRoom(id);
+        return displayedOrders;
     }
 }

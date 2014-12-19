@@ -35,6 +35,7 @@ public class RoomDaoImpl extends AbstractHibernateDao<RoomEntity, Integer> imple
      * not((o.start_date<START_DATE and o.end_date<START_DATE)
      * or (o.start_date>END_DATE and o.end_date>END_DATE))) as t on r.id=t.room_id where t.id is null;
      */
+    @SuppressWarnings("all")
     @Override
     public List<RoomEntity> getFreeRooms(final OrderEntity order) {
 

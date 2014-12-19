@@ -37,7 +37,7 @@
                     confirm="<spring:message code="order.Confurm.Unknown"/>";
                     clazz='';
                     break;
-            };
+            }
             var row = $('<tr id=\"o_' + o_obj[k].id + '\"  class='+clazz+'></tr>');
             row.append("<td><input value="+o_obj[k].id+" type=\'checkbox\'></td>");
             var orderLink=$("<td></td>");
@@ -88,10 +88,10 @@
             }
         })
 
-    };
+    }
 
     window.onload = function () {
-        loadTableAjax("${ajaxPath}",  '\#${tableBody}', f, 0, 10);
+        loadTableAjax("${ajaxPath}",  '\#${tableBody}', f, 0, 100);
     }
 </script>
     <security:authorize access="isFullyAuthenticated()">
@@ -102,7 +102,7 @@
     <option value="100">100</option>
 </select>
  <button onclick="deleteOrders();"><spring:message code="title.delete"/></button>
-<table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
+<table id="list_orders" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr>
         <th colspan="2"><spring:message code="title.Id"/></th>

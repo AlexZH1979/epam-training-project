@@ -1,6 +1,7 @@
 package ru.yandex.zhmyd.hotel.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,12 +12,16 @@ import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.web.util.vto.ListViewPart;
 import ru.yandex.zhmyd.hotel.web.util.vto.SearchParam;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.logging.Logger;
 
+import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.ADDRESS;
+import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.Associations.*;
+import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.NAME;
+
 @Controller
 @RequestMapping("/hotels")
+@PreAuthorize("permitAll()")
 public class HotelController {
 
     private static final Logger LOG = Logger.getLogger(HotelController.class.getName());
@@ -49,23 +54,13 @@ public class HotelController {
     }
 
    /*
-    *
-    *
-    * TODO delete
-    *
-    *
+    *    *
     * non used ajax methods
     */
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> getHotels(@RequestBody final ListViewPart part){
         return hotelService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
-    }
-
-    @RequestMapping(value = "/set/{hotelId}")
-    public String selectHotel(@PathVariable("hotelId") Hotel hotel, HttpSession session){
-        session.setAttribute("selectHotelId", hotel.getId());
-        return "redirect:/hotels/"+hotel.getId();
     }
 
     @RequestMapping(value = {"/ajax/size"}, method = RequestMethod.POST)
@@ -77,10 +72,7 @@ public class HotelController {
 
     /*
      *
-     *
      * AJAX search methods
-     *
-     *
      *
      */
 
@@ -91,12 +83,12 @@ public class HotelController {
             return null;
         }
         switch (param.getParameter()) {
-            case "name":
+            case NAME:
                 return searchHotelService.searchByName( param.getValue(),0,20);
-            case "state":
-            case "county":
-            case "city":
-            case "address":
+            case STATE:
+            case COUNTY:
+            case CITY:
+            case ADDRESS:
                 return searchHotelService.searchByAddress(param.getParameter(), param.getValue(),0,20);
             default:
                 return null;
@@ -110,12 +102,12 @@ public class HotelController {
             return null;
         }
         switch (param.getParameter()) {
-            case "name":
+            case NAME:
                 return searchHotelService.lengthSearchByName(param.getValue());
-            case "state":
-            case "county":
-            case "city":
-            case "address":
+            case STATE:
+            case COUNTY:
+            case CITY:
+            case ADDRESS:
                 return searchHotelService.lengthSearchByAddress(param.getParameter(), param.getValue());
             default:
                 return null;

@@ -6,6 +6,12 @@
 <c:url value="/orders/admin/confirm/" var="confirm"/>
 <c:url value="/orders/admin/disconfirm/" var="disconfirm"/>
 <c:set value="tableBody" var="tableBody"/>
+<c:if test="${not empty error}">
+    <div class="alert alert-danger">
+        <p>${error}</p>
+    </div>
+</c:if>
+<c:if test="${not empty displayedOrder}">
 <script type="text/javascript">
     var f = function fillOrdersTable(o_id, o_obj) {
         //delete all
@@ -25,7 +31,25 @@
         }
         $(o_id + '>tr>td>input').first().prop('checked', 'checked');
        // TODO hide button
-    }
+        var hide;
+        var confirmed=${displayedOrder.confirmed}+"q";
+        switch (confirmed){
+            case 'trueq':
+                hide=true;
+                break;
+            case 'falseq':
+                hide=false;
+                $('#disconfirm').hide();
+                break;
+            default :
+                hide=false;
+        }
+        if(i!=0){
+            if(!hide) {
+                $('#confirm').show();
+            }
+        }
+    };
 
     function confirmOrder() {
         var roomId = $("\#${tableBody}>tr>td>input:radio:checked").val();
@@ -40,15 +64,9 @@
         loadTableAjax("${ajaxPath}", '\#${tableBody}', f, begin, countSize);
     }
     window.onload = function () {
-        loadTableAjax("${ajaxPath}", '\#${tableBody}', f, 0, 10);
+        loadTableAjax("${ajaxPath}", '\#${tableBody}', f, 0, 100);
     }
 </script>
-<c:if test="${not empty error}">
-    <div class="alert alert-danger">
-        <p>${error}</p>
-    </div>
-</c:if>
-<c:if test="${not empty displayedOrder}">
     <security:authorize access="isFullyAuthenticated()">
         <div class="row">
             <div class="col-md-3"></div>
@@ -121,20 +139,24 @@
                         <spring:message code="order.Confurm.Unknown"/>
                     </c:if>
                 </div>
-                <div class="row">
-                    <button id="confirm" type="button" class="btn bg-primary" onclick="confirmOrder();">
-                        <spring:message code="order.Confurm"/>
-                    </button>
-                    <button id="disconfirm" type="button" class="btn btn-danger" onclick="disconfirmOrder(false);">
-                        <spring:message code="order.Disconfurm"/>
-                    </button>
+                <div >
+                    <div  class="col-md-3" id="confirm" hidden="hidden">
+                        <button type="button" class="btn bg-primary" onclick="confirmOrder();">
+                            <spring:message code="order.Confurm"/>
+                        </button>
+                    </div>
+                    <div class="col-md-3" id="disconfirm">
+                        <button type="button" class="btn btn-danger" onclick="disconfirmOrder(false);">
+                            <spring:message code="order.Disconfurm"/>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="col-md-3"></div>
         </div>
         <div class="col-md-12 well" id="rooms">
-            <table id="free_rooms" border="1" cellpadding="10" cellspacing="0"
-                   class="table table-striped table-bordered">
+            <table id="free_rooms" cellpadding="10" cellspacing="0"
+                   class="table table-striped">
                 <caption>
                     <h3>
                         <spring:message code="title.FreeRooms"/>

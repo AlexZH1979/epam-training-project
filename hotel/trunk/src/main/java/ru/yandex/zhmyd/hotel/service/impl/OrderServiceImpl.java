@@ -22,6 +22,7 @@ import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations;
@@ -93,14 +94,15 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         if(order==null){
             throw new EntityNonFoundException("OrderEntity witch id="+orderId+" not found");
         }
+        basicValidateOrder(mapper.map(order,Order.class));
         RoomEntity roomEntity=roomDao.getById(roomId);
         if(roomEntity==null){
             throw new EntityNonFoundException("RoomEntity witch id="+roomId+" not found");
         }
         order.setRoom(roomEntity);
-        long days=1+(order.getEndDate().getTime()-order.getStartDate().getTime())/86400000;
+        long days=1+(order.getEndDate().getTime()-order.getStartDate().getTime())/86400000;/* 24*60*60*1000=86400000 */
         LOG.info("DAYS " + days);
-        order.setPrice((double) (roomEntity.getPrice()*days));
+        order.setPrice(roomEntity.getPrice()*days);
         order.setConfirmed(true);
         orderDao.update(order);
         return mapper.map(order, Order.class);
@@ -140,6 +142,17 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         }else{
             LOG.info("ORDER with id=" + id + " don\'t found");
             throw new EntityNonFoundException("ORDER with id=" + id + " don\'t found");
+        }
+    }
+
+    @Override
+    public void basicValidateOrder(Order order){
+        if(hotelDao.getById(order.getHotelId())==null||
+                userDao.getById(order.getCustomerId())==null||
+                order.getEndDate().before(order.getStartDate())||
+                order.getEndDate().before(new Date())){
+            LOG.warn("ORDER "+order+" NOT VALID");
+            throw new IllegalArgumentException("Non valid order");
         }
     }
 }
