@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ErrorPageController {
 
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String errorPage(@RequestParam String error, Model model){
+    public String errorPage(@RequestParam(required = false) String error, Model model){
         model.addAttribute("errorMessage", error);
         return "error";
     }

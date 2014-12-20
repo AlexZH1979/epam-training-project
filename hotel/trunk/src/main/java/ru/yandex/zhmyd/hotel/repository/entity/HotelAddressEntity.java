@@ -38,10 +38,6 @@ public class HotelAddressEntity {
     @Mapping("county")
     private HotelAddressCountyEntity county;
 
-    @Column(name = "area_code")
-    @Mapping("areaCode")
-    private Integer areaCode;
-
     public Integer getId() {
         return id;
     }
@@ -74,15 +70,6 @@ public class HotelAddressEntity {
         this.zip = zip;
     }
 
-
-    public Integer getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(Integer areaCode) {
-        this.areaCode = areaCode;
-    }
-
     public HotelAddressCountyEntity getCounty() {
         return county;
     }
@@ -108,7 +95,6 @@ public class HotelAddressEntity {
                 ", state=" + state +
                 ", zip=" + zip +
                 ", county=" + county +
-                ", areaCode=" + areaCode +
                 '}';
     }
 }

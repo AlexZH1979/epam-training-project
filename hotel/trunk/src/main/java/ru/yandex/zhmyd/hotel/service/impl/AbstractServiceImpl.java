@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.GenericDao;
 import ru.yandex.zhmyd.hotel.service.BasicService;
@@ -21,7 +23,6 @@ import java.util.Map;
  * DAO - DaoImpl class
  * ID - primary key value (id)
  */
-@Transactional
 public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID extends Serializable> implements BasicService<T, ID> {
 
     private static final Logger LOG = Logger.getLogger(AbstractServiceImpl.class);
@@ -36,6 +37,7 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
 
 
     @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true,propagation = Propagation.REQUIRED)
     @Override
     public T getById(ID id) {
         LOG.debug("GET to getById id=" + id);
@@ -51,22 +53,27 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
 
     @SuppressWarnings("unchecked")
     @Deprecated
+    @Transactional(readOnly = true)
     public List<T> getAll() {
         LOG.debug("GET to getAll");
         return (List<T>) Util.map(mapper, dao.getAll(), this.getGenericTargetClass());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Long getSizeList(){
         return dao.getLength();
     }
 
+    @Transactional(readOnly = true)
     @SuppressWarnings("unchecked")
     @Override
     public List<T> getInterval(Integer begin, Integer count) {
         LOG.debug("GET to getInterval values: begin=" + begin + ", count=" + count);
         return getInterval(new HashMap(), begin, count);
     }
+
+    @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
     @Override
     @SuppressWarnings("unchecked")
     public List<T> getInterval(Map param,Integer begin, Integer count) {
@@ -75,6 +82,7 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     }
 
     @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.SERIALIZABLE)
     @Override
     public void save(T dto) {
         LOG.debug("GET to save dto=" + dto);
@@ -85,6 +93,7 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     }
 
     @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.SERIALIZABLE)
     @Override
     public void delete(T t) {
         LOG.info("GET to delete dto=" + t);

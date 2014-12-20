@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
+
 public class UserEntityToIntegerConverter extends DozerConverter<UserEntity, Integer> {
     /**
      * Defines two types, which will take part transformation.

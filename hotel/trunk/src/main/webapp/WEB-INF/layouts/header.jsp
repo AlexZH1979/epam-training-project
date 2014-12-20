@@ -45,7 +45,7 @@
             </security:authorize>
             <security:authorize access="not isFullyAuthenticated()">
                 <li><a href="<c:url value="/login"/>"><spring:message code="title.Login"/></a></li>
-                <li><a href="<c:url value="/reg/"/>"><spring:message code="title.Registration"/></a></li>
+                <li><a href="<c:url value="/registration/"/>"><spring:message code="title.Registration"/></a></li>
             </security:authorize>
         </ul>
     </div>

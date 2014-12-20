@@ -69,7 +69,7 @@
                 </c:if>
                 <c:if test="${(not displayedOrder.confirmed ) or (empty displayedOrder.confirmed)}">
                     <p>
-                        <button type="button" class="btn btn-danger">
+                        <button type="button" class="btn btn-danger" hidden="hidden">
                             <spring:message code="title.delete"/>
                         </button>
                     </p>

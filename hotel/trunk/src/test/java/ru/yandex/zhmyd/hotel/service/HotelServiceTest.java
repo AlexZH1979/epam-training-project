@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.logging.Logger;
 
-public class HotelServiceTest extends AbstractDaoTest{
+public class HotelServiceTest extends AbstractServiceTest{
 
     private static final Logger LOG=Logger.getLogger(HotelServiceTest.class.getName());
 

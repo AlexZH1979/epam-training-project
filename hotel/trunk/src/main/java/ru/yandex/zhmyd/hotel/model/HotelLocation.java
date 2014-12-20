@@ -4,19 +4,11 @@ public class HotelLocation {
 
     private Integer id;
 
-    private Integer locFIPS;
-
     private String locTimeZone;
-
-    private String locDST;
 
     private Double locLat;
 
     private Double locLong;
-
-    private Integer longMSA;
-
-    private String locPMSA;
 
     public Integer getId() {
         return id;
@@ -26,28 +18,12 @@ public class HotelLocation {
         this.id = id;
     }
 
-    public Integer getLocFIPS() {
-        return locFIPS;
-    }
-
-    public void setLocFIPS(Integer locFIPS) {
-        this.locFIPS = locFIPS;
-    }
-
     public String getLocTimeZone() {
         return locTimeZone;
     }
 
     public void setLocTimeZone(String locTimeZone) {
         this.locTimeZone = locTimeZone;
-    }
-
-    public String getLocDST() {
-        return locDST;
-    }
-
-    public void setLocDST(String locDST) {
-        this.locDST = locDST;
     }
 
     public Double getLocLat() {
@@ -66,33 +42,13 @@ public class HotelLocation {
         this.locLong = locLong;
     }
 
-    public Integer getLongMSA() {
-        return longMSA;
-    }
-
-    public void setLongMSA(Integer longMSA) {
-        this.longMSA = longMSA;
-    }
-
-    public String getLocPMSA() {
-        return locPMSA;
-    }
-
-    public void setLocPMSA(String locPMSA) {
-        this.locPMSA = locPMSA;
-    }
-
     @Override
     public String toString() {
         return "HotelLocation{" +
                 "id=" + id +
-                ", locFIPS=" + locFIPS +
                 ", locTimeZone='" + locTimeZone + '\'' +
-                ", locDST='" + locDST + '\'' +
                 ", locLat=" + locLat +
                 ", locLong=" + locLong +
-                ", longMSA=" + longMSA +
-                ", locPMSA='" + locPMSA + '\'' +
                 '}';
     }
 }

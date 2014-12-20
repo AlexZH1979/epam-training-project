@@ -3,6 +3,8 @@ package ru.yandex.zhmyd.hotel.service.impl;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.model.Room;
 import ru.yandex.zhmyd.hotel.repository.dao.OrderDao;
@@ -12,11 +14,9 @@ import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.service.RoomService;
 import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
 @SuppressWarnings("unused")
 //TODO
 public class RoomServiceImpl extends AbstractServiceImpl<Room, RoomEntity, RoomDao, Integer> implements RoomService{
@@ -34,6 +34,7 @@ public class RoomServiceImpl extends AbstractServiceImpl<Room, RoomEntity, RoomD
         return getFreeRoom(order.getId());
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public List<Room> getFreeRoom(Long id){
         OrderEntity orderEntity=orderDao.getById(id);

@@ -10,10 +10,10 @@ import ru.yandex.zhmyd.hotel.model.UserRole;
 import java.util.List;
 import java.util.logging.Logger;
 
-//TODO review test code: add access methods for
-public class UserServiceTest extends AbstractDaoTest{
+public class UserServiceTest extends AbstractServiceTest{
 
     private static final Logger LOG = Logger.getLogger(UserServiceTest.class.getName());
+
 
     @Autowired
     private UserService userService;
@@ -25,7 +25,7 @@ public class UserServiceTest extends AbstractDaoTest{
         user.setFirstName("ftest");
         user.setLastName("ltest");
         user.setLogin("ru/yandex");
-        user.setEmail("test@yandex.ru1");
+        user.setEmail("test1@yandex.ru1");
         user.setGender(Gender.MALE);
         user.setRole(UserRole.CUSTOMER);
         user.setPassword("ru/yandex");
@@ -33,7 +33,6 @@ public class UserServiceTest extends AbstractDaoTest{
 
         LOG.info("SAVE USER: "+user);
         userService.save(user);
-
 
         User user1=new User();
         user1.setFirstName("ftest");
@@ -47,8 +46,11 @@ public class UserServiceTest extends AbstractDaoTest{
         try {
             LOG.info("TEST DOUBLE SAVE USER");
             userService.save(user1);
+            throw new Exception();
         }catch (RuntimeException e){
             LOG.info("FIND DOUBLE USER");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         LOG.info("TEST delete");

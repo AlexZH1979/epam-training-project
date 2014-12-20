@@ -7,7 +7,6 @@
 <c:url value="/hotels/search/length" var="searchLength"/>
 <c:url value="/hotels/search" var="ajaxSearchHotel"/>
 <script type="text/javascript">
-
     var f = function fillHotelsTable(o_id, o_obj) {
         //delete all
         $(o_id).html("");
@@ -24,6 +23,7 @@
             $(o_id).append(row);
             i++;
         }
+        $(o_id).parent().parent().show();
     }
     //get table hotels by param
     function loadTables(parameter, value) {
@@ -32,12 +32,28 @@
 
     var listSizes = function listHotelSizes(e_id, parameter, v, find) {
         console.log("id "+ e_id+' parameter '+parameter+ ' value ' +v+ ' find '+find);
-        console.log('<tr onclick="loadTables(\''+parameter+'\', \''+v+'\');"></tr>');
-
-        var row = $('<tr onclick="loadTables(\''+parameter+'\', \''+v+'\');"></tr>');
-        row.append('<td>Findded by ' + parameter +': '+v+ ' '+find+' </td>');
-        $(e_id).append(row);
-
+        var message;
+        switch (parameter) {
+            case "state":
+                message = "<spring:message code='title.by_state'/>";
+                break;
+            case "county":
+                message = "<spring:message code='title.by_county'/>";
+                break;
+            case "city":
+                message = "<spring:message code='title.by_city'/>";
+                break;
+            case "address":
+                message = "<spring:message code='title.by_address'/>";
+                break;
+            case "name":
+                message = "<spring:message code='title.by_name'/>";
+                break;
+        }
+        var btn = $('<button type="button" class="btn btn-primary col-md-12" onclick="loadTables(\'' + parameter + '\', \'' + v + '\');"></button>');
+        btn.append('<spring:message code="title.Findded_by"/>&nbsp' + message + ': ' + v + ' ' + find + ' </p>');
+        $(e_id).append(btn);
+        $(e_id).show();
     };
 
 
@@ -55,6 +71,8 @@
     }
 </script>
 <div>
+    <h3><spring:message code="title.Search"/></h3>
+
     <div>
         <label for="state" class="col-sm-4 control-label"><spring:message code="title.destination"/></label>
 
@@ -74,11 +92,11 @@
         </div>
     </div>
 </div>
-<table border="1" cellpadding="10" cellspacing="0" class="table table-striped">
-    <thead></thead>
-    <tbody id="finder"></tbody>
-</table>
-<table class="table table-striped table-bordered">
+<div id="finder" class="row" hidden="hidden">
+</div>
+<div class="well" hidden="hidden">
+    <table class="table table-striped">
     <thead/>
     <tbody id="tableBody"></tbody>
 </table>
+</div>

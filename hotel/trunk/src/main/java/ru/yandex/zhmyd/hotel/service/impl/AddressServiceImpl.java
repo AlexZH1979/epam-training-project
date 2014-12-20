@@ -14,8 +14,8 @@ public class AddressServiceImpl implements AddressService {
     private HotelAddressDao addressDao;
 
     @Override
-    public List<String> getCounties(String value) {
-        return addressDao.getCounties(value);
+    public List<String> getCounties(String state) {
+        return addressDao.getCounties(state);
     }
 
     @Override
@@ -23,7 +23,9 @@ public class AddressServiceImpl implements AddressService {
         return addressDao.getStates();
     }
 
-    //""->"state"->"county"->"city"->"zip"
+    //param->return type
+
+    // ""->"state"->"county"->"city"->"zip"
     @Override
     public List<String> getNameSubParameters(String param, String value){
         return addressDao.getNameSubParameters(param, value);

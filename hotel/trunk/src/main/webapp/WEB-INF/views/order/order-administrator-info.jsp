@@ -46,8 +46,8 @@
         }
         if(i!=0){
             if(!hide) {
-                $('#confirm').show();
-            }
+                    $('#confirm').show();
+                }
         }
     };
 

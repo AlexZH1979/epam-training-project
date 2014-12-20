@@ -80,7 +80,8 @@
         </div>
     </div>
     <input name="submit" type="submit" class="btn btn-success" value="Save"/>
-    <input name="submit" type="button" class="btn btn-sm btn-warning" value="Cancel" onclick="window.history.back()"/>
+    <input name="submit" type="button" class="btn btn-sm btn-warning" value="Cancel"
+           onclick="location.href='<c:url value="/hotels/search"/>'"/>
 </form:form>
 </div>
 <div class="col-md-3"></div>

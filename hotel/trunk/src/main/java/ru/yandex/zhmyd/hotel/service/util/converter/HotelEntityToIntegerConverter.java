@@ -5,9 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelEntity;
 
-/**
- * Created by Александр on 06.12.2014.
- */
 public class HotelEntityToIntegerConverter extends DozerConverter<HotelEntity,Integer> {
 
     @Autowired
