@@ -31,12 +31,13 @@
             $('#place_1').attr('checked', 'checked');
             $('#category_ECONOMY').toggle('toggle');
 
-            $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
+            $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().add(1,'days').format('D MMMM, YYYY'));
             $('\#${calendar}').daterangepicker({
                 opens: 'center',
                 startDate: orderDetails.start,
                 format: 'D MMMM, YYYY',
                 minDate: orderDetails.start
+
             }, function (start, end) {
                 $('\#${calendar} span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
                 orderDetails.start = start;
@@ -70,13 +71,23 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-    <div class="row">
-        <c:if test="${not empty error}">
-        <div>
-           ${error}
-        </div>
-        </c:if>
-        <c:if test="${not empty hotel}">
+    <div class="well">
+        <div class="row">
+            <security:authorize access="isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')">
+                <div id="admin-menu" class="well">
+                    <button class="btn btn-sm" type="button"
+                            onclick="location.href='<c:url value="/orders/admin/hotel/${hotel.id}"/>'">
+                            <spring:message code='title.Orders'/>
+                </div>
+            </security:authorize>
+            <c:if test="${not empty error}">
+                <div>
+                    <p>
+                            ${error}
+                    </p>
+                </div>
+            </c:if>
+            <c:if test="${not empty hotel}">
             <div class="col-md-5">
                 <h3><b><spring:message code="title.Hotel"/></b></h3>
                 <address>

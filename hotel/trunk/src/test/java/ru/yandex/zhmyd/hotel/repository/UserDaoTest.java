@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.OrderDao;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
+import ru.yandex.zhmyd.hotel.repository.entity.OrderEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
@@ -32,8 +33,8 @@ public class UserDaoTest extends AbstractDaoTest {
 
         List<UserEntity> users = userDao.getAll();
         LOG.info("Find all: length="+users.size()+"; Entity: "+users);
-
-        LOG.info("ORDERS for roomId=1: "+ orderDao.getRoomByOrderId(Long.valueOf(1)));
+        OrderEntity orderEntity=orderDao.getAll().get(0);
+        LOG.info("ORDERS for roomId=1: "+ orderDao.getRoomByOrderId(orderEntity.getId()));
 
         LOG.info("SUBSEQUENSE Users with NULL Criteria: " + userDao.getByCriteria(null, 5, 10));
 
@@ -46,10 +47,11 @@ public class UserDaoTest extends AbstractDaoTest {
         *   Evil lazy-load problem won which use   Hibernate.initialize(user);
         *   or used transaction on service level
         */
-        UserEntity userEntity = orderDao.getUserByOrderId(Long.valueOf(1));
+        OrderEntity orderEntity=orderDao.getAll().get(0);
+        UserEntity userEntity = orderDao.getUserByOrderId(orderEntity.getId());
         LOG.info("User in order id=1: " + userEntity);
 
-        RoomEntity room= orderDao.getRoomByOrderId(Long.valueOf(1));
+        RoomEntity room= orderDao.getRoomByOrderId(orderEntity.getId());
         LOG.info("Room in order id=1: "+room);
     }
 

@@ -6,6 +6,9 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.model.UserRole;
 import ru.yandex.zhmyd.hotel.repository.dao.UserDao;
@@ -30,6 +33,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
     @Autowired
     private UserDao userDao;
 
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     @Override
     public User getUserByCredits(String login, String password) {
 
@@ -46,6 +50,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
         return user;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     @Override
     public User getUserByPrincipal(ApplicationUserDetails details) {
         return mapper.map(details.getAccount(),User.class);
@@ -59,17 +64,19 @@ public class UserServiceImpl extends AbstractServiceImpl<User, UserEntity, UserD
         save(customer);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     @Override
     public void save(User user) {
-        UserEntity userEntity=mapper.map(user, UserEntity.class);
-        Criterion cr= Restrictions.or(Restrictions.eq(LOGIN, userEntity.getLogin()),
-                Restrictions.eq(EMAIL,userEntity.getEmail()));
+        Criterion cr = Restrictions.or(Restrictions.eq(LOGIN, user.getLogin()),
+                Restrictions.eq(EMAIL, user.getEmail()));
         /*
          *   verify before saved, if user which this criteria already exist throws exception
          */
-        if(!userDao.getByCriteria(cr).isEmpty()) {
+        if (userDao.getByCriteria(cr).isEmpty()) {
+            super.save(user);
+        } else {
             throw new ServiceException("user with login: "+user.getLogin()+", or email: "+user.getEmail()+" already exist");
         }
-        super.save(user);
+
     }
 }

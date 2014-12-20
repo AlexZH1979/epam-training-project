@@ -5,9 +5,9 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.Hotel;
-import ru.yandex.zhmyd.hotel.repository.dao.HotelAddressDao;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
 import ru.yandex.zhmyd.hotel.service.SearchHotelService;
 import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
@@ -17,19 +17,15 @@ import java.util.List;
 import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.*;
 
 @Service
-@Transactional
 public class SearchHotelServiceImpl implements SearchHotelService {
-
 
     @Autowired
     private HotelDao hotelDao;
 
     @Autowired
-    private HotelAddressDao addressDao;
-
-    @Autowired
     private Mapper mapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<Hotel> searchByAddress(String association, String name,Integer begin, Integer count) {
         switch (association) {
@@ -45,16 +41,19 @@ public class SearchHotelServiceImpl implements SearchHotelService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Hotel> searchByName(String name, Integer begin, Integer count) {
         return Util.map(mapper, hotelDao.getByCriteria(getCriterionForLikeName(name), begin, count), Hotel.class);
     }
 
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, readOnly = true)
     @Override
     public Long lengthSearchByName(String name) {
         return hotelDao.getLength(getCriterionForLikeName(name));
     }
 
+    @Transactional(isolation = Isolation.READ_UNCOMMITTED, readOnly = true)
     @Override
     public Long lengthSearchByAddress(String association, String name) {
         switch (association) {

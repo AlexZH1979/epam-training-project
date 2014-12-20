@@ -8,18 +8,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.impl.UserDaoImpl;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
 import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.LOGIN;
 
 @Service("userService")
-@Transactional
 public class SbeUserDetailsService implements UserDetailsService {
 
     @Resource
@@ -36,6 +35,8 @@ public class SbeUserDetailsService implements UserDetailsService {
      * @throws org.springframework.security.core.userdetails.UsernameNotFoundException if the user could not be found or the user has no GrantedAuthority
      */
     @Override
+
+    @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         UserEntity userEntity=null;
         try {

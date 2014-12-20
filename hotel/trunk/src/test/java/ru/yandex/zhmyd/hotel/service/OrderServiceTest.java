@@ -1,37 +1,42 @@
 package ru.yandex.zhmyd.hotel.service;
 
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.model.Order;
+import ru.yandex.zhmyd.hotel.model.User;
 
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
 
-public class OrderServiceTest extends AbstractDaoTest {
+public class OrderServiceTest extends AbstractServiceTest {
 
     private static final Logger LOG = Logger.getLogger(OrderServiceTest.class.getName());
 
     @Autowired
     private OrderService orderService;
 
-    @Ignore
+    @Autowired
+    private UserService userService;
+
     @Test
     public void test() {
-        Order order=orderService.getById(1L);
+        Order order=orderService.getAll().get(0);
         LOG.info(order.toString());
 
-        List<Order> orders=orderService.getOrdersByUserId(1);
+        User  user=userService.getAll().get(0);
+        List<Order> orders=orderService.getOrdersByUserId(user.getId());
         LOG.info(orders.toString());
 
         LOG.info(orderService.getAll().toString());
 
+
         Order order1=new Order();
-        order1.setRoomId(1);
-        order1.setCustomerId(20);
+        order1.setHotelId(order.getHotelId());
+        order1.setRoomId(order.getRoomId());
+        order1.setCustomerId(user.getId());
         order1.setStartDate(new Date());
         order1.setEndDate(new Date());
         order1.setPrice(300.0);

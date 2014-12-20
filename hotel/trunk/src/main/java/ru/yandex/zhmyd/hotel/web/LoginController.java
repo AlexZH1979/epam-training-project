@@ -44,9 +44,4 @@ public class LoginController {
         return "redirect:/hotels/search";
     }
 
-    //TODO
-    @RequestMapping("/map")
-    public String getMap(){
-        return "map";
-    }
 }

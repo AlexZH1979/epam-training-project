@@ -14,8 +14,6 @@ public class HotelAddress {
 
     private String county;
 
-    private Integer areaCode;
-
     public Integer getId() {
         return id;
     }
@@ -60,14 +58,6 @@ public class HotelAddress {
         this.county = county;
     }
 
-    public Integer getAreaCode() {
-        return areaCode;
-    }
-
-    public void setAreaCode(Integer areaCode) {
-        this.areaCode = areaCode;
-    }
-
     @Override
     public String toString() {
         return "HotelAddress{" +
@@ -77,7 +67,6 @@ public class HotelAddress {
                 ", state='" + state + '\'' +
                 ", zip=" + zip +
                 ", county='" + county + '\'' +
-                ", areaCode=" + areaCode +
                 '}';
     }
 }

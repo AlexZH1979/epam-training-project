@@ -31,7 +31,7 @@ public class AdministratorOrderAjaxController {
     /*
     * get orders in interval begin->begin+count
      */
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"/all"}, method = RequestMethod.POST)
     @ResponseBody
     public List<DisplayedOrder> getAllOrders(@RequestBody final ListViewPart part) {
@@ -42,7 +42,7 @@ public class AdministratorOrderAjaxController {
     /*
     * get user orders in interval begin->begin+count
      */
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"/{selector}/{id}"}, method = RequestMethod.POST)
     @ResponseBody
     public List<DisplayedOrder> getOrdersByUserId(@RequestBody final ListViewPart part,
@@ -69,7 +69,7 @@ public class AdministratorOrderAjaxController {
         return orderService.convertToDisplayedOrders(orders);
     }
 
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @ResponseBody
     @RequestMapping(value = "/admin/rooms/{id}", method = RequestMethod.POST)
     public List<Room> findFreeRoom(@PathVariable Long id){

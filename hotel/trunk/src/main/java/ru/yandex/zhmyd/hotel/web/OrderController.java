@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
 import ru.yandex.zhmyd.hotel.model.Order;
+import ru.yandex.zhmyd.hotel.model.RoomCategory;
 import ru.yandex.zhmyd.hotel.model.User;
 import ru.yandex.zhmyd.hotel.security.ApplicationUserDetails;
 import ru.yandex.zhmyd.hotel.service.HotelService;
@@ -45,14 +46,6 @@ public class OrderController {
         return "order.list";
     }
 
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "admin/", method = RequestMethod.GET)
-    public ModelAndView administrateOrders() {
-        ModelAndView mav = new ModelAndView("orders.administrator.list");
-        mav.addObject("path", "/orders/ajax/all/");
-        return mav;
-    }
-
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
     public ModelAndView orderInfo(@PathVariable Order order,Authentication authentication) {
@@ -68,6 +61,11 @@ public class OrderController {
         } catch (NullPointerException e) {
             mav = new ModelAndView("redirect:/error");
             mav.addObject("error", e.getMessage());
+        } catch (Exception e) {
+            LOG.error(e);
+            mav = new ModelAndView("hotel");
+            mav.addObject("hotel", hotelService.getById(order.getHotelId()));
+            mav.addObject("error", "Order don't modified, try again");
         }
         return mav;
     }
@@ -86,12 +84,18 @@ public class OrderController {
             order.setCustomerId(user.getId());
             LOG.info("ORDER " + order);
             DisplayedOrder displayedOrder = orderService.convertToDisplayedOrder(order);
-            mav.addObject("order", displayedOrder);
+            mav.addObject("displayedOrder", displayedOrder);
             mav.setViewName("confirm.order");
             session.setAttribute("order", order);
         } catch (NullPointerException e) {
             mav = new ModelAndView("redirect:/error");
             mav.addObject("error", "Error oder");
+        } catch (Exception e) {
+            LOG.error(e);
+            mav = new ModelAndView("hotel");
+            mav.addObject("hotel", hotelService.getById(order.getHotelId()));
+            mav.addObject("roomCategory", RoomCategory.values());
+            mav.addObject("error", "Order don't modified, try again");
         }
         return mav;
     }

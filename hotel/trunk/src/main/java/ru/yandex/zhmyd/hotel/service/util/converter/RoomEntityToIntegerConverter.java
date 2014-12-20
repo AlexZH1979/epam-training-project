@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.yandex.zhmyd.hotel.repository.dao.RoomDao;
 import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 
+
 public class RoomEntityToIntegerConverter extends DozerConverter<RoomEntity, Integer> {
 
     @Autowired

@@ -1,12 +1,17 @@
 package ru.yandex.zhmyd.hotel.model;
 
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class Hotel {
 
     private Integer id;
 
     private HotelCategory category;
 
+    @Pattern(regexp = "[a-zA-Z0-9_ ]*", message = "Invalid name")
+    @Size(min = 4, max = 20, message = "Name must be between 4 and 20 characters long")
     private String name;
 
     private HotelAddress hotelAddress;

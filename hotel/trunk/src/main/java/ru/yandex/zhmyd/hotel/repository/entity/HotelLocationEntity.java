@@ -14,17 +14,9 @@ public class HotelLocationEntity {
     @Mapping("id")
     private Integer id;
 
-    @Column(name = "loc_FIPS")
-    @Mapping("locFIPS")
-    private Integer locFIPS;
-
     @Column(name = "loc_TimeZone")
     @Mapping("locTimeZone")
     private String locTimeZone;
-
-    @Column(name = "loc_DST")
-    @Mapping("locDST")
-    private String locDST;
 
     @Column(name = "loc_Lat")
     @Mapping("locLat")
@@ -34,14 +26,6 @@ public class HotelLocationEntity {
     @Mapping("locLong")
     private Double locLong;
 
-    @Column(name = "long_MSA")
-    @Mapping("longMSA")
-    private Integer longMSA;
-
-    @Column(name = "loc_PMSA")
-    @Mapping("locPMSA")
-    private String locPMSA;
-
     public Integer getId() {
         return id;
     }
@@ -50,28 +34,12 @@ public class HotelLocationEntity {
         this.id = id;
     }
 
-    public Integer getLocFIPS() {
-        return locFIPS;
-    }
-
-    public void setLocFIPS(Integer locFIPS) {
-        this.locFIPS = locFIPS;
-    }
-
     public String getLocTimeZone() {
         return locTimeZone;
     }
 
     public void setLocTimeZone(String locTimeZone) {
         this.locTimeZone = locTimeZone;
-    }
-
-    public String getLocDST() {
-        return locDST;
-    }
-
-    public void setLocDST(String locDST) {
-        this.locDST = locDST;
     }
 
     public Double getLocLat() {
@@ -90,33 +58,13 @@ public class HotelLocationEntity {
         this.locLong = locLong;
     }
 
-    public Integer getLongMSA() {
-        return longMSA;
-    }
-
-    public void setLongMSA(Integer longMSA) {
-        this.longMSA = longMSA;
-    }
-
-    public String getLocPMSA() {
-        return locPMSA;
-    }
-
-    public void setLocPMSA(String locPMSA) {
-        this.locPMSA = locPMSA;
-    }
-
     @Override
     public String toString() {
         return "HotelLocationEntity{" +
                 "id=" + id +
-                ", locFIPS=" + locFIPS +
                 ", locTimeZone='" + locTimeZone + '\'' +
-                ", locDST='" + locDST + '\'' +
                 ", locLat=" + locLat +
                 ", locLong=" + locLong +
-                ", longMSA=" + longMSA +
-                ", locPMSA='" + locPMSA + '\'' +
                 '}';
     }
 }

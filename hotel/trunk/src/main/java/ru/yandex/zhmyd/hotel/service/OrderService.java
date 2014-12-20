@@ -15,12 +15,10 @@ public interface OrderService extends BasicService<Order, Long>{
 
     DisplayedOrder convertToDisplayedOrder(Order order);
 
-    @Deprecated
     List<DisplayedOrder> convertToDisplayedOrders(List<Order> orders);
 
     Order confirmOrder(Long orderId, Integer roomId);
 
-    //TODO
     Order disconfirmOrder(Long orderId);
 
     void basicValidateOrder(Order order);

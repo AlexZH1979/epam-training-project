@@ -37,6 +37,7 @@ public class RegistrationUserController {
     public String newClientSubmit(@Valid @ModelAttribute("client") User client,
                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+
             return "registration";
         } else {
             try {

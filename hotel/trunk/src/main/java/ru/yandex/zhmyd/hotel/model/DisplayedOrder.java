@@ -1,7 +1,7 @@
 package ru.yandex.zhmyd.hotel.model;
 
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /*
 *This class present order in view
@@ -9,6 +9,8 @@ import java.util.Date;
 *Using one way transform Order->DisplayedOrder
  */
 public class DisplayedOrder {
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT=new SimpleDateFormat("dd.MM.yyyy");
+
     private Order order;
     private String userFullName;
     private String hotelName;
@@ -48,18 +50,17 @@ public class DisplayedOrder {
     public void setRoomId(Integer id){
         order.setRoomId(id);
     }
+
     public Integer getCustomerId() {
         return order.getCustomerId();
     }
 
     public String getStartDate() {
-        Date date=order.getStartDate();
-        return date.getDate()+"-"+(date.getMonth()+1)+"-"+(1900+date.getYear());
+        return SIMPLE_DATE_FORMAT.format(order.getStartDate());
     }
 
     public String getEndDate() {
-        Date date=order.getEndDate();
-        return date.getDate()+"-"+(date.getMonth()+1)+"-"+(1900+date.getYear());
+        return SIMPLE_DATE_FORMAT.format(order.getEndDate());
     }
 
     public Boolean getConfirmed() {
