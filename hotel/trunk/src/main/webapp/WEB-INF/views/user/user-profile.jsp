@@ -6,8 +6,8 @@
     <security:authorize access="isFullyAuthenticated()">
         <c:url value="/orders/admin/user/${currentUser.id}" var="showOrders"/>
         <security:authorize access="hasRole('ROLE_ADMINISTRATOR')">
-            <div name="admin_menu" class="col-lg-12">
-            <button class="btn btn-sm" type="button" onclick="location.href='${showOrders}'">
+            <div id="admin-menu" class="alert alert-success col-md-12">
+            <button class="btn btn-sm btn-primary" type="button" onclick="location.href='${showOrders}'">
                 <spring:message code='title.Orders'/>
             </button>
             </div>

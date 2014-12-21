@@ -20,7 +20,8 @@ public class StringIdToHotelConverter implements Converter<String, Hotel>{
         try{
            hotel= hotelService.getById(Integer.valueOf(source));
         }catch(Exception e){
-            LOG.error("Don't convert id="+source+"; to hotel",e);
+            LOG.error("Don't convert id="+source+"; to hotel "+e.getMessage());
+            throw new NullPointerException("Hotel by id="+source+" not found");
         }
         return hotel;
     }

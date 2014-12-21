@@ -17,5 +17,7 @@ public final class SearchParameter {
         public static final String STATE ="state" ;
         public static final String CITY = "city";
         public static final String COUNTY ="county";
+        public static final String ZIP ="ZIP";
+
     }
 }

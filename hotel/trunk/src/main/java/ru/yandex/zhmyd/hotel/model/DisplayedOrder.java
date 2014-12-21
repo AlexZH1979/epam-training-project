@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 * have all displayed parameter, and not modified order
 *Using one way transform Order->DisplayedOrder
  */
-public class DisplayedOrder {
+public final class DisplayedOrder {
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT=new SimpleDateFormat("dd.MM.yyyy");
 
     private Order order;

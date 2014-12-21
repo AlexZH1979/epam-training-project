@@ -30,7 +30,7 @@ public class SearchHotelServiceImpl implements SearchHotelService {
     public List<Hotel> searchByAddress(String association, String name,Integer begin, Integer count) {
         switch (association) {
             case ADDRESS:
-                return Util.map(mapper, hotelDao.searchLikeAddress(name), Hotel.class);
+                return Util.map(mapper, hotelDao.searchLikeAddress(name,begin, count), Hotel.class);
             case Associations.STATE:
                 return Util.map(mapper, hotelDao.searchAddressAssociation(association, name, begin, count), Hotel.class);
             case Associations.CITY:

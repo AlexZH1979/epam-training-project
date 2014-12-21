@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,25 +25,27 @@ import ru.yandex.zhmyd.hotel.service.UserService;
 
 @Controller
 @RequestMapping("/profile")
+@PreAuthorize("isFullyAuthenticated()")
 public class ProfileController {
 
     @Autowired
     private UserService userService;
 
-    //TODO
-    @PreAuthorize("isFullyAuthenticated()")
-    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String showUserProfile(Authentication authentication, Model model) {
+    @ModelAttribute("user")
+    public User authenticatedUser(Authentication authentication){
         ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
-        User  user = userService.getUserByPrincipal(appUser);
+        return  userService.getUserByPrincipal(appUser);
+    }
+
+    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+    public String showCurrentUserProfile(@ModelAttribute User user, Model model) {
         model.addAttribute("currentUser", user);
         return "profile";
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public String showUserProfile(
-            @PathVariable("userId") User userProfiled, Model model) {
+    public String showUserProfile(@PathVariable("userId") User userProfiled, Model model) {
         model.addAttribute("currentUser", userProfiled);
         return "profile";
     }

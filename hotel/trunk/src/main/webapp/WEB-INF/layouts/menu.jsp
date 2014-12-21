@@ -17,8 +17,8 @@
                 <li id="admin-users">
                     <a href="<c:url value='/users/admin/'/>"><spring:message code="title.AdminUsers"/></a>
                 </li>
-                <li id="edit-hotel">
-                    <a href="<c:url value='/hotels/admin/edit/100'/>"><spring:message code="title.EditHotel"/></a>
+                <li id="hotel-list">
+                    <a href="<c:url value='/hotels/admin/'/>"><spring:message code="title.Hotels"/></a>
                 </li>
             </ul>
         </div>

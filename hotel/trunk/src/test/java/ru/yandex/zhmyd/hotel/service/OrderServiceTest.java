@@ -47,6 +47,7 @@ public class OrderServiceTest extends AbstractServiceTest {
     @Test
     public void testInterval(){
         LOG.info("Get interval begin=3, count=5: "+orderService.getInterval(3,5));
+
     }
 }
 

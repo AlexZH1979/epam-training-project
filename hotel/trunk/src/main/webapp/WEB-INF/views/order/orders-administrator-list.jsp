@@ -60,15 +60,12 @@
         loadTableAjax("${ajaxPath}?hiden="+hiddenOrders, body_id, f, 0, 100);
     }
 </script>
-<div class="row"></div>
 <c:if test="${not empty error}">
-    <div class="alert alert-danger">
-        <p>${error}</p>
-    </div>
+    <div class="alert alert-danger"><p>${error}</p></div>
 </c:if>
 <div class="col-md-12 well">
-<c:if test="${not empty intem}">
-    <h1><spring:message code="title.${nameIntem}"/>: ${intem}</h1>
+<c:if test="${not empty item and not empty nameItem}">
+    <h1><spring:message code="title.${nameItem}"/>:&nbsp${item}</h1>
 </c:if>
 <select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">
     <option disabled selected>count</option>

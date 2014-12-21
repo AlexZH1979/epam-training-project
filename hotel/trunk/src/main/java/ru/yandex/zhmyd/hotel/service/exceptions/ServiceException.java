@@ -2,7 +2,7 @@ package ru.yandex.zhmyd.hotel.service.exceptions;
 
 public class ServiceException extends RuntimeException {
 
-    private String msg="SERVICE EXCEPTION";
+    protected final String msg;
 
     /**
      * Constructs a new runtime exception with {@code null} as its
@@ -10,6 +10,7 @@ public class ServiceException extends RuntimeException {
      * initialized by a call to {@link #initCause}.
      */
     public ServiceException() {
+        this.msg="SERVICE EXCEPTION";
     }
 
     public ServiceException(String msg) {

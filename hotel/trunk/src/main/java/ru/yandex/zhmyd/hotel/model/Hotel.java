@@ -11,7 +11,7 @@ public class Hotel {
     private HotelCategory category;
 
     @Pattern(regexp = "[a-zA-Z0-9_ ]*", message = "Invalid name")
-    @Size(min = 4, max = 20, message = "Name must be between 4 and 20 characters long")
+    @Size(min = 4, max = 30, message = "Name must be between 4 and 30 characters long")
     private String name;
 
     private HotelAddress hotelAddress;
