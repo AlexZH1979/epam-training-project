@@ -31,12 +31,11 @@
         loadTableAjax("${ajaxPath}",body_id, f, begin, countSize);
     }
     window.onload = function () {
-        loadTableAjax("${ajaxPath}",body_id, f, 0, 100);
+        loadTableAjax("${ajaxPath}",body_id, f, 0, $("#select_count").select().val());
     }
 </script>
 <select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">
-    <option disabled selected>count</option>
-    <option value="10">10</option>
+    <option value="10" selected>10</option>
     <option value="50">50</option>
     <option value="100">100</option>
 </select>

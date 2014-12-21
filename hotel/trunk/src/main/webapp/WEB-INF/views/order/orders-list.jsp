@@ -12,6 +12,11 @@
 
 <c:set value="tableBody" var="tableBody"/>
 <script type="text/javascript">
+    var currentBegin=0;
+    var page=0;
+    var currentParam;
+    var currentValue;
+    var currentCount=10;
     var f = function fillOrdersTable(o_id, o_obj) {
         //delete all
         $(o_id).html("");
@@ -91,13 +96,12 @@
     }
 
     window.onload = function () {
-        loadTableAjax("${ajaxPath}",  '\#${tableBody}', f, 0, 100);
+        loadTableAjax("${ajaxPath}",  '\#${tableBody}', f, 0, 10);
     }
 </script>
     <security:authorize access="isFullyAuthenticated()">
-<select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">
-    <option disabled selected>count</option>
-    <option value="10">10</option>
+<select name="selected_count" id="select_count" onchange="loadTable(currentBegin,$(this).val())">
+    <option selected value="10">10</option>
     <option value="50">50</option>
     <option value="100">100</option>
 </select>

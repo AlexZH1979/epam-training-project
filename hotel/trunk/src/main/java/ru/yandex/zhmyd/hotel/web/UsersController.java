@@ -15,18 +15,17 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
+@PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
 public class UsersController {
 
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"admin/"}, method = RequestMethod.GET)
     public String getUsers(){
         return "users.list";
     }
 
-    @PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<User> getUsersAjax(@RequestBody final ListViewPart part){

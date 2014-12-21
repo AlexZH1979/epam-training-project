@@ -65,6 +65,18 @@
         <put-attribute name="title" value="Edit hotel"/>
         <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-edit.jsp"/>
     </definition>
+    <definition name="hotel.list" extends="base.definition">
+        <put-attribute name="title" value="Edit hotel"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/hotels-list.jsp"/>
+    </definition>
+    <definition name="hotel.address.edit" extends="base.definition">
+        <put-attribute name="title" value="Edit hotel address"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-address-edit.jsp"/>
+    </definition>
+    <definition name="hotel.address.edit.a" extends="base.definition">
+        <put-attribute name="title" value="Edit hotel address"/>
+        <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-address-edit-a.jsp"/>
+    </definition>
     <!--ERROR-->
     <definition name="error" extends="base.definition">
         <put-attribute name="title" value="Error"/>

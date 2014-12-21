@@ -20,11 +20,15 @@ function loadTableAjax(path, e_id, funcFill, begin, countSize) {
         }
     });
 }
-function loadTableByParamAjax(path, e_id, funcFill, parameter, value) {
+
+//search hotels fot table by parameter
+function loadTableByParamAjax(path, e_id, funcFill, parameter, value, begin, count) {
 
     var json = {
         parameter:parameter,
-        value: value
+        value: value,
+        begin:begin,
+        count:count
     };
 
     $.ajax({

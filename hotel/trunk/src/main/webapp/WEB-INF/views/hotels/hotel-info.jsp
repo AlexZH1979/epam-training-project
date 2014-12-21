@@ -31,7 +31,7 @@
             $('#place_1').attr('checked', 'checked');
             $('#category_ECONOMY').toggle('toggle');
 
-            $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().add(1,'days').format('D MMMM, YYYY'));
+            $('\#${calendar} span').html(moment().format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
             $('\#${calendar}').daterangepicker({
                 opens: 'center',
                 startDate: orderDetails.start,
@@ -71,15 +71,24 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+    <security:authorize access="isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')">
+        <div id="admin-menu" class="alert alert-success col-md-12">
+            <button class="btn btn-sm btn-primary" type="button"
+                    onclick="location.href='<c:url value="/hotels/admin/edit/${hotel.id}"/>'">
+                <spring:message code='title.EditHotel'/>
+            </button>
+            <button class="btn btn-sm btn-primary" type="button"
+                    onclick="location.href='<c:url value="/hotels/admin/edit/${hotel.id}/address/state/"/>'">
+                <spring:message code='title.EditAddress'/>
+            </button>
+            <button class="btn btn-sm btn-primary" type="button"
+                    onclick="location.href='<c:url value="/orders/admin/hotel/${hotel.id}"/>'">
+                <spring:message code='title.Orders'/>
+            </button>
+        </div>
+    </security:authorize>
     <div class="well">
         <div class="row">
-            <security:authorize access="isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')">
-                <div id="admin-menu" class="well">
-                    <button class="btn btn-sm" type="button"
-                            onclick="location.href='<c:url value="/orders/admin/hotel/${hotel.id}"/>'">
-                            <spring:message code='title.Orders'/>
-                </div>
-            </security:authorize>
             <c:if test="${not empty error}">
                 <div>
                     <p>

@@ -1,5 +1,9 @@
 package ru.yandex.zhmyd.hotel.service;
 
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +37,10 @@ public interface BasicService<T, ID extends Serializable> {
     public T getById(ID Id);
 
     public void save(T obj);
+
+    @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.SERIALIZABLE)
+    void update(T dto);
 
     public void delete(T obj);
 

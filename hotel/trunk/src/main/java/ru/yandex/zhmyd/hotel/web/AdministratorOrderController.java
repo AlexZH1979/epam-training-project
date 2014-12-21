@@ -14,7 +14,6 @@ import ru.yandex.zhmyd.hotel.model.Order;
 import ru.yandex.zhmyd.hotel.service.HotelService;
 import ru.yandex.zhmyd.hotel.service.OrderService;
 import ru.yandex.zhmyd.hotel.service.UserService;
-import ru.yandex.zhmyd.hotel.service.exceptions.EntityNonFoundException;
 import ru.yandex.zhmyd.hotel.service.exceptions.ServiceException;
 
 import static ru.yandex.zhmyd.hotel.web.util.PathSelector.HOTEL;
@@ -22,6 +21,7 @@ import static ru.yandex.zhmyd.hotel.web.util.PathSelector.USER;
 
 @Controller
 @RequestMapping("/orders/admin")
+@PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
 public class AdministratorOrderController {
 
     private static final Logger LOG = Logger.getLogger(AdministratorOrderController.class);
@@ -35,46 +35,48 @@ public class AdministratorOrderController {
     @Autowired
     private HotelService hotelService;
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView administrateOrders() {
+    @RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
+    public ModelAndView administrateOrders(@RequestParam(required = false) String error) {
         ModelAndView mav = new ModelAndView("orders.administrator.list");
         mav.addObject("path", "/orders/ajax/all/");
-        return mav;
-    }
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "/{order}", method = RequestMethod.GET)
-    public ModelAndView administrateOrder(@PathVariable Order order,
-                                          @RequestParam(value = "error", required = false) String error) {
-        ModelAndView mav = new ModelAndView("order.administrator.info");
-        try {
-            mav.addObject("displayedOrder", orderService.convertToDisplayedOrder(order));
-        }catch(NullPointerException e){
-            error += "; " + e.getMessage();
-        }
-        if (error!=null) {
+        if (error != null) {
             mav.addObject("error", error);
         }
         return mav;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
-    @RequestMapping(value = "/confirm/", method = RequestMethod.GET)
-    public String orderConfirm(@RequestParam(required = true) Long orderId,
-                               @RequestParam(required = true) Integer roomId) {
-        String view;
+    @RequestMapping(value = "/{order}", method = RequestMethod.GET)
+    public String administrateOrder(@PathVariable Order order,
+                                    @RequestParam(required = false) String error,
+                                    Model model) {
+        String view = "order.administrator.info";
         try {
-            orderService.confirmOrder(orderId, roomId);
-            view = "redirect:/orders/admin/" + orderId;
-        } catch (EntityNonFoundException e) {
-            view = "redirect:/error?error=" + e.getMessage();
-        } catch (IllegalArgumentException e) {
-            view = "redirect:/orders/admin/" + orderId + "?error=" + e.getMessage();
+            model.addAttribute("displayedOrder", orderService.convertToDisplayedOrder(order));
+            model.addAttribute("error", error);
+        }catch(NullPointerException e){
+            view = "redirect:/orders/admin/";
+            String s="order is null";
+            model.addAttribute("errorMessage", s);
         }
         return view;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @RequestMapping(value = "/confirm/", method = RequestMethod.GET)
+    public String orderConfirm(@RequestParam(required = true) Long orderId,
+                               @RequestParam(required = true) Integer roomId,
+                               Model model) {
+        String view;
+        try {
+            orderService.confirmOrder(orderId, roomId);
+            view = "redirect:/orders/admin/" + orderId;
+        } catch (IllegalArgumentException e) {
+            LOG.warn(e);
+            model.addAttribute("error",e.getMessage());
+            view = "redirect:/orders/admin/" + orderId;
+        }
+        return view;
+    }
+
     @RequestMapping(value = "/disconfirm/", method = RequestMethod.GET)
     public String orderDisconfirm(@RequestParam(required = true) Long orderId,Model model) {
         String view;
@@ -82,18 +84,17 @@ public class AdministratorOrderController {
             orderService.disconfirmOrder(orderId);
             view = "redirect:/orders/admin/" + orderId;
         } catch (ServiceException e) {
-            LOG.error(e);
+            LOG.warn(e);
+            model.addAttribute("error", e.getMessage());
+            view = "redirect:/orders/admin/"+orderId;
+        } catch (Exception e) {
+            LOG.warn(e);
             model.addAttribute("returnPage", "/orders/admin");
-            view = "redirect:/error?error=" + e.getMessage();
-        }catch (Exception e) {
-            LOG.error(e);
-            model.addAttribute("returnPage", "/orders/admin");
-            view = "redirect:/error";
+            view = "redirect:/error?errorMessage=" + e.getMessage();
         }
         return view;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/{selector}/{id}", method = RequestMethod.GET)
     public ModelAndView showAdministrateOrder(@PathVariable String selector, @PathVariable Integer id) {
         ModelAndView mav = new ModelAndView("orders.administrator.list");
@@ -101,18 +102,21 @@ public class AdministratorOrderController {
             switch (selector) {
                 case USER:
                     mav.addObject("path", "/orders/ajax/user/" + id);
-                    mav.addObject("nameIntem", "User");
-                    mav.addObject("intem", userService.getById(id).getFirstName());
+                    mav.addObject("nameItem", "User");
+                    mav.addObject("item", userService.getById(id).getFirstName());
                     break;
                 case HOTEL:
                     mav.addObject("path", "/orders/ajax/hotel/" + id);
-                    mav.addObject("nameIntem", "Hotel");
-                    mav.addObject("intem", hotelService.getById(id).getName());
+                    mav.addObject("nameItem", "Hotel");
+                    mav.addObject("item", hotelService.getById(id).getName());
                     break;
                 default:
+                    mav.addObject("nameItem", "Show all");
                     mav.addObject("path", "/orders/ajax/all/");
+                    mav.addObject("item", "orders");
             }
         }catch(NullPointerException e){
+            LOG.warn(e);
             mav.addObject("error", "BAD REQUEST PARAMETER");
         }
         return mav;

@@ -6,6 +6,24 @@ import java.io.Serializable;
 public class SearchParam implements Serializable{
     private String parameter;
     private String value;
+    private Integer begin;
+    private Integer count;
+
+    public Integer getBegin() {
+        return begin;
+    }
+
+    public void setBegin(Integer begin) {
+        this.begin = begin;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public SearchParam() {
     }

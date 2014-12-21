@@ -65,6 +65,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
 
+
     @Transactional(readOnly = true)
     @Override
     public List<Order> getIntervalOrdersByHotelId(Integer hotelId, Integer begin, Integer count) {
@@ -72,6 +73,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
         Criterion criterion= Restrictions.eq(Associations.HOTEL, hotelEntity);
         return Util.map(mapper, dao.getByCriteria(criterion, begin, count), Order.class);
     }
+
 
     @Transactional(readOnly = true)
     @Override
@@ -137,16 +139,18 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
             LOG.warn("OrderEntity witch id="+orderId+" not found");
             throw new EntityNonFoundException("OrderEntity witch id="+orderId+" not found");
         }
-        long days = (order.getEndDate().getTime() - new Date().getTime()) / MILISECONDS_IN_DAY;
-        if (days <= 0 &&(order.getConfirmed()!=null&&order.getConfirmed())) {
+        Date currentDate=new Date();
+        Date endDate=order.getEndDate();
+        long days = (endDate.getTime() - currentDate.getTime()) / MILISECONDS_IN_DAY;
+        if (days < 0 &&(order.getConfirmed()!=null&&order.getConfirmed())&&endDate.getDay()!=currentDate.getDay()) {
             LOG.warn("Dont disconfirm finished order");
             throw new ServiceException("Dont disconfirm finished order");
         }
-        order.setRoom(null);
-        order.setPrice(null);
-        order.setConfirmed(false);
-        try {
 
+        try {
+            order.setRoom(null);
+            order.setPrice(null);
+            order.setConfirmed(false);
             orderDao.update(order);
         }catch (Exception e){
             System.err.println(e);
@@ -157,7 +161,7 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
     @Override
-    public void delete(Long id) throws ServiceException {
+    public void delete(Long id){
         LOG.info("GET to delete id=" + id);
         //don't delete confirmed order
         //if not found -> nothing
@@ -169,7 +173,8 @@ public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, Or
             super.delete(id);
         } else {
             LOG.info("ORDER with id=" + id + " don\'t delete, cause - order confirm=true");
-            throw new ServiceException();
+            throw new ServiceException("ORDER with id=" + id + " don\'t delete, cause - order not'finded, or " +
+                    "order confirm=true");
         }
     }
 

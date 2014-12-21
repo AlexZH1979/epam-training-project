@@ -95,6 +95,17 @@ public abstract class AbstractServiceImpl<T, E, DAO extends GenericDao, ID exten
     @SuppressWarnings("unchecked")
     @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.SERIALIZABLE)
     @Override
+    public void update(T dto) {
+        LOG.debug("GET to save dto=" + dto);
+        E entity = mapper.map(dto, this.getGenericEntityClass());
+        LOG.debug("MAPPED entity=" + entity);
+        dao.update(entity);
+        LOG.debug("SAVED entity to db");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.SERIALIZABLE)
+    @Override
     public void delete(T t) {
         LOG.info("GET to delete dto=" + t);
         E entity = mapper.map(t, this.getGenericEntityClass());

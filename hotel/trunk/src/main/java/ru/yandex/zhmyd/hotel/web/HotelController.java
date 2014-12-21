@@ -33,8 +33,8 @@ public class HotelController {
 
 
     @PreAuthorize("permitAll")
-    @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String getHotels(){
+      @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
+      public String getHotels(){
         return "hotels.list";
     }
 
@@ -83,17 +83,18 @@ public class HotelController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> searchHotelsByParameter(@RequestBody SearchParam param) {
+        System.out.println(param);
         if (param.getValue().isEmpty() || param.getValue().equals(" ")||param.getValue().equals("")) {
             return null;
         }
         switch (param.getParameter()) {
             case NAME:
-                return searchHotelService.searchByName( param.getValue(),0,20);
+                return searchHotelService.searchByName( param.getValue(),param.getBegin(),param.getCount());
             case STATE:
             case COUNTY:
             case CITY:
             case ADDRESS:
-                return searchHotelService.searchByAddress(param.getParameter(), param.getValue(),0,20);
+                return searchHotelService.searchByAddress(param.getParameter(), param.getValue(),param.getBegin(),param.getCount());
             default:
                 return null;
         }

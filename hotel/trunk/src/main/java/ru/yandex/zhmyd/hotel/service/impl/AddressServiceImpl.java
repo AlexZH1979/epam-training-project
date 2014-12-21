@@ -1,13 +1,14 @@
 package ru.yandex.zhmyd.hotel.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelAddressDao;
 import ru.yandex.zhmyd.hotel.service.AddressService;
 
-import javax.transaction.Transactional;
 import java.util.List;
-
-@Transactional
+@Transactional(readOnly = true)
+@Service
 public class AddressServiceImpl implements AddressService {
 
     @Autowired

@@ -7,6 +7,12 @@
 <c:url value="/hotels/search/length" var="searchLength"/>
 <c:url value="/hotels/search" var="ajaxSearchHotel"/>
 <script type="text/javascript">
+    var currentBegin=0;
+    var page=0;
+    var currentParam;
+    var currentValue;
+    var currentCount=10;
+
     var f = function fillHotelsTable(o_id, o_obj) {
         //delete all
         $(o_id).html("");
@@ -25,9 +31,11 @@
         }
         $(o_id).parent().parent().show();
     }
-    //get table hotels by param
+    //get length hotels by param
     function loadTables(parameter, value) {
-        loadTableByParamAjax("${ajaxSearchHotel}", '#tableBody', f, parameter, value);
+        loadTableByParamAjax("${ajaxSearchHotel}", '#tableBody', f, parameter, value,currentBegin,currentCount);
+        currentParam=parameter;
+        currentValue=value;
     }
 
     var listSizes = function listHotelSizes(e_id, parameter, v, find) {
@@ -50,7 +58,8 @@
                 message = "<spring:message code='title.by_name'/>";
                 break;
         }
-        var btn = $('<button type="button" class="btn btn-primary col-md-12" onclick="loadTables(\'' + parameter + '\', \'' + v + '\');"></button>');
+        var btn = $('<button type="button" class="btn btn-primary col-md-12" onclick="loadTables(\'' + parameter +
+                '\', \'' + v + '\','+currentBegin+','+currentCount+');"></button>');
         btn.append('<spring:message code="title.Findded_by"/>&nbsp' + message + ': ' + v + ' ' + find + ' </p>');
         $(e_id).append(btn);
         $(e_id).show();
@@ -68,6 +77,11 @@
             console.log("searchParameters "+searchParameters[k]);
             searchByParam("${searchLength}", searchParameters[k], value, target_id, listSizes, '#butt');
         }
+    }
+    //reload table when select count
+    function reloadTables(count){
+        currentCount=count;
+        loadTables(currentParam,currentValue);
     }
 </script>
 <div>
@@ -95,6 +109,11 @@
 <div id="finder" class="row" hidden="hidden">
 </div>
 <div class="well" hidden="hidden">
+    <select name="selected_count" id="select_count" onchange="reloadTables($(this).val())">
+        <option selected value="10">10</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    </select>
     <table class="table table-striped">
     <thead/>
     <tbody id="tableBody"></tbody>
