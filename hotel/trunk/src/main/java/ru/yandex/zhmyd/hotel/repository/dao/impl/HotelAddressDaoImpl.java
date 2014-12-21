@@ -19,7 +19,7 @@ public class HotelAddressDaoImpl extends AbstractHibernateDao<HotelAddressEntity
         return getNameSubParameters("","");
     }
     
-    //""state"->"county"
+    //""->state"->"county"
     @Override
     public List<String> getCounties(String value){
         return getNameSubParameters(STATE, value);
@@ -52,7 +52,7 @@ public class HotelAddressDaoImpl extends AbstractHibernateDao<HotelAddressEntity
                 break;
             case CITY:
                 hql="SELECT A.zip FROM HotelAddressEntity A, HotelAddressCityEntity CI " +
-                        " WHERE CI.name=:city_name AND CI=A.city";
+                        " WHERE CI.name=:city_name AND CI=A.city GROUP BY A.zip";
                 query=getSession().createQuery(hql);
                 query.setParameter("city_name",value);
                 break;

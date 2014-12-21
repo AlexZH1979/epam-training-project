@@ -55,8 +55,7 @@ public class AdministratorOrderController {
             model.addAttribute("error", error);
         }catch(NullPointerException e){
             view = "redirect:/orders/admin/";
-            String s="order is null";
-            model.addAttribute("errorMessage", s);
+            model.addAttribute("errorMessage", "order is null");
         }
         return view;
     }
@@ -65,32 +64,24 @@ public class AdministratorOrderController {
     public String orderConfirm(@RequestParam(required = true) Long orderId,
                                @RequestParam(required = true) Integer roomId,
                                Model model) {
-        String view;
+        String view = "redirect:/orders/admin/" + orderId;
         try {
             orderService.confirmOrder(orderId, roomId);
-            view = "redirect:/orders/admin/" + orderId;
         } catch (IllegalArgumentException e) {
             LOG.warn(e);
             model.addAttribute("error",e.getMessage());
-            view = "redirect:/orders/admin/" + orderId;
         }
         return view;
     }
 
     @RequestMapping(value = "/disconfirm/", method = RequestMethod.GET)
     public String orderDisconfirm(@RequestParam(required = true) Long orderId,Model model) {
-        String view;
+        String view = "redirect:/orders/admin/" + orderId;
         try {
             orderService.disconfirmOrder(orderId);
-            view = "redirect:/orders/admin/" + orderId;
         } catch (ServiceException e) {
             LOG.warn(e);
             model.addAttribute("error", e.getMessage());
-            view = "redirect:/orders/admin/"+orderId;
-        } catch (Exception e) {
-            LOG.warn(e);
-            model.addAttribute("returnPage", "/orders/admin");
-            view = "redirect:/error?errorMessage=" + e.getMessage();
         }
         return view;
     }

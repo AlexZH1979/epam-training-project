@@ -9,7 +9,6 @@ import ru.yandex.zhmyd.hotel.repository.entity.RoomEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.UserEntity;
 
 @Repository
-@SuppressWarnings("unused")
 public class OrderDaoImpl extends AbstractHibernateDao<OrderEntity, Long> implements OrderDao {
 
     @Override

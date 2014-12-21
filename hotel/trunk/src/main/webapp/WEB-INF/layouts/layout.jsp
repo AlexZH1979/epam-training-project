@@ -42,7 +42,7 @@
     </div>
 </div>
 <security:authorize access="isFullyAuthenticated()">
-    <div class="container">
+    <div class="container bottom">
         <tiles:insertAttribute name="footer"/>
     </div>
 </security:authorize>
