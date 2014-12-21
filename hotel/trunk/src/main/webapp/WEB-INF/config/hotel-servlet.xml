@@ -31,23 +31,14 @@
     <mvc:annotation-driven conversion-service="conversionService"/>
 
     <bean id="conversionService"
-          class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringToDateConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToUserConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToHotelConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToOrderConverter"/>
-            </set>
-        </property>
-    </bean>
+          class="org.springframework.context.support.ConversionServiceFactoryBean"/>
     <!-- CURRENT DATABASE PROPERTY -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/config/jdbc.properties"/>
     <!-- end -->
 
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/jsp" p:suffix=".jsp"/>
+          p:prefix="/WEB-INF/" p:suffix=".jsp"/>
 
     <mvc:interceptors>
         <bean id="localeChangeInterceptor"

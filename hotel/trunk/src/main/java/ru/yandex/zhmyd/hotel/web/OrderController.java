@@ -58,7 +58,7 @@ public class OrderController {
             mav = new ModelAndView("hotel");
             mav.addObject("hotel", hotelService.getById(order.getHotelId()));
             mav.addObject("error", "Order not correct");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e) {/*DON'T REMOVE */
             mav = new ModelAndView("redirect:/error");
             mav.addObject("error", e.getMessage());
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class OrderController {
             mav.addObject("displayedOrder", displayedOrder);
             mav.setViewName("confirm.order");
             session.setAttribute("order", order);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException e) {/* DON'T REMOVE*/
             mav = new ModelAndView("redirect:/error");
             mav.addObject("error", "Error oder");
         } catch (Exception e) {
@@ -103,17 +103,9 @@ public class OrderController {
     @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public ModelAndView sendOrder(HttpSession session) {
-        ModelAndView mav;
         Order order = (Order) session.getAttribute("order");
-        try {
-
-            orderService.save(order);
-            mav = new ModelAndView("redirect:/orders");
-        } catch (Exception e) {
-            mav = new ModelAndView("redirect:/error");
-            mav.addObject("error", "Order don't save");
-        }
-        return mav;
+        orderService.save(order);
+        return new ModelAndView("redirect:/orders");
     }
 
     /*

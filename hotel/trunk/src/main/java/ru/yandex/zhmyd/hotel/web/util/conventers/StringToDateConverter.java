@@ -1,9 +1,10 @@
 package ru.yandex.zhmyd.hotel.web.util.conventers;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
+@Component
 public class StringToDateConverter implements Converter<String, Date> {
 
     @Override

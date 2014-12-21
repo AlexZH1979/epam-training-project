@@ -11,6 +11,9 @@
 <div class="navbar navbar-default navbar-static-top" role="navigation">
 	<div class="container">
 		<div class="navbar-header">
+            <c:if test="${empty startPage}">
+                <c:url value="/" var="startPage"/>
+            </c:if>
 			<a class="navbar-brand" href="${startPage}"><spring:message code="app.Name"/></a>
         </div>
         <c:set var="currentLocale">${pageContext.response.locale}</c:set>
@@ -43,7 +46,7 @@
             <li><a href="<c:url value="/profile/"/>"><security:authentication property="principal.Username"/></a></li>
                 <li><a href="<c:url value="/j_spring_security_logout"/>"><spring:message code="title.Logout"/></a></li>
             </security:authorize>
-            <security:authorize access="not isFullyAuthenticated()">
+            <security:authorize access="not isFullyAuthenticated() ">
                 <li><a href="<c:url value="/login"/>"><spring:message code="title.Login"/></a></li>
                 <li><a href="<c:url value="/registration/"/>"><spring:message code="title.Registration"/></a></li>
             </security:authorize>

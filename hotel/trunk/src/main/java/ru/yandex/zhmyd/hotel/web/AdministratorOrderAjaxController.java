@@ -54,14 +54,8 @@ public class AdministratorOrderAjaxController {
     @ResponseBody
     public List<DisplayedOrder> getOrdersByUserId(@RequestBody final ListViewPart part,
                                                   @PathVariable String selector,
-                                                  @PathVariable Integer id,
-                                                  @RequestParam(required = false) String hide) {
-        List<DisplayedOrder> displayedOrders = null;
-        try {
+                                                  @PathVariable Integer id) {
             List<Order> orders = null;
-            LOG.info("Selector=" + selector + "; id=" + id + "; hide=" + hide);
-            //TODO
-            if (hide == null || hide.equals("false")) {
                 switch (selector) {
                     case USER:
                         orders = orderService.getIntervalOrdersByUserId(id, part.getFirst(), part.getCount());
@@ -72,28 +66,13 @@ public class AdministratorOrderAjaxController {
                     default:
                         break;
                 }
-            } else if (hide.equals("confurm")) {
-                //TODO hide  rooms
-            }
-            displayedOrders = orderService.convertToDisplayedOrders(orders);
-        } catch (Exception ignore) {
-            //IGNORE
-            LOG.error(ignore.getMessage(), ignore.getCause());
-        }
-        return displayedOrders;
+        return orderService.convertToDisplayedOrders(orders);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @ResponseBody
     @RequestMapping(value = "/admin/rooms/{id}", method = RequestMethod.POST)
     public List<Room> findFreeRoom(@PathVariable Long id){
-        List<Room> rooms = null;
-        try {
-            rooms = roomService.getFreeRoom(id);
-        } catch (Exception ignore) {
-            //IGNORE
-            LOG.error(ignore.getMessage(), ignore.getCause());
-        }
-        return rooms;
+        return roomService.getFreeRoom(id);
     }
 }

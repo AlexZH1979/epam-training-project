@@ -127,36 +127,4 @@ public class AdministratorHotelController {
         }
         return "hotel.address.edit";
     }
-
-    @RequestMapping(value = "/edit/{id}/address/{parameter}/send/", method = RequestMethod.GET)
-    public String getHotelAddress(@PathVariable("id") Integer id,
-                                   @PathVariable String parameter,
-                                   @RequestParam String value,
-                                   Model model){
-
-        StringBuffer sb=new StringBuffer();
-        String view;
-        sb.append("redirect:/hotels/admin/edit/").append(id).append("/address/");
-        switch (parameter){
-            case STATE:
-                view=sb.append(COUNTY).append("/").toString();
-                break;
-            case COUNTY:
-                view=sb.append(CITY).append("/").toString();
-                break;
-            case CITY:
-                view=sb.append(ZIP).append("/").toString();
-                break;
-            case ZIP:
-                view=sb.append(ADDRESS).append("/").toString();
-                break;
-            case ADDRESS:
-                view=sb.append("/").toString();
-                break;
-            default:
-                view="redirect:/error";
-        }
-        model.addAttribute("value", value);
-        return view;
-    }
 }
