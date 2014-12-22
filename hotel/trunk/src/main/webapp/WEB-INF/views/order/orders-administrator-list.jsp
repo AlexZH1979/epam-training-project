@@ -72,6 +72,7 @@
     <option value="10">10</option>
     <option value="50">50</option>
     <option value="100">100</option>
+    <option value="1000000">100000</option>
 </select>
 <table id="list_orders" cellpadding="10" cellspacing="0" class="table table-striped">
     <thead>

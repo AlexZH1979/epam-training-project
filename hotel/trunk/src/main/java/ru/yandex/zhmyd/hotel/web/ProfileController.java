@@ -31,14 +31,10 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute("user")
-    public User authenticatedUser(Authentication authentication){
-        ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
-        return  userService.getUserByPrincipal(appUser);
-    }
-
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
-    public String showCurrentUserProfile(@ModelAttribute User user, Model model) {
+    public String showCurrentUserProfile(Model model, Authentication authentication) {
+        ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
+        User user = userService.getUserByPrincipal(appUser);
         model.addAttribute("currentUser", user);
         return "profile";
     }

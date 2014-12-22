@@ -38,6 +38,7 @@
     <option value="10" selected>10</option>
     <option value="50">50</option>
     <option value="100">100</option>
+    <option value="30000>">all</option>
 </select>
 <table id="clientsTable" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>

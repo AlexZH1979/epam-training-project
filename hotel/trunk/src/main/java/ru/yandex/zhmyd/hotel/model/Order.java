@@ -1,20 +1,24 @@
 package ru.yandex.zhmyd.hotel.model;
 
+import ru.yandex.zhmyd.hotel.model.constraints.StartBeforeEndDate;
+
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+@StartBeforeEndDate(begin = "startDate", end="getEndDate")
 public class Order {
 
     private Long id;
     private RoomCategory roomCategory;
     private Double price;
     private Integer roomId;
-    //@NotNull(message = "Hotel don\'t maybe empty")
+    @NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
-    //@NotNull(message = "Customer don\'t maybe empty")
+    @NotNull(message = "Customer don\'t maybe empty")
     private Integer customerId;
-    //@NotNull(message = "Order start date don\'t maybe empty")
+    @NotNull(message = "Order start date don\'t maybe empty")
     private Date startDate;
-    //@NotNull(message = "Order end date don\'t maybe empty")
+    @NotNull(message = "Order end date don\'t maybe empty")
     private Date endDate;
     private Boolean confirmed;
 

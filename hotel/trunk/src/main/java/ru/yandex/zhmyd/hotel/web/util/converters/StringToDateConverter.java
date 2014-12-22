@@ -1,4 +1,4 @@
-package ru.yandex.zhmyd.hotel.web.util.conventers;
+package ru.yandex.zhmyd.hotel.web.util.converters;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

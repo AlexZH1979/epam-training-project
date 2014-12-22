@@ -34,7 +34,6 @@
 <table id="list_orders" border="1" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">
     <thead>
     <tr class="table-condensed">
-        <td id="list_bar" colspan="4"></td>
         <td>
             <select name="selected_count" id="select_count" onchange="loadTable(0,$(this).val())">
                 <option disabled selected>count</option>
@@ -42,6 +41,7 @@
                 <option value="50">50</option>
                 <option value="100">100</option>
                 <option value="1000">1000</option>
+                <option value="30000>">30000</option>
             </select>
         </td>
     </tr>

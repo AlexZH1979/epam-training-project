@@ -104,6 +104,7 @@
     <option selected value="10">10</option>
     <option value="50">50</option>
     <option value="100">100</option>
+    <option value="30000>">30000</option>
 </select>
  <button onclick="deleteOrders();"><spring:message code="title.delete"/></button>
 <table id="list_orders" cellpadding="10" cellspacing="0" class="table table-striped table-bordered">

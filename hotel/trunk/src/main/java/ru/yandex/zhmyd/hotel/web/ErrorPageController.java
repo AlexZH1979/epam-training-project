@@ -23,8 +23,8 @@ public class ErrorPageController {
         return "error";
     }
 
-    //don't worry
-    @RequestMapping(value = {"/errors/400.html","/errors/404.html","/errors/405.html","/errors/406.html","/errors/408.html",
+    //and don't worry
+   @RequestMapping(value = {"/errors/400.html","/errors/404.html","/errors/405.html","/errors/406.html","/errors/408.html",
                 "/errors/415.html","/errors/500.html","/errors/503.html"})
         public ModelAndView handleHttpErrors () {
         ModelAndView modelAndView = new ModelAndView("error");

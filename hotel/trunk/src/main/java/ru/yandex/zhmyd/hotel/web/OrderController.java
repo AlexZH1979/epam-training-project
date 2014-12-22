@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.yandex.zhmyd.hotel.model.DisplayedOrder;
@@ -27,6 +28,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
+@PreAuthorize("isFullyAuthenticated()")
 public class OrderController {
 
     private static final Logger LOG = Logger.getLogger(OrderController.class);
@@ -40,15 +42,13 @@ public class OrderController {
     @Autowired
     private HotelService hotelService;
 
-    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String getOrders() {
         return "order.list";
     }
 
-    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
-    public ModelAndView orderInfo(@PathVariable Order order,Authentication authentication) {
+    public ModelAndView orderInfo(@PathVariable Order order) {
         ModelAndView mav;
         try {
             orderService.basicValidateOrder(order);
@@ -70,12 +70,10 @@ public class OrderController {
         return mav;
     }
 
-
-
-    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/param", method = RequestMethod.GET)
-    public ModelAndView registerOrder(@Valid @ModelAttribute Order order, HttpSession session,
+    public ModelAndView registerOrder(@ModelAttribute Order order, HttpSession session,
                                       Authentication authentication) {
+
         ModelAndView mav = new ModelAndView();
         ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
         User user = userService.getUserByPrincipal(appUser);
@@ -88,6 +86,7 @@ public class OrderController {
             mav.setViewName("confirm.order");
             session.setAttribute("order", order);
         } catch (NullPointerException e) {/* DON'T REMOVE*/
+            session.removeAttribute("order");
             mav = new ModelAndView("redirect:/error");
             mav.addObject("error", "Error oder");
         } catch (Exception e) {
@@ -100,7 +99,6 @@ public class OrderController {
         return mav;
     }
 
-    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public ModelAndView sendOrder(HttpSession session) {
         Order order = (Order) session.getAttribute("order");
@@ -115,7 +113,7 @@ public class OrderController {
      * =======================
      *
      */
-    @PreAuthorize("isFullyAuthenticated()")
+
     @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
     @ResponseBody
     public List<Long> deleteOrders(@RequestBody List<Long> listId) {
@@ -140,7 +138,6 @@ public class OrderController {
         return deletedId;
     }
 
-    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part,Authentication authentication) {

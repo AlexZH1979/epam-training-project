@@ -10,7 +10,7 @@
     <context:annotation-config/>
 
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web"/>
-    <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.util.conventers"/>
+    <context:component-scan base-package="ru.yandex.zhmyd.hotel.web.util.converters"/>
 
     <!--<mvc:annotation-driven/>-->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
@@ -20,8 +20,8 @@
           class="org.springframework.context.support.ConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToUserConverter"/>
-                <bean class="ru.yandex.zhmyd.hotel.web.util.conventers.StringIdToHotelConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.converters.StringIdToUserConverter"/>
+                <bean class="ru.yandex.zhmyd.hotel.web.util.converters.StringIdToHotelConverter"/>
             </set>
         </property>
     </bean>

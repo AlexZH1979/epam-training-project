@@ -14,4 +14,6 @@ public interface HotelAddressDao extends GenericDao<HotelAddressEntity,Integer>{
 
     //""->"state"->"county"->"city"->"zip"
     List<String> getNameSubParameters(String param, String value);
+
+    Object getSubParameters(String param, String value);
 }

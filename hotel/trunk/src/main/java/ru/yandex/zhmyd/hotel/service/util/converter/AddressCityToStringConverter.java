@@ -25,6 +25,9 @@ public class AddressCityToStringConverter extends DozerConverter<HotelAddressCit
      */
     @Override
     public String convertTo(HotelAddressCityEntity source, String destination) {
+        if(source==null){
+            return "";
+        }
         return source.getName();
     }
 
