@@ -1,9 +1,12 @@
 package ru.yandex.zhmyd.hotel.service;
 
 
-import java.util.List;
+import ru.yandex.zhmyd.hotel.model.HotelAddress;
 
-public interface AddressService {
+import java.util.List;
+import java.util.Map;
+
+public interface AddressService extends  BasicService<HotelAddress, Integer>{
 
     List<String> getCounties(String value);
 
@@ -11,4 +14,6 @@ public interface AddressService {
 
     //""->"state"->"county"->"city"->"zip"
     List<String> getNameSubParameters(String param, String value);
+
+    void updateHotelAddressFromMap(Integer hotelId, Map<String, String> map);
 }

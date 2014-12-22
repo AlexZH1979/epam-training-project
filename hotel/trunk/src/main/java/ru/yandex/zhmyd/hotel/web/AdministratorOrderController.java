@@ -70,6 +70,10 @@ public class AdministratorOrderController {
         } catch (IllegalArgumentException e) {
             LOG.warn(e);
             model.addAttribute("error",e.getMessage());
+        }catch (NullPointerException e){
+            LOG.warn(e);
+            view="redirect:/error";
+            model.addAttribute("error",e.getMessage());
         }
         return view;
     }

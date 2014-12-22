@@ -28,7 +28,7 @@ public class HotelAddressDaoImpl extends AbstractHibernateDao<HotelAddressEntity
     //""->"state"->"county"->"city"->"zip"
     @SuppressWarnings("all")
     @Override
-    public List<String> getNameSubParameters(String param, String value){
+     public List<String> getNameSubParameters(String param, String value){
         String hql;
         Query query;
         switch (param){
@@ -60,5 +60,33 @@ public class HotelAddressDaoImpl extends AbstractHibernateDao<HotelAddressEntity
                 return null;
         }
         return query.list();
+    }
+
+    @SuppressWarnings("all")
+    @Override
+    public Object getSubParameters(String param, String value){
+        String hql;
+        Query query;
+        switch (param){
+            case STATE:
+                hql="FROM HotelAddressStateEntity S  WHERE S.name=:state_name";
+                query=getSession().createQuery(hql);
+                query.setParameter("state_name",value);
+                break;
+            case COUNTY:
+                hql="FROM HotelAddressCountyEntity CO  WHERE CO.name=:county_name";
+                query=getSession().createQuery(hql);
+                query.setParameter("county_name",value);
+                break;
+            case CITY:
+                hql="FROM HotelAddressCityEntity CI " +
+                        " WHERE CI.name=:city_name";
+                query=getSession().createQuery(hql);
+                query.setParameter("city_name",value);
+                break;
+            default:
+                return null;
+        }
+        return query.uniqueResult();
     }
 }

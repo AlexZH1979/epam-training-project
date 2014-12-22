@@ -78,8 +78,6 @@
         <put-attribute name="body" value="/WEB-INF/views/hotels/hotel-address-edit-a.jsp"/>
     </definition>
     <!--ERROR-->
-    <definition name="error" extends="base.definition">
-        <put-attribute name="title" value="Error"/>
-        <put-attribute name="body" value="/WEB-INF/views/error/error.jsp"/>
+    <definition name="error" template="/WEB-INF/views/error/error.jsp">
     </definition>
 </tiles-definitions>

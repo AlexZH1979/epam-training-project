@@ -54,16 +54,12 @@ public class HotelController {
         return mav;
     }
 
-   /*
-    *    *
-    * non used ajax methods
-    */
 
     @PreAuthorize("permitAll")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<Hotel> getHotels(@RequestBody final ListViewPart part){
-        return hotelService.getInterval(Integer.parseInt(part.getFirstResult()), Integer.parseInt(part.getSelectCount()));
+        return hotelService.getInterval(part.getFirst(), part.getCount());
     }
 
     @RequestMapping(value = {"/ajax/size"}, method = RequestMethod.POST)

@@ -24,7 +24,8 @@
             row.append(link);
             row.append("<td>" + o_obj[k].name + "</td>");
             row.append("<td>" + o_obj[k].category + "</td>");
-            row.append("<td> Address: " + o_obj[k].hotelAddress.address + "<br> City: " + o_obj[k].hotelAddress.city +
+            row.append("<td> Address: " + o_obj[k].hotelAddress.address
+                    + "<br> City: " + o_obj[k].hotelAddress.city +
                     "<br> Country: " + o_obj[k].hotelAddress.county + "</td>");
             $(o_id).append(row);
             i++;
@@ -87,21 +88,13 @@
 <div>
     <h3><spring:message code="title.Search"/></h3>
 
-    <div>
-        <label for="state" class="col-sm-4 control-label"><spring:message code="title.destination"/></label>
-
-        <div class="col-sm-8">
-            <div class="col-sm-8">
-
-                <input type="text" id="state" name="value" class="input-sm"
-                       placeholder="<spring:message code="title.search_placeholder"/> ">
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="col-sm-offset-4 col-sm-8">
+    <div class="input-group-addon">
+        <div class="col-sm-12">
+            <label for="state" class="col-sm-3 control-label"><spring:message code="title.destination"/></label>
+            <input type="text" id="state" name="value" class="input-sm col-sm-7"
+                   placeholder="<spring:message code="title.search_placeholder"/> ">
             <button id="butt" type="button" class="btn btn-primary"
-            onclick="listSizesResult('#finder',$('#state').val())"><span class="glyphicon glyphicon-search"></span>
+                    onclick="listSizesResult('#finder',$('#state').val())"><span class="glyphicon glyphicon-search"></span>
                 <spring:message code='title.Search'/></button>
         </div>
     </div>
@@ -113,9 +106,11 @@
         <option selected value="10">10</option>
         <option value="50">50</option>
         <option value="100">100</option>
+        <option value="30000>">30000</option>
     </select>
     <table class="table table-striped">
     <thead/>
     <tbody id="tableBody"></tbody>
 </table>
+</div>
 </div>

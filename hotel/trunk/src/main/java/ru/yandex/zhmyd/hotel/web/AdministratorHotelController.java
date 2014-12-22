@@ -6,7 +6,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.yandex.zhmyd.hotel.model.Hotel;
 import ru.yandex.zhmyd.hotel.service.AddressService;
 import ru.yandex.zhmyd.hotel.service.HotelService;
@@ -22,7 +25,6 @@ import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.Association
 
 @Controller
 @RequestMapping("/hotels/admin")
-@PreAuthorize("isFullyAuthenticated() and hasRole('ROLE_ADMINISTRATOR')")
 public class AdministratorHotelController {
 
     private static final Logger LOG=Logger.getLogger(AdministratorHotelController.class);
@@ -33,9 +35,11 @@ public class AdministratorHotelController {
     @Autowired
     private AddressService addressService;
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String hotelList(){ return "hotels.list";}
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editHotel(@PathVariable("id") Hotel hotel, Model model){
         String view="hotel.edit";
@@ -48,6 +52,7 @@ public class AdministratorHotelController {
         return  view;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String editHotelData(@Valid @ModelAttribute Hotel hotel,BindingResult result){
         System.out.println("hotel = " + hotel);
@@ -63,6 +68,8 @@ public class AdministratorHotelController {
         return "redirect:/hotels/"+hotel.getId();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
+    @SuppressWarnings("all")
     @RequestMapping(value = "/edit/{id}/address/{parameter}/", method = RequestMethod.GET)
      public String editHotelAddress(@PathVariable("id") Integer id,
                                     @PathVariable String parameter,
@@ -70,6 +77,8 @@ public class AdministratorHotelController {
                                     HttpSession session,
                                     Model model){
         List<String> subParameters;
+        String view="hotel.address.edit";
+
         String beginPath="/hotels/admin/edit/"+id+"/address/";
         model.addAttribute("beginPath",beginPath);
 
@@ -95,7 +104,7 @@ public class AdministratorHotelController {
                 address.put(STATE, value);
                 subParameters=addressService.getNameSubParameters(STATE,value);
                 LOG.info("COUNTY: "+subParameters);
-                model.addAttribute("parameterForSelect",  COUNTY);
+                model.addAttribute("parameterForSelect", COUNTY);
                 model.addAttribute("endPath", CITY);
                 model.addAttribute("valuesList", subParameters);
                 break;
@@ -118,13 +127,17 @@ public class AdministratorHotelController {
             case ADDRESS:
                 address.put(ZIP, value);
                 model.addAttribute("parameterForSelect",ADDRESS);
-                model.addAttribute("endPath", "");
+                model.addAttribute("endPath", "send");
                 return "hotel.address.edit.a";
-            case "":
+            case "send":
                 address.put(ADDRESS, value);
-                return "hotel.address.edit.a";
+                model.addAttribute("endPath", "send");
+                LOG.info("ADDRESS MAP IN SESSION BEFORE SAVE: "+address);
+                //SAVE
+                addressService.updateHotelAddressFromMap(id, address);
+                view="redirect:/hotels/" + id;
             default:
         }
-        return "hotel.address.edit";
+        return view;
     }
 }
