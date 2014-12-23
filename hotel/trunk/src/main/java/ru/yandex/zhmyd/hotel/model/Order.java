@@ -14,7 +14,6 @@ public class Order {
     private Integer roomId;
     @NotNull(message = "Hotel don\'t maybe empty")
     private Integer hotelId;
-    @NotNull(message = "Customer don\'t maybe empty")
     private Integer customerId;
     @NotNull(message = "Order start date don\'t maybe empty")
     private Date startDate;

@@ -18,7 +18,7 @@ import java.util.Set;
 
 import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.LOGIN;
 
-@Service("userService")
+@Service("userDetailsService")
 public class SbeUserDetailsService implements UserDetailsService {
 
     @Resource
@@ -38,7 +38,7 @@ public class SbeUserDetailsService implements UserDetailsService {
 
     @Transactional
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        UserEntity userEntity=null;
+        UserEntity userEntity;
         try {
             userEntity = userDao.getByCriteria(Restrictions.eq(LOGIN, login)).get(0);
         }catch (Exception e){

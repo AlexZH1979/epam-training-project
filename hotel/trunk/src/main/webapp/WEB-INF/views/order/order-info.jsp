@@ -67,13 +67,6 @@
                 <c:if test="${empty displayedOrder.confirmed}">
                     <spring:message code="order.Confurm.Unknown"/>
                 </c:if>
-                <c:if test="${(not displayedOrder.confirmed ) or (empty displayedOrder.confirmed)}">
-                    <p>
-                        <button type="button" class="btn btn-danger" hidden="hidden">
-                            <spring:message code="title.delete"/>
-                        </button>
-                    </p>
-                </c:if>
             </div>
         </div>
         <div class=col-md-3"></div>

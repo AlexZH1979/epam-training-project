@@ -28,7 +28,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/orders")
-@PreAuthorize("isFullyAuthenticated()")
 public class OrderController {
 
     private static final Logger LOG = Logger.getLogger(OrderController.class);
@@ -42,11 +41,12 @@ public class OrderController {
     @Autowired
     private HotelService hotelService;
 
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"","/"}, method = RequestMethod.GET)
     public String getOrders() {
         return "order.list";
     }
-
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/{order}", method = RequestMethod.GET)
     public ModelAndView orderInfo(@PathVariable Order order) {
         ModelAndView mav;
@@ -69,14 +69,13 @@ public class OrderController {
         }
         return mav;
     }
-
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/param", method = RequestMethod.GET)
-    public ModelAndView registerOrder(@ModelAttribute Order order, HttpSession session,
-                                      Authentication authentication) {
+    public ModelAndView registerOrder(@ModelAttribute Order order, HttpSession session, Authentication authentication) {
 
-        ModelAndView mav = new ModelAndView();
         ApplicationUserDetails appUser = (ApplicationUserDetails) authentication.getPrincipal();
         User user = userService.getUserByPrincipal(appUser);
+        ModelAndView mav = new ModelAndView();
         try {
             //set user only in server-side
             order.setCustomerId(user.getId());
@@ -98,7 +97,7 @@ public class OrderController {
         }
         return mav;
     }
-
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/register/send", method = RequestMethod.GET)
     public ModelAndView sendOrder(HttpSession session) {
         Order order = (Order) session.getAttribute("order");
@@ -113,7 +112,7 @@ public class OrderController {
      * =======================
      *
      */
-
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = "/ajax/delete", method = RequestMethod.POST)
     @ResponseBody
     public List<Long> deleteOrders(@RequestBody List<Long> listId) {
@@ -137,7 +136,7 @@ public class OrderController {
         }
         return deletedId;
     }
-
+    @PreAuthorize("isFullyAuthenticated()")
     @RequestMapping(value = {"/ajax"}, method = RequestMethod.POST)
     @ResponseBody
     public List<DisplayedOrder> getOrders(@RequestBody final ListViewPart part,Authentication authentication) {

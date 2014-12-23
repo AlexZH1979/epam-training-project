@@ -1,6 +1,6 @@
 package ru.yandex.zhmyd.hotel.repository.dao.util;
 
-public final class SearchParameter {
+public interface SearchParameter {
     public static final String NAME="name";
     public static final String ID="id";
     public static final String LOGIN="login";
@@ -8,7 +8,7 @@ public final class SearchParameter {
     public static final String ADDRESS="address";
     public static final String EMAIL="email";
 
-    public static final class Associations{
+    public static interface Associations{
         public static final String ROOM="room";
         public static final String USERS="users";
         public static final String HOTEL_ADDRESS="hotelAddress";
@@ -17,5 +17,6 @@ public final class SearchParameter {
         public static final String STATE ="state" ;
         public static final String CITY = "city";
         public static final String COUNTY ="county";
+        public static final String ZIP ="zip";
     }
 }

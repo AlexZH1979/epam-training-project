@@ -85,32 +85,36 @@
         loadTables(currentParam,currentValue);
     }
 </script>
-<div>
-    <h3><spring:message code="title.Search"/></h3>
+<div class="well-lg col-lg-12">
+    <div>
+        <h3><spring:message code="title.Search"/></h3>
 
-    <div class="input-group-addon">
-        <div class="col-sm-12">
-            <label for="state" class="col-sm-3 control-label"><spring:message code="title.destination"/></label>
-            <input type="text" id="state" name="value" class="input-sm col-sm-7"
-                   placeholder="<spring:message code="title.search_placeholder"/> ">
-            <button id="butt" type="button" class="btn btn-primary"
-                    onclick="listSizesResult('#finder',$('#state').val())"><span class="glyphicon glyphicon-search"></span>
-                <spring:message code='title.Search'/></button>
+        <div class="input-group">
+            <div class="input-group-addon">
+                <div class="col-sm-12">
+                    <label class="col-sm-3 control-label"><spring:message code="title.destination"/></label>
+                    <input type="text" id="state" name="value" class="input-sm col-sm-7"
+                           placeholder="<spring:message code="title.search_placeholder"/> ">
+                    <button id="butt" type="button" class="btn btn-primary"
+                            onclick="listSizesResult('#finder',$('#state').val())"><span
+                            class="glyphicon glyphicon-search"></span>
+                        <spring:message code='title.Search'/></button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div id="finder" class="row" hidden="hidden">
-</div>
-<div class="well" hidden="hidden">
-    <select name="selected_count" id="select_count" onchange="reloadTables($(this).val())">
-        <option selected value="10">10</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="30000>">30000</option>
-    </select>
-    <table class="table table-striped">
-    <thead/>
-    <tbody id="tableBody"></tbody>
-</table>
-</div>
+    <div id="finder" class="row" hidden="hidden">
+    </div>
+    <div class="well" hidden="hidden">
+        <select name="selected_count" id="select_count" onchange="reloadTables($(this).val())">
+            <option selected value="10">10</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+            <option value="300000">300000</option>
+        </select>
+        <table class="table table-striped">
+            <thead/>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
 </div>
