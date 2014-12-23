@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.zhmyd.hotel.model.HotelAddress;
 import ru.yandex.zhmyd.hotel.repository.dao.HotelAddressDao;
-import ru.yandex.zhmyd.hotel.repository.dao.HotelDao;
+import ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCityEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelAddressCountyEntity;
 import ru.yandex.zhmyd.hotel.repository.entity.HotelAddressEntity;
@@ -17,10 +17,9 @@ import ru.yandex.zhmyd.hotel.service.AddressService;
 
 import java.util.*;
 
-import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.ADDRESS;
-import static ru.yandex.zhmyd.hotel.model.parameters.SearchParameter.Associations.*;
+import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations.*;
 
-@Transactional(readOnly = true)
+
 @Service
 public class AddressServiceImpl extends AbstractServiceImpl<HotelAddress, HotelAddressEntity, HotelAddressDao, Integer> implements AddressService {
 
@@ -29,14 +28,13 @@ public class AddressServiceImpl extends AbstractServiceImpl<HotelAddress, HotelA
     @Autowired
     private HotelAddressDao addressDao;
 
-    @Autowired
-    private HotelDao hotelDao;
-
+    @Transactional(readOnly = true)
     @Override
     public List<String> getCounties(String state) {
         return addressDao.getCounties(state);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<String> getStates() {
         return addressDao.getStates();
@@ -45,6 +43,7 @@ public class AddressServiceImpl extends AbstractServiceImpl<HotelAddress, HotelA
     //param->return type
 
     // ""->"state"->"county"->"city"->"zip"
+    @Transactional(readOnly = true)
     @Override
     public List<String> getNameSubParameters(String param, String value){
         return addressDao.getNameSubParameters(param, value);

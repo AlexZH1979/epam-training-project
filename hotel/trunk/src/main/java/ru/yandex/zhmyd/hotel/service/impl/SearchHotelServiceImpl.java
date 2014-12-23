@@ -14,8 +14,6 @@ import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 
 import java.util.List;
 
-import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.*;
-
 @Service
 public class SearchHotelServiceImpl implements SearchHotelService {
 

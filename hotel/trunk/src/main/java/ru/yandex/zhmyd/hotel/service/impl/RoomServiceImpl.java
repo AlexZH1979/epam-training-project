@@ -17,11 +17,8 @@ import ru.yandex.zhmyd.hotel.service.util.mapper.Util;
 import java.util.List;
 
 @Service
-@SuppressWarnings("unused")
-//TODO
 public class RoomServiceImpl extends AbstractServiceImpl<Room, RoomEntity, RoomDao, Integer> implements RoomService{
 
-    private static final Logger LOG = Logger.getLogger(RoomServiceImpl.class);
 
     @Autowired
     private RoomDao roomDao;

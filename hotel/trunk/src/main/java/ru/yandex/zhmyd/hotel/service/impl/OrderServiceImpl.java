@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static ru.yandex.zhmyd.hotel.repository.dao.util.SearchParameter.Associations;
-
 @Service
 @SuppressWarnings("all")
 public class OrderServiceImpl extends AbstractServiceImpl<Order, OrderEntity, OrderDao, Long> implements OrderService {

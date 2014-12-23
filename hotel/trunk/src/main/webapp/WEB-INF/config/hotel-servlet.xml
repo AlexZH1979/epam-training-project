@@ -13,7 +13,7 @@
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.web"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.model.constraints"/>
     <context:component-scan base-package="ru.yandex.zhmyd.hotel.service"/>
-
+    <context:component-scan base-package="ru.yandex.zhmyd.hotel.security"/>
     <!-- exception and error page -->
     <bean id="exceptionHandler" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="defaultErrorView" value="error"/>
@@ -24,7 +24,14 @@
                 <entry key="SomeException" value="someError"/>
             </map>
         </property>
+        <property name="ExcludedExceptions">
+            <array>
+                <ref bean="accessDenied"/><!--YAhoooooooooo HO-->
+            </array>
+        </property>
     </bean>
+
+    <bean id="accessDenied" class="ru.yandex.zhmyd.hotel.web.util.UtilAssces" factory-method="getException"/>
 
     <bean id="conversionService"
           class="org.springframework.context.support.ConversionServiceFactoryBean">
@@ -39,24 +46,19 @@
     </bean>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:annotation-driven conversion-service="conversionService"/>
-
     <!-- CURRENT DATABASE PROPERTY -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
           p:location="/WEB-INF/config/jdbc.properties"/>
     <!-- end -->
-
     <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/" p:suffix=".jsp"/>
-
     <mvc:interceptors>
         <bean id="localeChangeInterceptor"
               class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="lang"/>
     </mvc:interceptors>
-
     <bean id="localeResolver"
           class="org.springframework.web.servlet.i18n.CookieLocaleResolver" p:defaultLocale="en"
           p:cookieName="myAppLocaleCookie" p:cookieMaxAge="3600"/>
-
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:basename="classpath:messages" p:defaultEncoding="UTF-8"/>
     <!-- Tiles 3 integration -->
