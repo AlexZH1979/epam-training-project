@@ -24,5 +24,5 @@ public final class SQLStatements {
             "  PRIMARY KEY (`id`));";
     public static final String INSERT_USER = "INSERT INTO `users` (`name`, `surname`, `birthdate`) VALUES (?, ?, ?);";
     public static final String INSERT_FRIENSHIPS = "INSERT INTO `friendships` (`user1id`, `user2id`, `timestamp`) VALUES (?, ?, ?);";
-    public static final String INSERT_POSTS = "INSERT INTO `posts` (`user1id`, `text`, `timestamp`) VALUES (?, ?, ?);";
+    public static final String INSERT_POSTS = "INSERT INTO `posts` (`userId`, `text`, `timestamp`) VALUES (?, ?, ?);";
 }
